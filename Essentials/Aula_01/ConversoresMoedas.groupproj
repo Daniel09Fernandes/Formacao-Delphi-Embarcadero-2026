@@ -1,0 +1,84 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{E2F98EAA-03BF-4CA7-87D2-75F72672D3C7}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ConversorMoedas.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ConversorMoedasComInterfaceGrafica.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Server\Server.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Client\ConversorMoedasClient.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="APIs\BuscaPais\BuscaPais.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ConversorMoedas">
+        <MSBuild Projects="ConversorMoedas.dproj"/>
+    </Target>
+    <Target Name="ConversorMoedas:Clean">
+        <MSBuild Projects="ConversorMoedas.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ConversorMoedas:Make">
+        <MSBuild Projects="ConversorMoedas.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ConversorMoedasComInterfaceGrafica">
+        <MSBuild Projects="ConversorMoedasComInterfaceGrafica.dproj"/>
+    </Target>
+    <Target Name="ConversorMoedasComInterfaceGrafica:Clean">
+        <MSBuild Projects="ConversorMoedasComInterfaceGrafica.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ConversorMoedasComInterfaceGrafica:Make">
+        <MSBuild Projects="ConversorMoedasComInterfaceGrafica.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Server">
+        <MSBuild Projects="Server\Server.dproj"/>
+    </Target>
+    <Target Name="Server:Clean">
+        <MSBuild Projects="Server\Server.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Server:Make">
+        <MSBuild Projects="Server\Server.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ConversorMoedasClient">
+        <MSBuild Projects="Client\ConversorMoedasClient.dproj"/>
+    </Target>
+    <Target Name="ConversorMoedasClient:Clean">
+        <MSBuild Projects="Client\ConversorMoedasClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ConversorMoedasClient:Make">
+        <MSBuild Projects="Client\ConversorMoedasClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="BuscaPais">
+        <MSBuild Projects="APIs\BuscaPais\BuscaPais.dproj"/>
+    </Target>
+    <Target Name="BuscaPais:Clean">
+        <MSBuild Projects="APIs\BuscaPais\BuscaPais.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BuscaPais:Make">
+        <MSBuild Projects="APIs\BuscaPais\BuscaPais.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ConversorMoedas;ConversorMoedasComInterfaceGrafica;Server;ConversorMoedasClient;BuscaPais"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ConversorMoedas:Clean;ConversorMoedasComInterfaceGrafica:Clean;Server:Clean;ConversorMoedasClient:Clean;BuscaPais:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ConversorMoedas:Make;ConversorMoedasComInterfaceGrafica:Make;Server:Make;ConversorMoedasClient:Make;BuscaPais:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

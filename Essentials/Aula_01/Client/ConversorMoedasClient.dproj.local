@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/06/28 11:36:38.000.432,=emsserverapi.dcp</Transaction>
+    <Transaction>2025/06/28 11:36:38.000.551,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/06/28 11:40:39.000.275,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/06/28 11:40:39.000.264,=emsserverapi.dcp</Transaction>
+    <Transaction>2025/07/05 11:41:01.000.733,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/07/26 09:22:16.000.634,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/10/24 18:58:10.000.038,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/11/25 13:40:10.000.608,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/12/12 13:49:50.000.756,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/04/25 08:24:55.000.317,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/04/25 14:21:53.272,=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2026/04/25 14:23:53.909,C:\Projects\SrPolezi\Formacao_Delphi_2026\Essentials\Aula_01\Client\View.Client.ConversorMoedas.pas=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2026/04/25 14:23:53.909,C:\Projects\SrPolezi\Formacao_Delphi_2026\Essentials\Aula_01\Client\View.Client.ConversorMoedas.fmx=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Unit3.fmx</Transaction>
+    <Transaction>2026/04/25 14:24:09.896,C:\Projects\SrPolezi\Formacao_Delphi_2026\Essentials\Aula_01\Client\ConversorMoedasClient.dproj=C:\Users\lpole\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
