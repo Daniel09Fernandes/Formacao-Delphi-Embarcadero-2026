@@ -1,0 +1,43 @@
+unit uPessoa.Fisica.Model;
+
+interface
+
+uses
+  uPessoa.Model;
+
+type
+  TPessoaFisica = class(TPessoa)
+  private
+    function GetCPF: string;
+    procedure SetCPF(const Value: string);
+    function AplicarMascaraNoIdentificador(AValue: string): string; override;
+  public
+    property CPF: string read GetCPF write SetCPF;
+  end;
+
+implementation
+
+uses
+  MaskUtils;
+
+{ TPessoaFisica }
+
+
+{ TPessoaFisica }
+
+function TPessoaFisica.AplicarMascaraNoIdentificador(AValue: string): string;
+begin
+  Result := FormatMaskText('000\.000.\000\-00;0;', AValue)
+end;
+
+function TPessoaFisica.GetCPF: string;
+begin
+
+end;
+
+procedure TPessoaFisica.SetCPF(const Value: string);
+begin
+
+end;
+
+end.

@@ -1,0 +1,44 @@
+unit uCadastro.PessoaFisica.View;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroPadrao.View, Data.DB,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.Grids,
+  Vcl.DBGrids, Vcl.ExtCtrls, FireDAC.Stan.StorageBin, Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TFormCadPessoaFisica = class(TTFormCadPadrao)
+    MemRegistroNome: TStringField;
+    MemRegistroEndereco: TStringField;
+    MemRegistroTelefone: TStringField;
+    MemRegistroCPF: TStringField;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    Label3: TLabel;
+    DBEdit3: TDBEdit;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormCadPessoaFisica.FormCreate(Sender: TObject);
+begin
+  inherited;
+  SetTituloTela('Cadastro de pessoa fisica');
+end;
+
+end.

@@ -1,0 +1,32 @@
+object FrmNotificacao: TFrmNotificacao
+  Left = 0
+  Top = 0
+  Caption = 'FrmNotificacao'
+  ClientHeight = 91
+  ClientWidth = 184
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object Button1: TButton
+    Left = 8
+    Top = 8
+    Width = 106
+    Height = 25
+    Caption = 'Notificar SMS'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 8
+    Top = 48
+    Width = 121
+    Height = 25
+    Caption = 'Notificar WhatsApp'
+    TabOrder = 1
+    OnClick = Button2Click
+  end
+end

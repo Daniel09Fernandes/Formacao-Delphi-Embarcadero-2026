@@ -1,0 +1,39 @@
+unit uWhatsApp.Notificacao.Model;
+
+interface
+
+uses
+  uNotificacao.Model.Interf,
+  Vcl.Dialogs;
+
+type
+  TWhatsAppNoticacao = class(TInterfacedObject, INotificacao)
+  private
+
+  public
+    function EnviarNotificacao(const ANotificacao: string): INotificacao;
+    function ReceberNotificacao(const ANotificacao: string): INotificacao;
+
+    class function New: INotificacao;
+  end;
+
+implementation
+
+{ TWhatsAppNoticacao }
+
+function TWhatsAppNoticacao.EnviarNotificacao(const ANotificacao: string): INotificacao;
+begin
+
+end;
+
+class function TWhatsAppNoticacao.New: INotificacao;
+begin
+  Result := TWhatsAppNoticacao.Create;
+end;
+
+function TWhatsAppNoticacao.ReceberNotificacao(const ANotificacao: string): INotificacao;
+begin
+
+end;
+
+end.

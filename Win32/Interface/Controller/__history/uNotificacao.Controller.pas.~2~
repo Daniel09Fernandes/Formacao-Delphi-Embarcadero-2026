@@ -1,0 +1,13 @@
+unit uNotificacao.Controller;
+
+interface
+
+uses
+  uNotificacao.Model.Interf, uSMS.Notificacao.Model, uWhatsApp.Notificacao.Model;
+
+type
+  TipoNotificacao = (tpSMS, tpWhatsApp);
+
+implementation
+
+end.

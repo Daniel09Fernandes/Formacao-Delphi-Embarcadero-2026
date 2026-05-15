@@ -1,0 +1,158 @@
+inherited TFormCadPessoaFisica: TTFormCadPessoaFisica
+  Caption = 'TFormCadPessoaFisica'
+  StyleElements = [seFont, seClient, seBorder]
+  OnCreate = FormCreate
+  TextHeight = 15
+  inherited Panel1: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+    inherited LbNome: TLabel
+      Width = 80
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitLeft = 11
+      ExplicitTop = 4
+      ExplicitWidth = 80
+      ExplicitHeight = 25
+    end
+  end
+  inherited Panel2: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+    inherited Panel4: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      inherited Panel5: TPanel
+        StyleElements = [seFont, seClient, seBorder]
+        object Label1: TLabel
+          Left = 5
+          Top = 0
+          Width = 33
+          Height = 15
+          Caption = 'Nome'
+          FocusControl = DBEdit1
+        end
+        object Label2: TLabel
+          Left = 5
+          Top = 48
+          Width = 49
+          Height = 15
+          Caption = 'Endereco'
+          FocusControl = DBEdit2
+        end
+        object Label3: TLabel
+          Left = 136
+          Top = 0
+          Width = 45
+          Height = 15
+          Caption = 'Telefone'
+          FocusControl = DBEdit3
+        end
+        object Label4: TLabel
+          Left = 5
+          Top = 93
+          Width = 21
+          Height = 15
+          Caption = 'CPF'
+          FocusControl = DBEdit4
+        end
+        object DBEdit1: TDBEdit
+          Left = 5
+          Top = 16
+          Width = 116
+          Height = 23
+          DataField = 'Nome'
+          DataSource = DSRegistro
+          TabOrder = 0
+        end
+        object DBEdit2: TDBEdit
+          Left = 5
+          Top = 64
+          Width = 304
+          Height = 23
+          DataField = 'Endereco'
+          DataSource = DSRegistro
+          TabOrder = 1
+        end
+        object DBEdit3: TDBEdit
+          Left = 136
+          Top = 16
+          Width = 173
+          Height = 23
+          DataField = 'Telefone'
+          DataSource = DSRegistro
+          TabOrder = 2
+        end
+        object DBEdit4: TDBEdit
+          Left = 5
+          Top = 112
+          Width = 304
+          Height = 23
+          DataField = 'CPF'
+          DataSource = DSRegistro
+          TabOrder = 3
+        end
+      end
+      inherited Panel6: TPanel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+    end
+  end
+  inherited Panel3: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+  inherited MemRegistro: TFDMemTable
+    Active = True
+    ResourceOptions.AssignedValues = [rvPersistent, rvSilentMode]
+    ResourceOptions.Persistent = True
+    Content = {
+      414442531000000040020000FF00010001FF02FF030400160000004D0065006D
+      0052006500670069007300740072006F000500160000004D0065006D00520065
+      00670069007300740072006F00060000000000070000080032000000090000FF
+      0AFF0B0400080000004E006F006D0065000500080000004E006F006D0065000C
+      00010000000E000D000F00140000001000011100011200011300011400011500
+      011600080000004E006F006D006500170014000000FEFF0B0400100000004500
+      6E00640065007200650063006F0005001000000045006E006400650072006500
+      63006F000C00020000000E000D000F0014000000100001110001120001130001
+      14000115000116001000000045006E00640065007200650063006F0017001400
+      0000FEFF0B040010000000540065006C00650066006F006E0065000500100000
+      00540065006C00650066006F006E0065000C00030000000E000D000F00140000
+      00100001110001120001130001140001150001160010000000540065006C0065
+      0066006F006E006500170014000000FEFF0B0400060000004300500046000500
+      060000004300500046000C00040000000E000D000F0014000000100001110001
+      120001130001140001150001160006000000430050004600170014000000FEFE
+      FF18FEFF19FEFF1AFF1B1C0000000000FF1D00000600000044616E69656C0100
+      05000000527561203102000A0000003837353233363738353103000C00000032
+      3138333937363839313733FEFEFEFEFEFF1EFEFF1F200001000000FF21FEFEFE
+      0E004D0061006E0061006700650072001E005500700064006100740065007300
+      5200650067006900730074007200790012005400610062006C0065004C006900
+      730074000A005400610062006C00650008004E0061006D006500140053006F00
+      75007200630065004E0061006D0065000A005400610062004900440024004500
+      6E0066006F0072006300650043006F006E00730074007200610069006E007400
+      73001E004D0069006E0069006D0075006D004300610070006100630069007400
+      7900180043006800650063006B004E006F0074004E0075006C006C0014004300
+      6F006C0075006D006E004C006900730074000C0043006F006C0075006D006E00
+      100053006F0075007200630065004900440018006400740041006E0073006900
+      53007400720069006E0067001000440061007400610054007900700065000800
+      530069007A0065001400530065006100720063006800610062006C0065001200
+      41006C006C006F0077004E0075006C006C000800420061007300650014004F00
+      41006C006C006F0077004E0075006C006C0012004F0049006E00550070006400
+      61007400650010004F0049006E00570068006500720065001A004F0072006900
+      670069006E0043006F006C004E0061006D006500140053006F00750072006300
+      6500530069007A0065001C0043006F006E00730074007200610069006E007400
+      4C00690073007400100056006900650077004C006900730074000E0052006F00
+      77004C00690073007400060052006F0077000A0052006F007700490044001000
+      4F0072006900670069006E0061006C001800520065006C006100740069006F00
+      6E004C006900730074001C0055007000640061007400650073004A006F007500
+      72006E0061006C001200530061007600650050006F0069006E0074000E004300
+      680061006E00670065007300}
+    object MemRegistroNome: TStringField
+      FieldName = 'Nome'
+    end
+    object MemRegistroEndereco: TStringField
+      FieldName = 'Endereco'
+    end
+    object MemRegistroTelefone: TStringField
+      FieldName = 'Telefone'
+    end
+    object MemRegistroCPF: TStringField
+      FieldName = 'CPF'
+    end
+  end
+end

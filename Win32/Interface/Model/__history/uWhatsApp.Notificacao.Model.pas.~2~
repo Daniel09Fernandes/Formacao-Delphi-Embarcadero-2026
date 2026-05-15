@@ -1,0 +1,18 @@
+unit uWhatsApp.Notificacao.Model;
+
+interface
+
+uses
+  uNotificacao.Model.Interf,
+  Vcl.Dialogs;
+
+type
+  TWhatsAppNoticacao = class(TInterfacedObject, INotificacao)
+  private
+
+  public
+  end;
+
+implementation
+
+end.

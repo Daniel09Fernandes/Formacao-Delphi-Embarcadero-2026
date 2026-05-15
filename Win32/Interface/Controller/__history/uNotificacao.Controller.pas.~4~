@@ -1,0 +1,30 @@
+unit uNotificacao.Controller;
+
+interface
+
+uses
+  uNotificacao.Model.Interf, uSMS.Notificacao.Model, uWhatsApp.Notificacao.Model;
+
+type
+  TTipoNotificacao = (tpSMS, tpWhatsApp);
+
+  TNotificacaoController = class
+    class function New(ATipoNotificacao: TTipoNotificacao): INotificacao;
+  end;
+
+
+
+implementation
+
+{ TNotificacaoController }
+
+class function TNotificacaoController.New(
+  ATipoNotificacao: TTipoNotificacao): INotificacao;
+begin
+  case ATipoNotificacao of
+    tpSMS: Result := TSMSNotificacao.New;
+    tpWhatsApp: Result := TWhatsAppNoticacao.New;
+  end;
+end;
+
+end.

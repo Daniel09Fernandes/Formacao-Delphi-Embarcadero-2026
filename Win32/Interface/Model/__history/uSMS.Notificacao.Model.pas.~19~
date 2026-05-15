@@ -1,0 +1,51 @@
+unit uSMS.Notificacao.Model;
+
+interface
+
+uses
+  uNotificacao.Model.Interf, uOpenOffice_calc;
+
+type
+  TSMSNotificacao = class(TInterfacedObject, INotificacao {IExemplo})
+  private
+
+  public
+    function EnviarNotificacao(const ANotificacao: string): INotificacao;
+    function ReceberNotificacao(const ANotificacao: string): INotificacao;
+    //function Exemplo1: string;
+
+    procedure EnviarParaORemetente(ARemetente: string);
+
+    class function New: INotificacao;
+  end;
+
+implementation
+
+uses
+  Vcl.Dialogs;
+
+{ TSMSNotificacao }
+
+function TSMSNotificacao.EnviarNotificacao(const ANotificacao: string): INotificacao;
+begin
+  ShowMessage('Notificação SMS recebida: ' + ANotificacao);
+  Result := Self;
+end;
+
+procedure TSMSNotificacao.EnviarParaORemetente(ARemetente: string);
+begin
+  ShowMessage('Enviado para o remetente: '+ ARemetente);
+end;
+
+class function TSMSNotificacao.New: INotificacao;
+begin
+  Result := TSMSNotificacao.Create;
+end;
+
+function TSMSNotificacao.ReceberNotificacao(const ANotificacao: string): INotificacao;
+begin
+  ShowMessage('Notificação SMS enviada: ' + ANotificacao);
+  Result := Self;
+end;
+
+end.

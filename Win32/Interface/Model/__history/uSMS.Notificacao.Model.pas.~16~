@@ -1,0 +1,43 @@
+unit uSMS.Notificacao.Model;
+
+interface
+
+uses
+  uNotificacao.Model.Interf;
+
+type
+  TSMSNotificacao = class(TInterfacedObject, INotificacao {IExemplo})
+  private
+
+  public
+    function EnviarNotificacao(const ANotificacao: string): INotificacao;
+    function ReceberNotificacao(const ANotificacao: string): INotificacao;
+    //function Exemplo1: string;
+
+    class function New: INotificacao;
+  end;
+
+implementation
+
+uses
+  Vcl.Dialogs;
+
+{ TSMSNotificacao }
+
+function TSMSNotificacao.EnviarNotificacao(const ANotificacao: string): INotificacao;
+begin
+  ShowMessage('Notificação recebida: ' + ANotificacao);
+  Result := Self;
+end;
+
+class function TSMSNotificacao.New: INotificacao;
+begin
+  Result := TSMSNotificacao.Create;
+end;
+
+function TSMSNotificacao.ReceberNotificacao(const ANotificacao: string): INotificacao;
+begin
+  ShowMessage('Notificação enviada: ' + ANotificacao);
+end;
+
+end.

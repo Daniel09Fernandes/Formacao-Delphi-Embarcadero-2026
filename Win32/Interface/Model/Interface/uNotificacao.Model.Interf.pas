@@ -1,0 +1,23 @@
+unit uNotificacao.Model.Interf;
+
+interface
+
+type
+  INotificacao = interface
+    ['{0CE00337-DAA6-41CD-B7FF-4795C8F57B88}']
+
+    function EnviarNotificacao(const ANotificacao: string): INotificacao;
+    function ReceberNotificacao(const ANotificacao: string): INotificacao;
+    procedure EnviarParaORemetente(ARemetente: string);
+  end;
+
+  IExemplo = interface(INotificacao)
+    ['{74F4666D-2A6E-499E-8AEA-5309FB856FE4}']
+
+    function Exemplo1: string;
+  end;
+
+
+implementation
+
+end.

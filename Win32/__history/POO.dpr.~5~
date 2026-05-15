@@ -1,0 +1,15 @@
+program POO;
+
+uses
+  Vcl.Forms,
+  uMain.View in 'uMain.View.pas' {Form1},
+  uPessoa.Model in 'uPessoa.Model.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

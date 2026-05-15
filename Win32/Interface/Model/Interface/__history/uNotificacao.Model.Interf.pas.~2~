@@ -1,0 +1,15 @@
+unit uNotificacao.Model.Interf;
+
+interface
+
+type
+  INotificacao = interface
+    ['{0CE00337-DAA6-41CD-B7FF-4795C8F57B88}']
+
+    function EnviarNotificacao(const ANotificacao: string): INotificacao;
+    function ReceberNotificacao(const ANotificacao: string): INotificacao;
+  end;
+
+implementation
+
+end.

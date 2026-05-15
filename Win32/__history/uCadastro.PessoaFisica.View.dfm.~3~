@@ -1,0 +1,32 @@
+inherited TFormCadPadrao1: TTFormCadPadrao1
+  Caption = 'TFormCadPadrao1'
+  StyleElements = [seFont, seClient, seBorder]
+  OnCreate = FormCreate
+  TextHeight = 15
+  inherited Panel1: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+    inherited LbNome: TLabel
+      Width = 80
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitLeft = 11
+      ExplicitTop = 4
+      ExplicitWidth = 80
+      ExplicitHeight = 25
+    end
+  end
+  inherited Panel2: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+    inherited Panel4: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      inherited Panel5: TPanel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited Panel6: TPanel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+    end
+  end
+  inherited Panel3: TPanel
+    StyleElements = [seFont, seClient, seBorder]
+  end
+end
