@@ -1,0 +1,4 @@
+object DataModule1: TDataModule1
+  Height = 277
+  Width = 463
+end

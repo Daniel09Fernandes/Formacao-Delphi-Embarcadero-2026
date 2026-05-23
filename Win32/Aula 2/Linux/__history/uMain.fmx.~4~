@@ -1,0 +1,56 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 301
+  ClientWidth = 274
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Rectangle1: TRectangle
+    Align = Client
+    Fill.Color = xFF65AC8A
+    Size.Width = 274.000000000000000000
+    Size.Height = 301.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object Rectangle2: TRectangle
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      Fill.Color = x65B1F2D7
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 258.000000000000000000
+      Size.Height = 285.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      object Edit1: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 1
+        Position.X = 24.000000000000000000
+        Position.Y = 40.000000000000000000
+        Size.Width = 185.000000000000000000
+        Size.Height = 41.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object Edit2: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 0
+        Position.X = 24.000000000000000000
+        Position.Y = 120.000000000000000000
+        Size.Width = 185.000000000000000000
+        Size.Height = 41.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object Button1: TButton
+        Position.X = 24.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 113.000000000000000000
+        Size.Height = 49.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        Text = 'Button1'
+      end
+    end
+  end
+end

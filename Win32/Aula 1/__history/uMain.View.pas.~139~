@@ -1,0 +1,337 @@
+unit uMain.View;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  System.Generics.Collections;
+
+type
+  Pessoa = Record
+    Nome: string;
+    Idade: Integer;
+  End;
+
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Mlog: TMemo;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    ComboBox1: TComboBox;
+    Button8: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
+  private
+//    FPessoa: TPessoa;
+    procedure Execute(AProc: TProc);
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  uPessoa.Model,
+  uPessoa.Fisica.Model,
+  uPessoa.Juridica.Model,
+  uCadastro.PessoaJuridica.View,
+  uCadastro.PessoaFisica.View,
+  uNotificacao.View,
+  Warper.ShowMessage
+//  ,
+//  uOpenOffice_calc,
+//  uOpenOfficeHelper,
+//  uOpenOfficeCollors
+;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+     //Objeto    //Classe
+  var lPessoa := TPessoa.Create; //Create gera a instancia.
+  try
+    lPessoa.Nome := 'Daniel';
+    lPessoa.Endereco := 'Rua 1';
+    lPessoa.Telefone := '111111111';
+
+    Mlog.Lines.Add('lPessoa - classe: '+ lPessoa.ClassName);
+    Mlog.Lines.Add('lPessoa - valor da propriedade: '+ lPessoa.nome);
+    Mlog.Lines.Add('lPessoa - Instancia na memoria: '+
+     Format('$%p', [@lPessoa]));
+
+    Mlog.Lines.Add('lPessoa.Nome: '+
+     Format('$%p', [@lPessoa.Nome]));
+
+    lPessoa.AplicarMascaraNoIdentificador('123');
+  finally
+    lPessoa.Free;
+//    FreeAndNil(lPessoa);
+//    lPessoa.Nome := 'Jose';
+  end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+//Encapsulamento
+//  var FCalc := TOpenOffice_calc.Create(nil);
+//  try
+//    FCalc.DocVisible := True;
+//    FCalc.StartSheet;
+//
+//    FCalc.SetValue(1,'A', 'Nome')
+//      .SetColor(opWhite, opRed);
+//    FCalc.SetValue(1,'B', 'Idade')
+//      .SetColor(opWhite, opRed);
+//
+//    FCalc.SetValue(2,'A', 'Daniel');
+//    FCalc.SetValue(2,'B', '32');
+//
+//  finally
+//    FCalc.CloseFile;
+//    FCalc.SaveFile('c:/temp/test.xlsx');
+//    FCalc.Free
+//  end;
+
+  var lPessoa := TPessoa.Create; //Create gera a instancia.
+  try
+    var lCpf :=  lPessoa.AplicarMascaraNoIdentificador('1236548759');
+  finally
+    lPessoa.Free;
+  end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  Execute(
+  procedure
+  begin
+    var lPessoaFisica := TPessoaFisica.Create;
+    try
+      lPessoaFisica.Nome := 'Daniel 2';
+      lPessoaFisica.Endereco := 'Rua 2';
+      lPessoaFisica.Telefone := '222222';
+    finally
+      lPessoaFisica.Free;
+    end;
+
+    var lPessoaJuridica := TPessoaJuridica.Create;
+    try
+      lPessoaJuridica.Nome := 'Daniel 3';
+      lPessoaJuridica.Endereco := 'Rua 3';
+      lPessoaJuridica.Telefone := '333333';
+      lPessoaJuridica.NomeFantasia := 'DinosDev';
+
+      //TypeCast
+      var lCastPessoa := TPessoa(lPessoaJuridica);
+  //    var lCastPessoa := lPessoaJuridica as TPessoa;
+      try
+  //       lCastPessoa.Nome := lPessoaJuridica.Nome;
+  //  PreenchePessoa(var AParam: TPessoa);
+  // PreenchePessoa(TPessoa(lPessoaJuridica));
+
+         Mlog.lines.add(lCastPessoa.Nome);
+      finally
+        lCastPessoa.Free;
+      end;
+    finally
+      lPessoaJuridica.Free;
+    end;
+  end);
+
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+  Execute(
+  procedure
+  begin
+//      var lPessoa := TPessoa.Create;
+//      try
+//        lPessoa.AplicarMascaraNoIdentificador('123123');
+//      finally
+//        lPessoa.Free;
+//      end;
+
+      var lPessoaFisica := TPessoaFisica.Create;
+      try            //04692356081
+        lPessoaFisica.CPF := '04692356081';
+        var lCpf :=  lPessoaFisica.CPF;
+      finally
+        lPessoaFisica.Free;
+      end;
+
+      var lPessoaJuridica := TPessoaJuridica.Create;
+      try
+         lPessoaJuridica.CNPJ := '60903129000131';
+
+         var lSalario: string := '2000,34';
+         var lBonus: string := '5';
+
+         var lResultado := lPessoaJuridica.CalcularBonusSalario(lSalario, lBonus);
+
+         raise Exception.Create('Teste de erro em scopo de execução');
+         var lCNPJ := lPessoaJuridica.CNPJ;
+      finally
+        lPessoaJuridica.Free;
+      end
+  end);
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+  var lViewPF := TFormCadPessoaFisica.Create(Self);
+  var lViewPJ := TFormCadPessoaJuridica .Create(Self);
+  try
+     lViewPF.ShowModal;
+     lViewPJ.ShowModal;
+  finally
+    lViewPF.Free;
+    lViewPJ.Free;
+  end;
+end;
+
+procedure TForm1.Button6Click(Sender: TObject);
+begin
+  var lNotificacao := TFrmNotificacao.Create(nil);
+  try
+    lNotificacao.ShowModal;
+  finally
+   lNotificacao.Free;
+  end;
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+begin
+  var lStl := TStringList.Create;
+  try
+    lStl.Add('Banana');
+    lStl.Add('Pera');
+    lStl.Add('Uva');
+
+    lStl.SaveToFile('StlAula.txt');
+
+    ComboBox1.Items := lStl;
+  finally
+    lStl.Free;
+  end;
+
+  var lStlFonte := TStringList.Create;
+  try
+//    lStl.LoadFromFile('D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uMain.View.pas');
+//    lStlFonte[232] := '    ShowMessage(''Ola Mundo'');';
+//    lStl.SaveToFile('D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uMain.View.pas');
+
+
+  finally
+    lStlFonte.Free;
+  end;
+
+  var lPaises := 'BR, PR, RS, CH';
+
+  var lStlDelimiter := TStringList.Create;
+   var lStl2 := TStringList.Create;
+  try
+    lStlDelimiter.Delimiter := ',';
+    lStlDelimiter.DelimitedText  := lPaises;
+    lStlDelimiter.StrictDelimiter := True;
+
+    ComboBox1.Items := lStlDelimiter;
+
+     var List := TObjectList<TStringList>.Create(True);
+     try
+       List.Add(lStlDelimiter);
+       List.Add(lStl2);
+//       List.AddRange() [ara adicionar arrays genericos
+       for var lPair in List do
+       begin
+         lPair.SaveToFile('listaTeste.txt');
+       end;
+
+     finally
+       List.Free;
+     end;
+
+     var DiciAula := TDictionary<string, Pessoa>.Create;
+     try
+       var recPessoa: Pessoa;
+       recPessoa.Nome := 'Daniel';
+       recPessoa.Idade := 32;
+
+       DiciAula.Add(TGUID.NewGuid.ToString, recPessoa);
+
+       var recPessoa2: Pessoa;
+       recPessoa2.Nome := 'Jose';
+       recPessoa2.Idade := 55;
+       DiciAula.Add(TGUID.NewGuid.ToString, recPessoa2);
+
+       if DiciAula.ContainsKey('Teste') then
+         DiciAula.Remove('Teste');
+
+       for var lPair in DiciAula do
+       begin
+         var lValue := DiciAula.Items[lPair.Key];
+         lValue := lPair.Value;
+       end;
+
+     finally
+       DiciAula.Free;
+     end;
+
+  finally
+   //lStlDelimiter.Free;
+  end;
+
+
+end;
+
+procedure TForm1.Button8Click(Sender: TObject);
+begin
+  if MessageDlg('Deseja encerrar?',
+       TMsgDlType.mtConfirmation,
+       [TMsgDgButtons.mbYes,TMsgDgButtons.mbNo, TMsgDgButtons.mbCancel ], 0) = mrYes then
+    Application.Terminate;
+end;
+
+procedure TForm1.Execute(AProc: TProc);
+begin
+  try
+    AProc;
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Erro na classe '+ Self.ClassName +sLineBreak+
+        'Erro: '+ E.Message);
+    end;
+  end;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  //FPessoa:= TPessoa.Create;
+//  Self.FreeOnRelease;
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  //FreeAndNil(FPessoa);
+end;
+
+end.

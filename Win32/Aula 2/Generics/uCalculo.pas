@@ -1,0 +1,48 @@
+unit uCalculo;
+
+interface
+
+type
+  TOperacao = (toAdicao, toSubtracao, toDivisao, toMultiplicacao);
+
+  TCalcular = class
+    class function Calcular(AValue1, AValue2: string;
+       ATipoOperacao: TOperacao): double; overload;
+    class function Calcular(AValue1, AValue2: Double;
+       ATipoOperacao: TOperacao): double; overload;
+  end;
+
+implementation
+
+uses
+  SysUtils, Classes;
+
+class function TCalcular.Calcular(AValue1, AValue2: Double;
+  ATipoOperacao: TOperacao): double;
+begin
+   case ATipoOperacao of
+     toAdicao: Result := AValue1 + AValue2;
+     toSubtracao: Result := AValue1 - AValue2;
+     toDivisao: Result := AValue1 / AValue2;
+     toMultiplicacao: Result := AValue1 * AValue2;
+   end;
+end;
+
+class function TCalcular.Calcular(AValue1, AValue2: string;
+  ATipoOperacao: TOperacao): double;
+
+  function GetValueDouble(AValue: string):double;
+  begin
+    if not TryStrToFloat(AValue, Result) then
+       raise Exception.Create('Erro de conversão!');
+  end;
+begin
+  case ATipoOperacao of
+    toAdicao: Result := GetValueDouble(AValue1) + GetValueDouble(AValue2);
+    toSubtracao: Result := GetValueDouble(AValue1) - GetValueDouble(AValue2);
+    toDivisao: Result := GetValueDouble(AValue1) / GetValueDouble(AValue2);
+    toMultiplicacao: Result := GetValueDouble(AValue1) * GetValueDouble(AValue2);
+  end;
+end;
+
+end.

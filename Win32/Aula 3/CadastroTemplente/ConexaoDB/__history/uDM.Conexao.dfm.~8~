@@ -1,0 +1,20 @@
+object DataModule1: TDataModule1
+  Height = 330
+  Width = 385
+  object FDCon: TFDConnection
+    Params.Strings = (
+      
+        'Database=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3' +
+        '\CadastroTemplente\db\CadTemplete.db'
+      'DriverID=SQLite')
+    Connected = True
+    LoginPrompt = False
+    Left = 64
+    Top = 48
+  end
+  object Qry: TFDQuery
+    Connection = FDCon
+    Left = 128
+    Top = 48
+  end
+end

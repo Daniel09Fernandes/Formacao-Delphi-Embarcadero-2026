@@ -1,0 +1,59 @@
+unit uPessoa.Model;
+
+interface
+
+type
+  TPessoa  = class
+  strict private
+
+  strict protected
+    FEndereco: string;
+    FTelefone: string;
+    FNome: string;
+  published
+
+  public
+    property Nome: string read FNome write FNome;
+    property Endereco: string read FEndereco write FEndereco;
+    property Telefone: string read FTelefone write FTelefone;
+
+    function AplicarMascaraNoIdentificador(AValue: string):
+       string; virtual; //abstract;
+  end;
+
+  TClasseAmiga = class
+  private
+
+  public
+    procedure TesteOOP;
+  end;
+
+implementation
+
+{ TPessoa }
+
+uses
+  MaskUtils,
+  Vcl.Dialogs,
+  Warper.ShowMessage;
+
+function TPessoa.AplicarMascaraNoIdentificador(AValue: string): string;
+begin
+//  Result := 'não aplicavel';
+  MessageDlg('Nao aplicavel',  TMsgDlType.mtConfirmation,
+   mbYesNoCancel , 0.0);
+end;
+
+{ TClasseAmiga }
+
+procedure TClasseAmiga.TesteOOP;
+begin
+  var lPessoa := TPessoa.Create;
+  try
+    //lPessoa.FNome := ''; // Passa a dar erro, devido ao uso do strict
+  finally
+    lPessoa.Free;
+  end;
+end;
+
+end.

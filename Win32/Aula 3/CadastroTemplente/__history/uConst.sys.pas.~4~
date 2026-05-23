@@ -1,0 +1,14 @@
+unit uConst.sys;
+
+interface
+
+const
+  DEFAULT_COLLOR = $FF3F3F3F;
+  SUCCESS_COLLOR = $0;
+  WARNING_COLOR  = $0;
+  ERROR_COLOR  = $0;
+  QUEST_COLOR  = $0;
+
+implementation
+
+end.

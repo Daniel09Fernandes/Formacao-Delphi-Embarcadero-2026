@@ -1,0 +1,105 @@
+unit uMain.View;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
+  System.ImageList, FMX.ImgList, FMX.Objects, FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  uConst.sys;
+
+type
+  TFrMain = class(TForm)
+    RContext: TRectangle;
+    MBMain: TMenuBar;
+    ImgListMain: TImageList;
+    MICadastros: TMenuItem;
+    MIPedidos: TMenuItem;
+    MSIClientes: TMenuItem;
+    MSIItems: TMenuItem;
+    MSIPedido: TMenuItem;
+    RWindowsBar: TRectangle;
+    ImgClose: TImage;
+    ImgMax: TImage;
+    ImgMin: TImage;
+    ImgExit: TImage;
+    RStatusBar: TRectangle;
+    Rectangle1: TRectangle;
+    Label1: TLabel;
+    Label2: TLabel;
+    RHold: TRectangle;
+    TmrOnAfterLoad: TTimer;
+    procedure ImgExitClick(Sender: TObject);
+    procedure ImgCloseClick(Sender: TObject);
+    procedure ImgMaxClick(Sender: TObject);
+    procedure ImgMinClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure TmrOnAfterLoadTimer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrMain: TFrMain;
+
+implementation
+
+{$R *.fmx}
+
+uses
+  uLogin.View;
+
+procedure AbrirTelaLogin;
+begin
+  var lViewLogin := TFrLogin.Create(nil);
+  try
+    lViewLogin.ShowModal;
+  finally
+    lViewLogin.Free;
+  end;
+end;
+
+procedure TFrMain.FormCreate(Sender: TObject);
+begin
+  RContext.Fill.Color := DEFAULT_COLLOR;
+end;
+
+procedure TFrMain.FormShow(Sender: TObject);
+begin
+  RHold.Visible := True;
+end;
+
+procedure TFrMain.ImgCloseClick(Sender: TObject);
+begin
+  ImgExitClick(Nil);
+end;
+
+procedure TFrMain.ImgExitClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TFrMain.ImgMaxClick(Sender: TObject);
+begin
+  if WindowState = TWindowState.wsMaximized then
+    WindowState := TWindowState.wsNormal
+  else
+    WindowState := TWindowState.wsMaximized;
+end;
+
+procedure TFrMain.ImgMinClick(Sender: TObject);
+begin
+  WindowState := TWindowState.wsMinimized;
+end;
+
+procedure TFrMain.TmrOnAfterLoadTimer(Sender: TObject);
+begin
+  TmrOnAfterLoad.Enabled := False;
+  AbrirTelaLogin;
+end;
+
+end.

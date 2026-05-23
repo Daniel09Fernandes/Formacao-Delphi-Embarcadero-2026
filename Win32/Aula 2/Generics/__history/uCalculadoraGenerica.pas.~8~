@@ -1,0 +1,46 @@
+unit uCalculadoraGenerica;
+
+interface
+
+uses
+  SysUtils, Rtti,
+  uCalculo;
+
+type
+  TGCalcular<P,R> = class
+  private
+    FTipoOperacao: TOperacao;
+    function GetType(AValue: P): TTypeKind;
+    function ParserPtoStr(AValue: P): string;
+  public
+    function Calcular(AValue1, AValue2: P): R;
+    property TipoOperacao: TOperacao read FTipoOperacao write FTipoOperacao;
+  end;
+
+implementation
+
+{ TGCalcular<P, R> }
+
+function TGCalcular<P, R>.Calcular(AValue1, AValue2: P): R;
+begin
+  if (GetType(AValue1) = TTypeKind.tkUString) or
+     (GetType(AValue1) = TTypeKind.tkString)
+  then
+  begin
+    Result := TValue.From<string>(
+      TCalcular.Calcular('','', TipoOperacao).ToString
+    ).AsType<R> ;
+  end;
+end;
+
+function TGCalcular<P, R>.GetType(AValue: P): TTypeKind;
+begin
+  Result := GetTypeKind(AValue);
+end;
+
+function TGCalcular<P, R>.c(AValue: P): string;
+begin
+  Result := TValue.From<P>(AValue).AsType<string>;
+end;
+
+end.

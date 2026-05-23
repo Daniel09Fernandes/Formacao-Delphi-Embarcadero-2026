@@ -1,0 +1,58 @@
+unit uDBMapping.Attributes;
+
+interface
+
+Type
+  TMappingTable = class(TCustomAttribute)
+  strict private
+    FTableName: string;
+  public
+    property TableName: string read FTableName write FTableName;
+    constructor Create(ATableName: string);
+  end;
+
+  TMappingField = class(TCustomAttribute)
+  strict private
+    FFieldLength: Integer;
+    FFieldName: string;
+  public
+    property FieldLength: Integer read FFieldLength write FFieldLength;
+    property FieldName: string read FFieldName write FFieldName;
+
+    constructor Create(AFieldName: string; AFieldLength: Integer);
+  end;
+
+  TMappingDisplayGrid = class(TCustomAttribute)
+  strict private
+    FFieldDisplay: string;
+  public
+    property FieldDisplay: string read FFieldDisplay write FFIeldDisplay;
+
+    constructor Create(AFieldDisplay: string);
+  end;
+
+implementation
+
+{ TMappingTable }
+
+constructor TMappingTable.Create(ATableName: string);
+begin
+  FTableName := ATableName;
+end;
+
+{ TMappingField }
+
+constructor TMappingField.Create(AFieldName: string; AFieldLength: Integer);
+begin
+  FFieldLength := AFieldLength;
+  FFieldName := AFieldName;
+end;
+
+{ TMappingDisplayGrid }
+
+constructor TMappingDisplayGrid.Create(AFieldDisplay: string);
+begin
+  FFieldDisplay := AFieldDisplay;
+end;
+
+end.

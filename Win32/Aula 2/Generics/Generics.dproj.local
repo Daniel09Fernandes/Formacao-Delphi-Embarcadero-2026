@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/09/04 08:47:24.000.868,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/09/04 22:35:43.000.642,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/05/16 16:43:37.000.849,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2026/05/16 16:45:43.000.943,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit3.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\uMain.pas</Transaction>
+    <Transaction>2026/05/16 16:45:43.000.943,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit3.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\uMain.dfm</Transaction>
+    <Transaction>2026/05/16 16:51:57.000.076,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\Generics.dproj</Transaction>
+    <Transaction>2026/05/16 16:52:34.000.155,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\Unit1.pas</Transaction>
+    <Transaction>2026/05/16 16:52:43.000.380,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\uCalculo.pas</Transaction>
+    <Transaction>2026/05/16 17:31:54.000.468,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\Unit1.pas</Transaction>
+    <Transaction>2026/05/16 17:32:25.000.328,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 2\Generics\uCalculadoraGenerica.pas</Transaction>
+  </Transactions>
+</BorlandProject>

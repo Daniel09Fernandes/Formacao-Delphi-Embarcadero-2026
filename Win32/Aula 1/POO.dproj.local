@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/09/04 08:47:24.000.868,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/09/04 22:35:43.000.642,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 09:34:08.000.872,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 09:35:56.000.437,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uMain.dfm</Transaction>
+    <Transaction>2026/05/09 09:35:56.000.437,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uMain.pas</Transaction>
+    <Transaction>2026/05/09 09:36:15.000.634,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\win32.dproj</Transaction>
+    <Transaction>2026/05/09 09:36:21.000.568,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\win32.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\POO.dproj</Transaction>
+    <Transaction>2026/05/09 09:36:37.000.534,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\POO.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\POO.dproj</Transaction>
+    <Transaction>2026/05/09 09:36:43.000.892,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 09:40:31.000.476,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uPessoal.Model.pas</Transaction>
+    <Transaction>2026/05/09 09:40:48.000.522,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uMain.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uMain.View.dfm</Transaction>
+    <Transaction>2026/05/09 09:40:48.000.522,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uMain.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uMain.View.pas</Transaction>
+    <Transaction>2026/05/09 09:43:04.000.284,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uPessoal.Model.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uPessoa.Model.pas</Transaction>
+    <Transaction>2026/05/09 11:45:07.000.737,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 11:45:27.000.914,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uPessoa.Fisica.Model.pas</Transaction>
+    <Transaction>2026/05/09 11:52:07.000.535,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 11:52:25.000.886,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uPessoa.Juridica.Model.pas</Transaction>
+    <Transaction>2026/05/09 14:43:12.000.221,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit2.pas</Transaction>
+    <Transaction>2026/05/09 14:49:19.000.354,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit2.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\FormPadrao\uCadastroPadrao.View.dfm</Transaction>
+    <Transaction>2026/05/09 14:49:19.000.354,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit2.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\FormPadrao\uCadastroPadrao.View.pas</Transaction>
+    <Transaction>2026/05/09 15:12:05.000.660,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 15:12:29.000.636,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uCadastro.PessoaFisica.pas</Transaction>
+    <Transaction>2026/05/09 15:12:29.000.636,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uCadastro.PessoaFisica.dfm</Transaction>
+    <Transaction>2026/05/09 15:12:46.000.948,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uCadastro.PessoaFisica.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uCadastro.PessoaFisica.View.pas</Transaction>
+    <Transaction>2026/05/09 15:12:46.000.948,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uCadastro.PessoaFisica.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uCadastro.PessoaFisica.View.dfm</Transaction>
+    <Transaction>2026/05/09 15:20:41.000.841,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 15:21:13.000.386,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uCadastro.PessoaJuridica.View.dfm</Transaction>
+    <Transaction>2026/05/09 15:21:13.000.386,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\uCadastro.PessoaJuridica.View.pas</Transaction>
+    <Transaction>2026/05/09 16:01:51.000.156,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 16:03:48.000.820,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Interface\Model\Interface\uNotificacao.Model.Interf.pas</Transaction>
+    <Transaction>2026/05/09 16:09:14.000.622,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 16:09:39.000.213,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Interface\Model\uSMS.Notificacao.Model.pas</Transaction>
+    <Transaction>2026/05/09 16:28:54.000.539,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 16:29:26.000.476,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Interface\Model\uWhatsApp.Notificacao.Model.pas</Transaction>
+    <Transaction>2026/05/09 16:36:45.000.553,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas</Transaction>
+    <Transaction>2026/05/09 16:37:14.000.297,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Interface\Controller\uNotificacao.Controller.pas</Transaction>
+    <Transaction>2026/05/09 16:45:28.000.689,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit2.pas</Transaction>
+    <Transaction>2026/05/09 16:46:47.000.105,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit2.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Interface\View\uNotificacao.View.pas</Transaction>
+    <Transaction>2026/05/09 16:46:47.000.105,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Unit2.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Interface\View\uNotificacao.View.dfm</Transaction>
+    <Transaction>2026/05/16 09:58:54.000.099,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Unit1.pas</Transaction>
+    <Transaction>2026/05/16 09:59:14.000.366,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\uLogs.pas</Transaction>
+    <Transaction>2026/05/16 11:52:26.000.560,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Unit1.pas</Transaction>
+    <Transaction>2026/05/16 11:53:31.000.667,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\uZipHelper.pas</Transaction>
+    <Transaction>2026/05/16 12:03:54.000.613,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Unit1.pas</Transaction>
+    <Transaction>2026/05/16 12:04:03.000.720,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\uTeste.pas</Transaction>
+    <Transaction>2026/05/16 15:29:55.000.380,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Unit1.pas</Transaction>
+    <Transaction>2026/05/16 15:30:38.000.880,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 1\Warper.ShowMessage.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="FormPadrao"/>
+    <File Path="FormPadrao\uCadastroPadrao.View.pas"/>
+    <File Path="FormPadrao\uCadastroPadrao.View.dfm"/>
+    <File Path="Interface"/>
+    <File Path="Interface\Controller"/>
+    <File Path="Interface\Controller\uNotificacao.Controller.pas"/>
+    <File Path="Interface\Model"/>
+    <File Path="Interface\Model\Interface"/>
+    <File Path="Interface\Model\Interface\uNotificacao.Model.Interf.pas"/>
+    <File Path="Interface\Model\uSMS.Notificacao.Model.pas"/>
+    <File Path="Interface\Model\uWhatsApp.Notificacao.Model.pas"/>
+    <File Path="Interface\View"/>
+    <File Path="Interface\View\uNotificacao.View.pas"/>
+    <File Path="Interface\View\uNotificacao.View.dfm"/>
+    <File Path="uCadastro.PessoaFisica.View.pas"/>
+    <File Path="uCadastro.PessoaFisica.View.dfm"/>
+    <File Path="uCadastro.PessoaJuridica.View.pas"/>
+    <File Path="uCadastro.PessoaJuridica.View.dfm"/>
+    <File Path="uMain.View.pas"/>
+    <File Path="uMain.View.dfm"/>
+    <File Path="uPessoa.Fisica.Model.pas"/>
+    <File Path="uPessoa.Juridica.Model.pas"/>
+    <File Path="uPessoa.Model.pas"/>
+    <File Path="uLogs.pas"/>
+    <File Path="uZipHelper.pas"/>
+    <File Path="uTeste.pas"/>
+    <File Path="Warper.ShowMessage.pas"/>
+  </ProjectSortOrder>
+</BorlandProject>

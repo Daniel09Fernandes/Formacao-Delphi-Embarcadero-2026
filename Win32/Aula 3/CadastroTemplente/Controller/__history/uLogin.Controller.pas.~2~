@@ -1,0 +1,12 @@
+unit uLogin.Controller;
+
+interface
+
+type
+  TLoginController = class
+    class function AbrirTelaLogin(): Boolean;
+  end;
+
+implementation
+
+end.

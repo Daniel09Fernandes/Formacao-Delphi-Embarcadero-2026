@@ -1,0 +1,92 @@
+unit uDialog;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, System.Skia,
+  FMX.Memo.Types, FMX.StdCtrls, FMX.Controls.Presentation, FMX.ScrollBox,
+  FMX.Memo, FMX.Skia, FMX.Objects, System.ImageList, FMX.ImgList;
+
+type
+  TDialogType = (dInfo, dAlert, dError, dQuest);
+
+  TFrDialog = class(TForm)
+    RContext: TRectangle;
+    RHeader: TRectangle;
+    LblTitle: TSkLabel;
+    SkAnimatedImage1: TSkAnimatedImage;
+    MMsg: TMemo;
+    Rectangle2: TRectangle;
+    BtnOK: TButton;
+    BtnNo: TButton;
+    ImageList1: TImageList;
+    procedure BtnNoClick(Sender: TObject);
+    procedure BtnOKClick(Sender: TObject);
+  private
+    class var FInstance: TFrDialog;
+  public
+    class function ShowMessage(AMsg: String; ADlgType: TDialogType = dInfo): Boolean;
+  end;
+
+implementation
+
+{$R *.fmx}
+
+uses
+  uConst.sys;
+
+procedure TFrDialog.BtnNoClick(Sender: TObject);
+begin
+  Close;
+  ModalResult := mrCancel;
+end;
+
+procedure TFrDialog.BtnOKClick(Sender: TObject);
+begin
+  Close;
+  ModalResult := mrOk;
+end;
+
+class function TFrDialog.ShowMessage(AMsg: String;
+  ADlgType: TDialogType): Boolean;
+begin
+  FInstance := TFrDialog.Create(nil);
+  try
+    FInstance.MMsg.Lines.Clear;
+    FInstance.MMsg.Lines.Add(AMsg);
+
+    case ADlgType of
+      dInfo:
+        begin
+          FInstance.RHeader.Fill.Color := SUCCESS_COLLOR;
+          FInstance.BtnNo.Visible := False;
+          FInstance.LblTitle.Text := 'O Sistema Informa!';
+        end;
+      dAlert:
+        begin
+          FInstance.RHeader.Fill.Color := WARNING_COLOR;
+          FInstance.BtnNo.Visible := False;
+          FInstance.LblTitle.Text := 'O Sistema Alerta!';
+        end;
+      dError:
+        begin
+          FInstance.RHeader.Fill.Color := ERROR_COLOR;
+          FInstance.BtnNo.Visible := False;
+          FInstance.LblTitle.Text := 'O Sistema esta te informando um Erro!';
+        end;
+      dQuest:
+        begin
+          FInstance.RHeader.Fill.Color := QUEST_COLOR;
+          FInstance.BtnOK.Text := 'Sim';
+          FInstance.LblTitle.Text := 'O Sistema esta perguntando!';
+        end;
+    end;
+
+    Result := FInstance.ShowModal = mrOk;
+  finally
+    FInstance.Free;
+  end;
+end;
+
+end.

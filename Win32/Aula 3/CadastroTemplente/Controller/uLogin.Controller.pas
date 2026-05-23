@@ -1,0 +1,36 @@
+unit uLogin.Controller;
+
+interface
+
+uses
+  uLogin.View,
+  Classes,
+  FMX.Types,
+  SysUtils,
+  UITypes;
+
+type
+  TLoginController = class
+    class function AbrirTelaLogin(AOwer, AParent: TComponent): Boolean;
+  end;
+
+implementation
+
+{ TLoginController }
+
+class function TLoginController.AbrirTelaLogin(AOwer,
+  AParent: TComponent): Boolean;
+begin
+  var lViewLogin := TFrLogin.Create(AOwer);
+  try
+    if Assigned(AParent) then
+      lViewLogin.Parent := TFmxObject(AParent);
+
+    var lModalResult := lViewLogin.ShowModal;
+    Result := lModalResult = mrOK;
+  finally
+    lViewLogin.Free;
+  end;
+end;
+
+end.

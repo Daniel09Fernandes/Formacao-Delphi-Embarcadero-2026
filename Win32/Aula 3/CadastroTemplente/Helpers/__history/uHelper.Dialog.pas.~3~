@@ -1,0 +1,13 @@
+unit uHelper.Dialog;
+
+interface
+
+uses
+  uDialog, FMX.Forms;
+
+type
+  TDlgType = TDialogType;
+
+implementation
+
+end.

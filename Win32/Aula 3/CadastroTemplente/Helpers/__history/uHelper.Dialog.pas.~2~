@@ -1,0 +1,12 @@
+unit uHelper.Dialog;
+
+interface
+
+uses
+  uDialog, FMX.Forms;
+
+
+
+implementation
+
+end.

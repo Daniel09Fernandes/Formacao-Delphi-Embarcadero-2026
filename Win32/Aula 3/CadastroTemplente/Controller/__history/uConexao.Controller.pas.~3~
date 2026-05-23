@@ -1,0 +1,29 @@
+unit uConexao.Controller;
+
+interface
+uses
+  uMapping.RTTI, System.Generics.Collections, Datasnap.DBClient;
+
+type
+  TConexaoController<T: class, constructor> = class
+    class function GetListObject(AWhere: TWhere = nil): TObjectList<T>;
+    class function ObjectListToCds(AList: TObjectList<T>): TClientDataSet;
+  end;
+
+implementation
+
+{ TConexaoController<T> }
+
+class function TConexaoController<T>.GetListObject(
+  AWhere: TWhere): TObjectList<T>;
+begin
+
+end;
+
+class function TConexaoController<T>.ObjectListToCds(
+  AList: TObjectList<T>): TClientDataSet;
+begin
+
+end;
+
+end.

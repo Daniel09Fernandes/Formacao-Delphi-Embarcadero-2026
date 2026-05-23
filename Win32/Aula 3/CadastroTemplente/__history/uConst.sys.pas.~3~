@@ -1,0 +1,10 @@
+unit uConst.sys;
+
+interface
+
+const
+  DEFAULT_COLLOR = $FF3F3F3F;
+
+implementation
+
+end.

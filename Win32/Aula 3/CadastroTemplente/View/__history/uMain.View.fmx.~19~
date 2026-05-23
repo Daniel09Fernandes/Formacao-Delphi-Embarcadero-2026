@@ -1,0 +1,463 @@
+object FrMain: TFrMain
+  Left = 0
+  Top = 0
+  BorderStyle = None
+  Caption = 'Menu Principal'
+  ClientHeight = 480
+  ClientWidth = 659
+  Position = MainFormCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object RContext: TRectangle
+    Align = Client
+    Fill.Color = xFF3F3F3F
+    Size.Width = 659.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object MBMain: TMenuBar
+      Images = ImgListMain
+      Position.Y = 26.000000000000000000
+      Size.Width = 659.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object MICadastros: TMenuItem
+        Text = 'Cadastros  '
+        ImageIndex = 0
+        object MSIClientes: TMenuItem
+          Locked = True
+          Text = 'Clientes'
+          ImageIndex = 8
+        end
+        object MSIItems: TMenuItem
+          Locked = True
+          Text = 'Produtos'
+          ImageIndex = 2
+        end
+      end
+      object MIPedidos: TMenuItem
+        Text = 'Pedidos   '
+        ImageIndex = 5
+        object MSIPedido: TMenuItem
+          Locked = True
+          Text = 'Criar Pedidos'
+          ImageIndex = 7
+        end
+      end
+      object ImgExit: TImage
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000794944415448896360180524
+              0207060686FF04304980118D4F8C01E87AF002166A18820F3051CB205A5950CE
+              C0C0D0408A065222520C493DD196909A52B448B5849CA4489225B82C209437FE
+              E3B284E6A908974B4901540922AA184EAA057449A615A4184E8E050401CD5311
+              CD8B6B741F3892A2791450050000B4A139A51E27A3510000000049454E44AE42
+              6082}
+          end>
+        Align = Right
+        Cursor = crHandPoint
+        Margins.Right = 2.000000000000000000
+        Position.X = 633.000000000000000000
+        Size.Width = 24.000000000000000000
+        Size.Height = 49.000000000000000000
+        Size.PlatformDefault = False
+        OnClick = ImgExitClick
+      end
+    end
+    object RWindowsBar: TRectangle
+      Align = Top
+      Fill.Color = xFF266D5E
+      Size.Width = 659.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      object ImgClose: TImage
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000554944415448896360180523
+              16703130307C2141FD17A81E9234FC27D21252D492AC916CC389318062C3F119
+              4435C3B1194875C3D12D21C970266ABB825C40D320A26924D33499D234A3D1BC
+              A8A07961370A8611000031F041ED8EB79A2A0000000049454E44AE426082}
+          end>
+        Align = RightCenter
+        Cursor = crHandPoint
+        Margins.Left = 15.000000000000000000
+        Position.X = 635.000000000000000000
+        Position.Y = 1.000000000000000000
+        Size.Width = 24.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        OnClick = ImgCloseClick
+      end
+      object ImgMax: TImage
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000004C49444154488963601805C3
+              1E30E210FF4F845A62D4303091E72EE2010B01795C3E4497C3E61B06067AF880
+              E6168C82C10BFEE34B7AA4A81FFAC994504E46F6363165110618CD68A3807200
+              00EFE209123FF4F08D0000000049454E44AE426082}
+          end>
+        Align = RightCenter
+        Cursor = crHandPoint
+        Margins.Left = 15.000000000000000000
+        Position.X = 596.000000000000000000
+        Position.Y = 1.000000000000000000
+        Size.Width = 24.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        OnClick = ImgMaxClick
+      end
+      object ImgMin: TImage
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000002549444154488963601805A3
+              60148C8251300A46011180118FDC7F6A98C544A221A380FA0000D6E40104689C
+              C4320000000049454E44AE426082}
+          end>
+        Align = RightCenter
+        Cursor = crHandPoint
+        Margins.Left = 15.000000000000000000
+        Position.X = 557.000000000000000000
+        Position.Y = 1.000000000000000000
+        Size.Width = 24.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        OnClick = ImgMinClick
+      end
+    end
+    object RStatusBar: TRectangle
+      Align = Bottom
+      Fill.Color = xFF9EB3AF
+      Position.Y = 454.000000000000000000
+      Size.Width = 659.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      object Rectangle1: TRectangle
+        Align = Left
+        Fill.Color = xFFC1C1C1
+        Size.Width = 305.000000000000000000
+        Size.Height = 26.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xC8979797
+        object Label1: TLabel
+          Align = Left
+          StyledSettings = [Family, Size, Style]
+          Margins.Left = 10.000000000000000000
+          Position.X = 10.000000000000000000
+          Size.Width = 291.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.FontColor = xFF494949
+          Text = 'Sistema desenvolvido por @DinosDev'
+          TabOrder = 0
+        end
+      end
+      object Label2: TLabel
+        Align = Left
+        StyledSettings = [Family, Size]
+        Margins.Left = 10.000000000000000000
+        Position.X = 315.000000000000000000
+        Size.Width = 291.000000000000000000
+        Size.Height = 26.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {04040000000000000004000000}
+        TextSettings.FontColor = xFF383838
+        TextSettings.WordWrap = False
+        Text = 'site: www.dinosdev.com.br    '
+        TabOrder = 0
+      end
+    end
+  end
+  object ImgListMain: TImageList
+    Source = <
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C08648800000085494441544889ED924B0A80
+              300C449F9EAC1774E925BC4441F05C75938204FB895A11E9832C929699662874
+              BE88038294BB310760383108893BD6390063719F063C1AD13F691E4550559A47
+              26996F2D0C66759635B146A4C5531B5E228AAF4A7C7A527C96DEAB3E49CD6FD1
+              E2BACF52936500962BE216032F2626712A233A3EC024DE799F1DC6EC5F1A6AF2
+              13270000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\app_registration_24dp_000000_FILL0_wght40' +
+              '0_GRAD0_opsz24.png'
+          end>
+        Name = 'Item 0'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000005E4944415448896360184440
+              808181E13D140BD0C2E0FF6898628BB0195C0BC5145984CDE0322CEACA48B508
+              9BC1C54438A8189F458C480AFF93E24D2200230303030313950D1D41E03F8E38
+              21559CF671306AC108B060E883D1C26E040000577B2AB9DC4819D30000000049
+              454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\account_balance_24dp_000000_FILL0_wght400' +
+              '_GRAD0_opsz24.png'
+          end>
+        Name = 'Item 1'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000C549444154488963601864E0
+              3F14130D98D034FE676060A8A0A68B18912CC0268E0EFE1390C700301F3042F1
+              17283F16CD50F4A0C126862C1E84CB4209028661C330E04F6C1CC11439E091C3
+              A74F969005DA780CC225DE07157F4DC87074839488B40026CE41AC052E500DBF
+              89507B0EAAF624B186A3BB4A088F1A6E72321F0CC411918260783A3916106BF8
+              2B7C86B0E0108F4662139D6B490130D749536A10A1328762F398B0AB635023D3
+              82C1031C08944944AB23360EC856872B0E680EA81644431F00004BC85EE04683
+              CF860000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\add_shopping_cart_24dp_000000_FILL0_wght4' +
+              '00_GRAD0_opsz24.png'
+          end>
+        Name = 'Item 2'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000554944415448896360180523
+              16703130307C2141FD17A81E9234FC27D21252D492AC916CC389318062C3F119
+              4435C3B1194875C3D12D21C970266ABB825C40D320A26924D33499D234A3D1BC
+              A8A07961370A8611000031F041ED8EB79A2A0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\close_24dp_000000_FILL0_wght400_GRAD0_ops' +
+              'z24.png'
+          end>
+        Name = 'Item 3'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000002549444154488963601805A3
+              60148C8251300A46011180118FDC7F6A98C544A221A380FA0000D6E40104689C
+              C4320000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\minimize_24dp_000000.png'
+          end>
+        Name = 'Item 4'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C08648800000082494441544889636018CEA0
+              018926954D14F8CFC0C0B01F4A93CA8603460216900BE0E6B290A2980880E128
+              261234930588F101039EE0624492C3EAD341E3037CF180378E468388901CED7D
+              30F42D408F036CA985983209673C0C582A22B68023E83BBA47F24C28FD9F48CC
+              80A69E818181610D214B279360013A5E443DBF0F1600003ECA3844AD22CCFE00
+              00000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\receipt_long_24dp_000000_FILL0_wght400_GR' +
+              'AD0_opsz24.png'
+          end>
+        Name = 'Item 5'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000004C49444154488963601805C3
+              1E30E210FF4F845A62D4303091E72EE2010B01795C3E4497C3E61B06067AF880
+              E6168C82C10BFEE34B7AA4A81FFAC994504E46F6363165110618CD68A3807200
+              00EFE209123FF4F08D0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\fullscreen_24dp_000000.png'
+          end>
+        Name = 'Item 6'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000D2494441544889ED93BD0DC2
+              3010853F030B30060D2D29B30625056B2058804D82E8291063D03340941AC934
+              0E32C6761CFF88862759B6CE77F7EEDDD9F0C748D4804C5CB59E5018043253A1
+              EFBCB3218791F82A70129928182E0544B4CBAAFAA70A62E7F081E20A7C04216F
+              7E67C408E0E02394DA707D89EFB18AE4C8D7B3023A2DAE53B62C048D47611342
+              600BDCABBB2A603E550C418FD6623F1BB636A5452EE239F0D4EDC5FFC1506545
+              5A74D59CCCF356F9050F796A100860A3F69BE5BC062EC00358020B47274EC031
+              B99F311F2D3B5E4C008A668305C21D0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\order_play_24dp_000000_FILL0_wght400_GRAD' +
+              '0_opsz24.png'
+          end>
+        Name = 'Item 7'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000B8494441544889ED94510AC2
+              3010445F45147A23CF50EF229E4641F02A7A940A7A077F4AFCD9404DB34DB256
+              F4A303A161B2B399CD2E8519FF8E3BE064B59604D5C8993368065828BC777B95
+              8495EC91AA34439AA9ECE0B124D133AD82C9A05D7093EFA5C7F9FDA3C7B988F3
+              37EED326A7DE3C391025635AD4640BB29BBC068EC033784F27DC0158591C6C80
+              2E92545B9D68B2B00FC467A08EC4D5C02988DDE55CE0839B828AB7258DB54E40
+              52B78C0826C5D77F15337E8F176687484C8FE27E210000000049454E44AE4260
+              82}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\person_add_24dp_000000_FILL0_wght400_GRAD' +
+              '0_opsz24.png'
+          end>
+        Name = 'Item 8'
+      end>
+    Destination = <
+      item
+        Layers = <
+          item
+            Name = 'Item 0'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 1'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 2'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 3'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 4'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 5'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 6'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 7'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 8'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end>
+    Left = 576
+    Top = 120
+  end
+end

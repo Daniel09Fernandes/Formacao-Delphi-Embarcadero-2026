@@ -1,0 +1,157 @@
+unit uCadastroPadrao.View;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Data.DB,
+  Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, uLogs,
+  System.Diagnostics, Zip,
+  uZipHelper;
+
+type
+  TTFormCadPadrao = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    LbNome: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    BtPrior: TButton;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    GrdRegistro: TDBGrid;
+    MemRegistro: TFDMemTable;
+    DSRegistro: TDataSource;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure BtPriorClick(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+  private
+    FLog: TLog;
+    FInfosTela: TInfoTelas;
+    FTempoTelaAberto: TStopwatch;
+
+    procedure AbrirDataset;
+    procedure ControleBotoes(Sender: TObject);
+  public
+    procedure SetTituloTela(ATitulo: string);
+  end;
+
+implementation
+
+{$R *.dfm}
+
+procedure TTFormCadPadrao.AbrirDataset;
+begin
+  if MemRegistro.State = dsInactive then
+    MemRegistro.Open;
+end;
+
+procedure TTFormCadPadrao.BtPriorClick(Sender: TObject);
+begin
+  MemRegistro.Prior;
+end;
+
+procedure TTFormCadPadrao.Button1Click(Sender: TObject);
+begin
+  AbrirDataset;
+  MemRegistro.Append;
+  ControleBotoes(Sender);
+end;
+
+procedure TTFormCadPadrao.Button2Click(Sender: TObject);
+begin
+  AbrirDataset;
+  MemRegistro.Edit;
+  ControleBotoes(Sender);
+end;
+
+procedure TTFormCadPadrao.Button3Click(Sender: TObject);
+begin
+  AbrirDataset;
+  if MemRegistro.State in dsEditModes then
+  begin
+    MemRegistro.Post;
+    ShowMessage('Salvo com sucesso');
+  end
+  else
+    ShowMessage('Erro ao salvar');
+
+  ControleBotoes(Sender);
+end;
+
+procedure TTFormCadPadrao.Button4Click(Sender: TObject);
+begin
+  AbrirDataset;
+  MemRegistro.Cancel;
+  ControleBotoes(Sender);
+end;
+
+procedure TTFormCadPadrao.Button5Click(Sender: TObject);
+begin
+  MemRegistro.Next;
+end;
+
+procedure TTFormCadPadrao.ControleBotoes(Sender: TObject);
+begin
+  for var I := 0 to ComponentCount-1 do
+  begin
+    if Components[i] is TButton then
+      TButton(Components[i]).Enabled := not TButton(Components[i]).Enabled;
+  end;
+end;
+
+procedure TTFormCadPadrao.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FInfosTela.TempoAberto := FTempoTelaAberto.Elapsed;
+  FLog.AddInfoTelaFechar(FInfosTela);
+
+  FreeAndNil(FLog);
+  if Assigned(FInfosTela.FMinhaClasseTeste) then
+    FreeAndNil(FInfosTela.FMinhaClasseTeste);
+
+  var ls := TStringList.Create;
+  try
+    ls.Add(GetCurrentDir +'LogTela.ini');
+    TZipFile.zip(GetCurrentDir, ls);
+  finally
+    ls.Free;
+  end;
+end;
+
+procedure TTFormCadPadrao.FormCreate(Sender: TObject);
+begin
+  FLog := TLog.Create(GetCurrentDir +'LogTela.ini');
+end;
+
+procedure TTFormCadPadrao.FormShow(Sender: TObject);
+begin
+  FTempoTelaAberto := TStopwatch.StartNew;
+
+//  FInfosTela := TInfoTelas.Create('Teste');
+//  FInfosTela.FMinhaClasseTeste.Teste := 'Teste';
+
+  FInfosTela.Nome := Self.ClassName;
+  FInfosTela.UltimaAbertura := Now;
+
+  FLog.AddInfoTelaAbrir(FInfosTela);
+end;
+
+procedure TTFormCadPadrao.SetTituloTela(ATitulo: string);
+begin
+  lbNome.Caption := ATitulo;
+end;
+
+end.

@@ -1,0 +1,27 @@
+program POO;
+
+uses
+  Vcl.Forms,
+  uMain.View in 'uMain.View.pas' {Form1},
+  uPessoa.Model in 'uPessoa.Model.pas',
+  uPessoa.Fisica.Model in 'uPessoa.Fisica.Model.pas',
+  uPessoa.Juridica.Model in 'uPessoa.Juridica.Model.pas',
+  uCadastroPadrao.View in 'FormPadrao\uCadastroPadrao.View.pas' {TFormCadPadrao},
+  uCadastro.PessoaFisica.View in 'uCadastro.PessoaFisica.View.pas' {FormCadPessoaFisica},
+  uCadastro.PessoaJuridica.View in 'uCadastro.PessoaJuridica.View.pas' {FormCadPessoaJuridica},
+  uNotificacao.Model.Interf in 'Interface\Model\Interface\uNotificacao.Model.Interf.pas',
+  uSMS.Notificacao.Model in 'Interface\Model\uSMS.Notificacao.Model.pas',
+  uWhatsApp.Notificacao.Model in 'Interface\Model\uWhatsApp.Notificacao.Model.pas',
+  uNotificacao.Controller in 'Interface\Controller\uNotificacao.Controller.pas',
+  uNotificacao.View in 'Interface\View\uNotificacao.View.pas' {FrmNotificacao},
+  uLogs in 'uLogs.pas',
+  uZipHelper in 'uZipHelper.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B09F6861-E1A0-4B4C-93BD-1F5D42C11D66}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\Aula 1\POO.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Linux\PrjLinux.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Generics\Generics.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="POO">
+        <MSBuild Projects="..\Aula 1\POO.dproj"/>
+    </Target>
+    <Target Name="POO:Clean">
+        <MSBuild Projects="..\Aula 1\POO.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="POO:Make">
+        <MSBuild Projects="..\Aula 1\POO.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PrjLinux">
+        <MSBuild Projects="Linux\PrjLinux.dproj"/>
+    </Target>
+    <Target Name="PrjLinux:Clean">
+        <MSBuild Projects="Linux\PrjLinux.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PrjLinux:Make">
+        <MSBuild Projects="Linux\PrjLinux.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Generics">
+        <MSBuild Projects="Generics\Generics.dproj"/>
+    </Target>
+    <Target Name="Generics:Clean">
+        <MSBuild Projects="Generics\Generics.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Generics:Make">
+        <MSBuild Projects="Generics\Generics.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="POO;PrjLinux;Generics"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="POO:Clean;PrjLinux:Clean;Generics:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="POO:Make;PrjLinux:Make;Generics:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

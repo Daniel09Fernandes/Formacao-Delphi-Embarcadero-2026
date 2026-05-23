@@ -1,0 +1,44 @@
+unit Warper.ShowMessage;
+
+interface
+
+
+uses
+  System.UITypes,
+  Vcl.Dialogs,
+  Windows;
+
+
+type
+  TMsgDlType = TMsgDlgType;
+  TMsgDlgButtons = TMsgDlgButtons;
+
+  function MessageDlg(const Msg: string; DlgType: TMsgDlType;
+      Buttons: TMsgDlgButtons; HelpCtx: Extended = 0.0): Integer; overload
+
+implementation
+
+uses
+  vcl.Forms;
+
+function MessageDlg(const Msg: string; DlgType: TMsgDlType;
+      Buttons: TMsgDlgButtons; HelpCtx: Extended = 0.0): Integer;
+begin
+  var lBt := $0000;
+
+  if Buttons = mbYesNoCancel then
+    lBt := MB_YESNOCANCEL
+  else
+  if Buttons = mbYesNo then
+    lBt := MB_YESNO
+  else
+  if Buttons = mbOKCancel then
+    lBt := MB_OKCANCEL
+  else
+    lBt := MB_OK;
+
+  Result :=  Application.MessageBox(PChar(Msg), 'Mensagem do sistema',  lBt);
+end;
+
+
+end.

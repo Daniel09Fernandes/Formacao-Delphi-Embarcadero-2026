@@ -1,0 +1,44 @@
+unit TMapping.RTTI;
+
+interface
+
+uses
+  System.Generics.Collections,
+  Data.DB,
+  Datasnap.DBClient,
+  System.RTTI,
+  System.Types;
+
+type
+  TParamWhere = record
+    FirstKey: string;
+    Operation: string;
+    Value: Variant;
+  end;
+
+  TWhere = TList<TParamWhere>;
+
+  TMappingRTTI<T: class, constructor> = class
+  public
+    function GetListObject(AWhere: TWhere = nil): TObjectList<T>;
+    function ObjectListToCds(AList: TObjectList<T>): TClientDataSet;
+  end;
+
+implementation
+
+{ TMappingRTTI<T> }
+
+uses
+  uDBMapping.Attributes, uDM.Connection;
+
+function TMappingRTTI<T>.GetListObject(AWhere: TWhere): TObjectList<T>;
+begin
+
+end;
+
+function TMappingRTTI<T>.ObjectListToCds(AList: TObjectList<T>): TClientDataSet;
+begin
+
+end;
+
+end.

@@ -1,0 +1,69 @@
+unit uZipHelper;
+
+interface
+
+uses
+  Classes, SysUtils, Zip;
+
+type
+  TMinhaString = string;
+
+  THelperString = record helper for TMinhaString
+    function GetMyName: string;
+  end;
+
+  TZipHelper = class helper for TZipFile
+    class procedure Zip(AArquivoSaida: string; TListaArquivo: TStrings);
+    class procedure UnZip(AArquivo: string);
+
+    function CountFiles: integer; //Precisa estar Instanciado
+  end;
+
+
+implementation
+
+{ THelperString }
+
+function THelperString.GetMyName: string;
+begin
+  Result := 'Daniel';
+end;
+
+{ TZipHelper }
+
+function TZipHelper.CountFiles: integer;
+begin
+  Result := Self.FileCount;
+end;
+
+class procedure TZipHelper.UnZip(AArquivo: string);
+begin
+  var zip := TZipFile.Create;
+  try
+    var saida := AArquivo + 'Files.zip';
+    if FileExists(saida) then
+    begin
+      zip.Open(saida, zmRead);
+      zip.ExtractAll(AArquivo)
+    end;
+  finally
+    zip.Free;
+  end;
+end;
+
+class procedure TZipHelper.Zip(AArquivoSaida: string; TListaArquivo: TStrings);
+begin
+  var zip := TZipFile.Create;
+  try
+    var saida := AArquivoSaida + 'Files.zip';
+    zip.Open(saida, zmWrite);
+
+    for var I := 0 to TListaArquivo.Count -1 do
+      zip.Add(TListaArquivo[i]);
+
+  finally
+    zip.Free;
+  end;
+end;
+
+end.
