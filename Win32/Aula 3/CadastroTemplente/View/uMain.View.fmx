@@ -6,6 +6,7 @@ object FrMain: TFrMain
   ClientHeight = 480
   ClientWidth = 659
   Position = MainFormCenter
+  WindowState = wsMaximized
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -33,6 +34,7 @@ object FrMain: TFrMain
           Locked = True
           Text = 'Clientes'
           ImageIndex = 8
+          OnClick = MSIClientesClick
         end
         object MSIItems: TMenuItem
           Locked = True

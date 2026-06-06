@@ -1,0 +1,29 @@
+unit uHelper.Grid;
+
+interface
+
+uses
+  FMX.Grid, Datasnap.DBClient;
+
+type
+  THelperGrid = class helper for TGrid
+    procedure AjustarDisplay(ACds: TClientDataSet);
+  end;
+
+
+implementation
+
+{ THelperGrid }
+
+procedure THelperGrid.AjustarDisplay(ACds: TClientDataSet);
+begin
+  for var I := 0 to High(Self.Columns) do
+  begin
+    var lLabel := Acds.FieldByName(Self.Columns[i].Header).DisplayLabel;
+
+    if lLabel <> '' then
+      Self.Columns[i].Header := lLabel;
+  end;
+end;
+
+end.

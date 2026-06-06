@@ -1,0 +1,23 @@
+unit uHelper.Grid;
+
+interface
+
+uses
+  FMX.Grid, Datasnap.DBClient;
+
+type
+  THelperGrid = class helper for TGrid
+    procedure AjustarDisplay(ACds: TClientDataSet);
+  end;
+
+
+implementation
+
+{ THelperGrid }
+
+procedure THelperGrid.AjustarDisplay(ACds: TClientDataSet);
+begin
+
+end;
+
+end.

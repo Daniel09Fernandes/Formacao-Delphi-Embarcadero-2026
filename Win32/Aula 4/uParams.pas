@@ -1,0 +1,203 @@
+unit uParams;
+
+interface
+
+uses
+  SysUtils,Classes;
+
+type
+  //Enumerado
+  TEnumStatus = (stAberto, stFechado, stOcupado = 5);
+  TMeuEnumApontado = TEnumStatus;
+
+  pMeuRec = ^TMeuRec;
+
+  TMeuObjeto = class
+  private
+    FID: Integer;
+    FStatus: TMeuEnumApontado;
+    Fname: string;
+    Rec: pMeuRec;
+  public
+    property Status: TEnumStatus read FStatus write FStatus;
+    property ID: Integer read FID write FID;
+    property name: string read Fname write FName;
+  end;
+
+  TMeuRec = record
+    ID: Integer;
+  end;
+
+  TParametros = class
+  class procedure ExecutarAlgo(num: Integer; b: Byte; c: Cardinal; bool: Boolean;
+      str: string; fl: Double; dt: TDateTime; sVariant: variant; ch: char; p: pointer;
+      MeuObj: TMeuObjeto);
+
+  class procedure ExecutarAlgoConst(const num: Integer; const b: Byte; const c: Cardinal;
+     const bool: Boolean; const str: string; const fl: Double; const dt: TDateTime;
+     const sVariant: variant; const ch: char; const p: pointer;
+     const MeuObj: TMeuObjeto);
+
+  class procedure ExecutarAlgoVar(Var num: Integer; Var b: Byte; Var c: Cardinal;
+     Var bool: Boolean; Var str: string; Var fl: Double; Var dt: TDateTime;
+     Var sVariant: variant; Var ch: char; Var p: pointer;
+     Var MeuObj: TMeuObjeto);
+
+  class procedure ExecutarAlgoOut(Out num: Integer; Out b: Byte; Out c: Cardinal;
+     Out bool: Boolean; Out str: string; Out fl: Double; Out dt: TDateTime;
+     Out sVariant: variant; Out ch: char; Out p: pointer;
+     Out MeuObj: TMeuObjeto);
+  end;
+
+
+implementation
+
+{ TParametros }
+
+class procedure TParametros.ExecutarAlgo(num: Integer; b: Byte; c: Cardinal;
+  bool: Boolean; str: string; fl: Double; dt: TDateTime; sVariant: variant;
+  ch: char; p: pointer; MeuObj: TMeuObjeto);
+begin
+  num := 321;
+  b := 1;
+  c := 2;
+  Bool := False;
+  str := 'Opa';
+  ch := 'D';
+  Fl := 13.2;
+  dt := Now;
+  sVariant := 0;
+  p := Pointer($FFFF);
+  MeuObj.ID := 12;
+
+  Writeln(' Valores Dentro do Metodo: ');
+  Writeln(Format('$%p  pNum: %d '     , [@num, num]));
+  Writeln(Format('$%p  pByte: %s '    , [@b, b.ToString]));
+  Writeln(Format('$%p  pCardinal: %u ', [@c, c]));
+  Writeln(Format('$%p  pBool: %s '    , [@bool, bool.ToString]));
+  Writeln(Format('$%p  pStr: %s '     , [@Str, Str]));
+  Writeln(Format('$%p  pCh: %s '      , [@Ch, Ch]));
+  Writeln(Format('$%p  pFloat: %n '   , [@fl, fl]));
+  Writeln(Format('$%p  pDt: %n '      , [@Dt, Dt]));
+  Writeln(Format('$%p  pVariant: %s ' , [@sVariant, sVariant]));
+  Writeln(Format('$%p  pPointer: %p ' , [@p, p]));
+  Writeln(Format('$%p  pObject: %d '  , [@MeuObj, MeuObj.ID]));
+  Writeln(Format('$%p  pObject.ID: %d '  , [@MeuObj.ID, MeuObj.ID]));
+  FreeAndNil(MeuObj);
+
+end;
+
+class procedure TParametros.ExecutarAlgoConst(const num: Integer; const b: Byte;
+  const c: Cardinal; const bool: Boolean; const str: string; const fl: Double;
+  const dt: TDateTime; const sVariant: variant; const ch: char;
+  const p: pointer; const MeuObj: TMeuObjeto);
+begin
+//  num := 321;
+//  b := 1;
+//  c := 2;
+//  Bool := False;
+//  str := 'Opa';
+//  ch := 'D';
+//  Fl := 13.2;
+//  dt := Now;
+//  sVariant := 0;
+//  p := Pointer($FFFF);
+  MeuObj.ID := 12;
+
+  Writeln(' Valores Dentro do Metodo: ');
+  Writeln(Format('$%p  pNum: %d '     , [@num, num]));
+  Writeln(Format('$%p  pByte: %s '    , [@b, b.ToString]));
+  Writeln(Format('$%p  pCardinal: %u ', [@c, c]));
+  Writeln(Format('$%p  pBool: %s '    , [@bool, bool.ToString]));
+  Writeln(Format('$%p  pStr: %s '     , [@Str, Str]));
+  Writeln(Format('$%p  pCh: %s '      , [@Ch, Ch]));
+  Writeln(Format('$%p  pFloat: %n '   , [@fl, fl]));
+  Writeln(Format('$%p  pDt: %n '      , [@Dt, Dt]));
+  Writeln(Format('$%p  pVariant: %s ' , [@sVariant, sVariant]));
+  Writeln(Format('$%p  pPointer: %p ' , [@p, p]));
+  Writeln(Format('$%p  pObject: %d '  , [@MeuObj, MeuObj.ID]));
+  Writeln(Format('$%p  pObject.ID: %d '  , [@MeuObj.ID, MeuObj.ID]));
+  FreeAndNil(MeuObj);
+end;
+
+class procedure TParametros.ExecutarAlgoOut(out num: Integer; out b: Byte;
+  out c: Cardinal; out bool: Boolean; out str: string; out fl: Double;
+  out dt: TDateTime; out sVariant: variant; out ch: char; out p: pointer;
+  out MeuObj: TMeuObjeto);
+begin
+  Writeln(' Valores Dentro do Metodo Antes de alterar: ');
+  Writeln(Format('$%p  pNum: %d '     , [@num, num]));
+  Writeln(Format('$%p  pByte: %s '    , [@b, b.ToString]));
+  Writeln(Format('$%p  pCardinal: %u ', [@c, c]));
+  Writeln(Format('$%p  pBool: %s '    , [@bool, bool.ToString]));
+  Writeln(Format('$%p  pStr: %s '     , [@Str, Str]));
+  Writeln(Format('$%p  pCh: %s '      , [@Ch, Ch]));
+  Writeln(Format('$%p  pFloat: %n '   , [@fl, fl]));
+  Writeln(Format('$%p  pDt: %n '      , [@Dt, Dt]));
+  Writeln(Format('$%p  pVariant: %s ' , [@sVariant, sVariant]));
+  Writeln(Format('$%p  pPointer: %p ' , [@p, p]));
+  Writeln(Format('$%p  pObject: %d '  , [@MeuObj, MeuObj.ID]));
+  Writeln(Format('$%p  pObject.ID: %d '  , [@MeuObj.ID, MeuObj.ID]));
+
+  num := 321;
+  b := 1;
+  c := 2;
+  Bool := False;
+  str := 'Opa';
+  ch := 'D';
+  Fl := 13.2;
+  dt := Now;
+  sVariant := 0;
+  p := Pointer($FFFF);
+  MeuObj.ID := 12;
+
+  Writeln(' Valores Dentro do Metodo: ');
+  Writeln(Format('$%p  pNum: %d '     , [@num, num]));
+  Writeln(Format('$%p  pByte: %s '    , [@b, b.ToString]));
+  Writeln(Format('$%p  pCardinal: %u ', [@c, c]));
+  Writeln(Format('$%p  pBool: %s '    , [@bool, bool.ToString]));
+  Writeln(Format('$%p  pStr: %s '     , [@Str, Str]));
+  Writeln(Format('$%p  pCh: %s '      , [@Ch, Ch]));
+  Writeln(Format('$%p  pFloat: %n '   , [@fl, fl]));
+  Writeln(Format('$%p  pDt: %n '      , [@Dt, Dt]));
+  Writeln(Format('$%p  pVariant: %s ' , [@sVariant, sVariant]));
+  Writeln(Format('$%p  pPointer: %p ' , [@p, p]));
+  Writeln(Format('$%p  pObject: %d '  , [@MeuObj, MeuObj.ID]));
+  Writeln(Format('$%p  pObject.ID: %d '  , [@MeuObj.ID, MeuObj.ID]));
+  //FreeAndNil(MeuObj);
+end;
+
+class procedure TParametros.ExecutarAlgoVar(var num: Integer; var b: Byte;
+  var c: Cardinal; var bool: Boolean; var str: string; var fl: Double;
+  var dt: TDateTime; var sVariant: variant; var ch: char; var p: pointer;
+  var MeuObj: TMeuObjeto);
+begin
+  num := 321;
+  b := 1;
+  c := 2;
+  Bool := False;
+  str := 'Opa';
+  ch := 'D';
+  Fl := 13.2;
+  dt := Now;
+  sVariant := 0;
+  p := Pointer($FFFF);
+  MeuObj.ID := 12;
+
+  Writeln(' Valores Dentro do Metodo: ');
+  Writeln(Format('$%p  pNum: %d '     , [@num, num]));
+  Writeln(Format('$%p  pByte: %s '    , [@b, b.ToString]));
+  Writeln(Format('$%p  pCardinal: %u ', [@c, c]));
+  Writeln(Format('$%p  pBool: %s '    , [@bool, bool.ToString]));
+  Writeln(Format('$%p  pStr: %s '     , [@Str, Str]));
+  Writeln(Format('$%p  pCh: %s '      , [@Ch, Ch]));
+  Writeln(Format('$%p  pFloat: %n '   , [@fl, fl]));
+  Writeln(Format('$%p  pDt: %n '      , [@Dt, Dt]));
+  Writeln(Format('$%p  pVariant: %s ' , [@sVariant, sVariant]));
+  Writeln(Format('$%p  pPointer: %p ' , [@p, p]));
+  Writeln(Format('$%p  pObject: %d '  , [@MeuObj, MeuObj.ID]));
+  Writeln(Format('$%p  pObject.ID: %d '  , [@MeuObj.ID, MeuObj.ID]));
+  //FreeAndNil(MeuObj);
+end;
+
+end.

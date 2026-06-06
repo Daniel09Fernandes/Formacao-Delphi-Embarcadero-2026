@@ -1,0 +1,42 @@
+unit uClientes.View;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  uBase.Cadastro.View, System.Rtti, FMX.Grid.Style, Data.Bind.EngExt,
+  Fmx.Bind.DBEngExt, Fmx.Bind.Grid, System.Bindings.Outputs, Fmx.Bind.Editors,
+  Data.Bind.Components, Data.Bind.Grid, Data.Bind.DBScope, Data.DB,
+  Datasnap.DBClient, System.ImageList, FMX.ImgList, FMX.Objects, FMX.ScrollBox,
+  FMX.Grid, FMX.Edit, FMX.Controls.Presentation, FMX.TabControl,
+  uConexao.Controller,
+  uCliente.Model,
+  uHelper.Grid;
+
+type
+  TFrCadClientes = class(TFrCadBase)
+    procedure FormShow(Sender: TObject);
+  private
+    FListaCliente: TListaClientes;
+  public
+    { Public declarations }
+  end;
+
+
+implementation
+
+{$R *.fmx}
+
+procedure TFrCadClientes.FormShow(Sender: TObject);
+begin
+  inherited;
+  FListaCliente := TConexaoController<TClientes>.GetListObject();
+  DsDados.DataSet := TConexaoController<TClientes>
+    .ObjectListToCds(FListaCliente);
+  //CdsDados.Open;
+
+  GrdDados.AjustarDisplay(TCliendDataSet(DsDados.DataSet));
+end;
+
+end.

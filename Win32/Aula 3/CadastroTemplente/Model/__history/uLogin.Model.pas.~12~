@@ -1,0 +1,28 @@
+unit uLogin.Model;
+
+interface
+{$M+}
+
+uses
+ uDBMapping.Attributes;
+
+type
+
+  [TMappingTable('tab_login')]
+  TLoginModel = class
+  private
+    FID: Integer;
+    FUsername: string;
+    FSenha: string;
+  public
+    [TMappingField('ID')]
+    property ID: Integer read FID write FID;
+    [TMappingField('username')]
+    property Username: string read FUsername write FUsername;
+    [TMappingField('senha')]
+    property Senha: string read FSenha write FSenha;
+  end;
+
+implementation
+
+end.

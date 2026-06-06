@@ -331,6 +331,18 @@
         </DCCReference>
         <DCCReference Include="Helpers\uHelper.Dialog.pas"/>
         <DCCReference Include="Controller\uLogin.Controller.pas"/>
+        <DCCReference Include="FormBase\uBase.Cadastro.View.pas">
+            <Form>FrCadBase</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Model\uCliente.Model.pas"/>
+        <DCCReference Include="View\uClientes.View.pas">
+            <Form>FrCadClientes</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Controller\uClientes.Controller.pas"/>
+        <DCCReference Include="Controller\uBase.Controller.pas"/>
+        <DCCReference Include="Helpers\uHelper.Grid.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -1332,11 +1344,9 @@
             <Platforms>
                 <Platform value="Android">True</Platform>
                 <Platform value="Android64">True</Platform>
-                <Platform value="iOSDevice32">False</Platform>
                 <Platform value="iOSDevice64">True</Platform>
                 <Platform value="iOSSimARM64">True</Platform>
                 <Platform value="Linux64">True</Platform>
-                <Platform value="OSX32">False</Platform>
                 <Platform value="OSX64">True</Platform>
                 <Platform value="OSXARM64">True</Platform>
                 <Platform value="Win32">True</Platform>

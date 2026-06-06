@@ -1,0 +1,28 @@
+unit uClientes.Controller;
+
+interface
+
+uses
+  FMX.Forms,
+  uClientes.view,
+  Classes,
+  FMX.Types,
+  uBase.Controller;
+
+type
+  TClientesController = class(TControllerBase)
+    class function AbrirTelaClientes(AOwer, AParent: TComponent): Boolean;
+  end;
+
+implementation
+
+{ TClientesController }
+
+class function TClientesController.AbrirTelaClientes(AOwer,
+  AParent: TComponent): Boolean;
+begin
+  var lView := TFrCadClientes.Create(AOwer) as TForm;
+  AbrirTela(AParent,  lView);
+end;
+
+end.

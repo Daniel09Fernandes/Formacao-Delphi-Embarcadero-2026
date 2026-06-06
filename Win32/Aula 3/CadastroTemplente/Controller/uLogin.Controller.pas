@@ -6,11 +6,13 @@ uses
   uLogin.View,
   Classes,
   FMX.Types,
+  FMX.Forms,
   SysUtils,
-  UITypes;
+  UITypes,
+  uBase.Controller;
 
 type
-  TLoginController = class
+  TLoginController = class(TControllerBase)
     class function AbrirTelaLogin(AOwer, AParent: TComponent): Boolean;
   end;
 
@@ -21,16 +23,8 @@ implementation
 class function TLoginController.AbrirTelaLogin(AOwer,
   AParent: TComponent): Boolean;
 begin
-  var lViewLogin := TFrLogin.Create(AOwer);
-  try
-    if Assigned(AParent) then
-      lViewLogin.Parent := TFmxObject(AParent);
-
-    var lModalResult := lViewLogin.ShowModal;
-    Result := lModalResult = mrOK;
-  finally
-    lViewLogin.Free;
-  end;
+  var lView := TFrLogin.Create(AOwer);
+  Result := AbrirTela(AParent, TForm(lView));
 end;
 
 end.

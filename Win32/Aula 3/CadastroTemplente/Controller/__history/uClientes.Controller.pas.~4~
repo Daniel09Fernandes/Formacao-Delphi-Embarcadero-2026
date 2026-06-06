@@ -1,0 +1,17 @@
+unit uClientes.Controller;
+
+interface
+
+uses
+  FMX.Forms,
+  uClientes.view,
+  uBase.Controller;
+
+type
+  TClientesController = class(TControllerBase)
+    class function AbrirTelaLogin(AOwer, AParent: TComponent): Boolean;
+  end;
+
+implementation
+
+end.

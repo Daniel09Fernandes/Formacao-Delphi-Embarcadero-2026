@@ -37,6 +37,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TmrOnAfterLoadTimer(Sender: TObject);
+    procedure MSIClientesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,7 +52,8 @@ implementation
 {$R *.fmx}
 
 uses
-  uLogin.Controller;
+  uLogin.Controller,
+  uClientes.Controller;
 
 procedure AbrirTelaLogin;
 begin
@@ -61,6 +63,7 @@ end;
 procedure TFrMain.FormCreate(Sender: TObject);
 begin
   RContext.Fill.Color := DEFAULT_COLLOR;
+  RWindowsBar.fILL.Color := WIN_BAR_COLOR;
 end;
 
 procedure TFrMain.FormShow(Sender: TObject);
@@ -89,6 +92,11 @@ end;
 procedure TFrMain.ImgMinClick(Sender: TObject);
 begin
   WindowState := TWindowState.wsMinimized;
+end;
+
+procedure TFrMain.MSIClientesClick(Sender: TObject);
+begin
+  TClientesController.AbrirTelaClientes(RContext, RContext);
 end;
 
 procedure TFrMain.TmrOnAfterLoadTimer(Sender: TObject);

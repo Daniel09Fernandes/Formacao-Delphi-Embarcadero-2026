@@ -1,0 +1,151 @@
+program Parametros;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  System.SysUtils,
+  uParams in 'uParams.pas';
+
+function GerarRec: TMeuRec;
+begin
+  Result.Id := 999;
+end;
+  
+begin
+  try
+    var obj := TMeuObjeto.Create;
+    try
+      if obj.ID > 1000 then
+        Writeln('Maior que 1000');
+
+      if not obj.name.Trim.IsEmpty then
+        Writeln('Nao esta vazio '+obj.name);
+
+
+    finally
+      //obj.Free;
+    end;
+
+    var mr: TMeuRec;
+
+    if mr.ID > 1000 then
+      Writeln('maior que mil');
+      
+    var
+      num: Integer;
+    var 
+      b: Byte;
+    var 
+      c: Cardinal; 
+    var
+      bool: Boolean;
+    var
+      str: string;  
+    var
+      fl: Double;
+    var
+      dt: TDateTime;  
+    var    
+      sVariant: Variant;
+    var 
+      ch: char;   
+    var
+      p: pointer;
+    var
+      MeuObj: TMeuObjeto;
+        
+    sVariant := '     '; 
+    sVariant := 0;
+    sVariant := 10.0;
+    sVariant := True;
+    sVariant := Now;   
+
+    str := 'ABC';
+
+    for var I := 1 to Length(str) do
+    begin            
+      ch := str[i];
+    end;
+
+//    MeuObj := obj;
+
+    var lRec: TMeuRec;
+
+    var pRec: pMeuRec;  //Ponteiro Explicito
+    var PointerRec := @GerarRec; //Ponteiro Implicito 
+
+    lRec.ID := 1;
+    TMeuRec(PointerRec).ID := 2;
+    TMeuRec(pRec).ID := 3;
+    
+    var objRec := TMeuRec(PointerRec);    
+
+    Writeln('pRec: '+ Format('$%p', [pRec]));
+
+    New(pRec);
+    Writeln('pRec: '+ Format('$%p', [pRec]));
+    Dispose(pRec);
+
+    ///Parametros
+
+   num := 123;
+   b := 0;
+   c := 1;
+   Bool := True;
+   str := 'Ola Mundo';
+   ch := 'C';
+   Fl := 12.2;
+   dt := Now;
+   sVariant := 0;
+   p := @GerarRec;
+   MeuObj := obj;
+
+
+   Writeln('');
+   Writeln('');
+   Writeln(' Valores Antes do Metodo: ');
+   Writeln(Format('$%p  pNum: %d '     , [@num, num]));
+   Writeln(Format('$%p  pByte: %s '    , [@b, b.ToString]));
+   Writeln(Format('$%p  pCardinal: %u ', [@c, c]));
+   Writeln(Format('$%p  pBool: %s '    , [@bool, bool.ToString]));
+   Writeln(Format('$%p  pStr: %s '     , [@Str, Str]));
+   Writeln(Format('$%p  pCh: %s '      , [@Ch, Ch]));
+   Writeln(Format('$%p  pFloat: %n '   , [@fl, fl]));
+   Writeln(Format('$%p  pDt: %n '      , [@Dt, Dt]));
+   Writeln(Format('$%p  pVariant: %s ' , [@sVariant, sVariant]));
+   Writeln(Format('$%p  pPointer: %p ' , [@p, p]));
+   Writeln(Format('$%p  pObject: %d '  , [@MeuObj, MeuObj.ID]));
+   Writeln(Format('$%p  pObject.ID: %d '  , [@MeuObj.ID, MeuObj.ID]));
+   Writeln('');
+   Writeln('');
+
+   TParametros.ExecutarAlgoOut(num, b, c, bool, Str, Fl, Dt, SVariant, Ch,
+      p , MeuObj);
+      
+   Writeln('');
+   Writeln('');
+   Writeln(' Valores Fora do Metodo(Depois que executou): ');
+   Writeln(Format('$%p  pNum: %d '     , [@num, num]));
+   Writeln(Format('$%p  pByte: %s '    , [@b, b.ToString]));
+   Writeln(Format('$%p  pCardinal: %u ', [@c, c]));
+   Writeln(Format('$%p  pBool: %s '    , [@bool, bool.ToString]));
+   Writeln(Format('$%p  pStr: %s '     , [@Str, Str]));
+   Writeln(Format('$%p  pCh: %s '      , [@Ch, Ch]));
+   Writeln(Format('$%p  pFloat: %n '   , [@fl, fl]));
+   Writeln(Format('$%p  pDt: %n '      , [@Dt, Dt]));
+   Writeln(Format('$%p  pVariant: %s ' , [@sVariant, sVariant]));
+   Writeln(Format('$%p  pPointer: %p ' , [@p, p]));
+   Writeln(Format('$%p  pObject: %d '  , [@MeuObj, MeuObj.ID]));
+   Writeln(Format('$%p  pObject.ID: %d '  , [@MeuObj.ID, MeuObj.ID]));
+   Writeln('');
+   Writeln('');
+
+    
+   ReadLn;
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+end.

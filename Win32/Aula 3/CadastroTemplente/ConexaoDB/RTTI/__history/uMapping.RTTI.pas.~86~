@@ -1,0 +1,259 @@
+unit uMapping.RTTI;
+
+interface
+
+uses
+  System.Generics.Collections,
+  SysUtils, StrUtils, Classes,
+  Data.DB,
+  Datasnap.DBClient,
+  System.RTTI,
+  System.Types;
+
+type
+  TParamWhere = record
+    Field: string;
+    Operation: string;
+    Value: Variant;
+  end;
+
+  TWhere = TList<TParamWhere>;
+
+  TMappingRTTI<T: class, constructor> = class
+  public
+    function GetListObject(AWhere: TWhere = nil): TObjectList<T>;
+    function ObjectListToCds(AList: TObjectList<T>): TClientDataSet;
+  end;
+
+implementation
+
+{ TMappingRTTI<T> }
+
+uses
+  uDBMapping.Attributes, uDM.Connection, VarUtils, Variants;
+
+
+function TMappingRTTI<T>.GetListObject(AWhere: TWhere): TObjectList<T>;
+var
+  //RTTI
+  lCtx: TRttiContext;
+  lRttiClass: TRttiType;
+  lRttiProperty: TRttiProperty;
+
+  //Var Geral
+  lField: string;
+  lTable: string;
+  lItem: T;
+  lValue: TValue;
+begin
+   lRttiClass := lCtx.GetType(TypeInfo(T)); // Pega as informações da classe informada em T
+                                           // EX: TMappingRTTI<TLoginModel>
+                                           //     T sera = a TLoginModel
+   lField := ' 0';
+
+   //Pega os atributos da classe
+   for var lAtrtibute in lRttiClass.GetAttributes do
+   begin
+     if lAtrtibute is TMappingTable then
+       lTable := TMappingTable(lAtrtibute).TableName;
+   end;
+
+   for lRttiProperty in lRttiClass.GetProperties do
+   begin
+      if Assigned(lRttiProperty) then
+      begin
+        for var lAttributesProp in lRttiProperty.GetAttributes do
+        begin
+           if lAttributesProp is TMappingField then
+             lField := lField + ', '+
+                TMappingField(lAttributesProp).FieldName;           
+        end;
+      end;
+   end;
+
+   Result := TObjectList<T>.Create;
+
+   DMConnection.QryRTTI.Close;
+   DMConnection.QryRTTI.SQL.Clear;
+   DMConnection.QryRTTI.SQL.Add('select  '+ lField + ' from '+ lTable +' ');
+
+   if Assigned(AWhere) then
+   begin
+     DMConnection.QryRTTI.SQL.Add(' where ');
+
+     for var lPair in AWhere do
+        DMConnection.QryRTTI.SQL.Add(
+          lPair.Field + ' ' +lPair.Operation + (lPair.Value) +' and' ); 
+
+     DMConnection.QryRTTI.SQL.Add('1 = 1');
+   end;  
+
+   DMConnection.QryRTTI.Open();
+   try 
+     var lQry := DMConnection.QryRTTI;     
+     DMConnection.QryRTTI.First;
+
+     while not lQry.Eof do
+     begin
+       lItem := T.Create;
+
+       for lRttiProperty in lRttiClass.GetProperties do
+       begin
+         if Assigned(lRttiProperty) then
+         begin
+           for var lAttributesProp in lRttiProperty.GetAttributes do
+           begin
+              if lAttributesProp is TMappingField then
+              begin
+                 case lRttiProperty.PropertyType.TypeKind of
+                   tkInteger, tkInt64:
+                     begin  
+                       lValue := TValue.From<Integer>(
+                          lQry.FieldByName(
+                              TMappingField(lAttributesProp).FieldName
+                            ).AsInteger
+                         );
+                     end;
+                   tkFloat:
+                     begin  
+                        if lRttiProperty.PropertyType.Handle = TypeInfo(TDateTime) then
+                        begin
+                           lValue := TValue.From<TDateTime>(
+                                lQry.FieldByName(
+                                   TMappingField(lAttributesProp).FieldName
+                               ).AsDateTime
+                           );
+                        end
+                        else
+                          lValue := TValue.From<Double>(
+                                lQry.FieldByName(
+                                   TMappingField(lAttributesProp).FieldName
+                               ).AsFloat
+                           );                        
+                     end;
+                     tkString, tkWChar, tkLString, tkWString, tkUString:
+                       begin
+                         lValue := TValue.From<string>(
+                                lQry.FieldByName(
+                                   TMappingField(lAttributesProp).FieldName
+                               ).AsString
+                             );    
+                       end
+                       else
+                         lValue := TValue.From<variant>(
+                                lQry.FieldByName(
+                                   TMappingField(lAttributesProp).FieldName
+                               ).Value
+                             );    
+                 end;
+
+                 lRttiProperty.SetValue(TObject(lItem), lValue); 
+              end;
+           end;
+         end;                
+       end;   
+       Result.Add(lItem);            
+       lQry.Next;
+     end;   
+   finally
+     DMConnection.QryRTTI.Close;
+   end;
+end;
+
+function TMappingRTTI<T>.ObjectListToCds(AList: TObjectList<T>): TClientDataSet;
+//RTTI
+var
+  lCtx: TRttiContext;
+  lRttiClass: TRttiType;
+  lRttiProperty: TRttiProperty;
+  lRttiAtrrib: TArray<TCustomAttribute>;
+
+  lFieldsName: array of string;
+  lDisplays: TDictionary<Integer, string>;
+  IdxFields: Integer;
+  FirstObj: T;
+begin
+  Result := TClientDataSet.Create(nil);
+  IdxFields := 0;
+
+  if AList.Count = 0 then
+  begin
+   Result.Free;
+   exit;
+  end;
+
+  FirstObj := AList[0];
+
+  lRttiClass := lCtx.GetType(FirstObj.ClassInfo);
+
+  lDisplays := TDictionary<Integer, string>.Create;
+  try
+    var LengArray := 1;
+    //Cria as colunas do CDS
+    for lRttiProperty in lRttiClass.GetProperties do
+    begin
+      lRttiAtrrib :=  lRttiProperty.GetAttributes;
+
+      for var lAtrib in lRttiAtrrib  do
+      begin
+        var lFieldLength := 20;
+        if (lAtrib is TMappingField) then
+        begin
+          SetLength(lFieldsName, LengArray);
+          inc(LengArray);
+
+          lFieldsName[IdxFields] := TMappingField(lAtrib).FieldName;
+          lFieldLength := TMappingField(lAtrib).FieldLength;
+
+          Result.FieldDefs.Add(lFieldsName[IdxFields], ftString, lFieldLength);
+          Inc(IdxFields);
+        end;
+
+        if (lAtrib is TMappingDisplayGrid) then
+          lDisplays.Add(IdxFields, TMappingDisplayGrid(lAtrib).FieldDisplay);
+      end;
+    end;
+
+    Result.CreateDataSet;
+    var lDisplay := '';
+    var Idx := 0;
+
+    for var lPair in lDisplays do
+    begin
+      lDisplay := lPair.Value;
+      Idx := lPair.Key;
+
+      Result.Fields[lPair.Key].DisplayLabel := 'Cod'; //lDisplay;
+    end;
+  finally
+    lDisplays.Free;
+  end;
+
+
+  for var lModel in AList do
+  begin
+     lRttiClass := lCtx.GetType(lModel.ClassInfo);
+     Result.Append;
+     IdxFields := 0;
+
+     for lRttiProperty in lRttiClass.GetProperties do
+     begin
+       lRttiAtrrib :=  lRttiProperty.GetAttributes;
+       for var lAtrib in lRttiAtrrib  do
+       begin
+         if lAtrib is TMappingField then
+         begin
+           Result.Fields[IdxFields].AsString :=
+             lRttiProperty.GetValue(TObject(lModel)).ToString;
+
+           inc(IdxFields);
+         end;
+       end;
+     end;
+     Result.Post;
+  end;
+
+  SetLength(lFieldsName, 0);
+end;
+
+end.

@@ -30,7 +30,12 @@ end;
 class function TConexaoController<T>.ObjectListToCds(
   AList: TObjectList<T>): TClientDataSet;
 begin
-
+   var lRttiMap := TMappingRTTI<T>.Create;
+  try
+    Result := lRttiMap.ObjectListToCds(AList);
+  finally
+    lRttiMap.Free;
+  end;
 end;
 
 end.

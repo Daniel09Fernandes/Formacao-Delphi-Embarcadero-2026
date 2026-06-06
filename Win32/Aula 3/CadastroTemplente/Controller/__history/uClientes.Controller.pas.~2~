@@ -1,0 +1,15 @@
+unit uClientes.Controller;
+
+interface
+
+uses
+  uClientes.view;
+
+type
+  TClientesController = class
+    class function AbrirTelaLogin(AOwer, AParent: TComponent): Boolean;
+  end;
+
+implementation
+
+end.

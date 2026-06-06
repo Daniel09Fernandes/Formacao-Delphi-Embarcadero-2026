@@ -161,8 +161,99 @@ begin
 end;
 
 function TMappingRTTI<T>.ObjectListToCds(AList: TObjectList<T>): TClientDataSet;
-begin
+//RTTI
+var
+  lCtx: TRttiContext;
+  lRttiClass: TRttiType;
+  lRttiProperty: TRttiProperty;
+  lRttiAtrrib: TArray<TCustomAttribute>;
 
+  lFieldsName: array of string;
+  lDisplays: TDictionary<Integer, string>;
+  IdxFields: Integer;
+  FirstObj: T;
+begin
+  Result := TClientDataSet.Create(nil);
+  IdxFields := 0;
+
+  if AList.Count = 0 then
+  begin
+   Result.Free;
+   exit;
+  end;
+
+  FirstObj := AList[0];
+
+  lRttiClass := lCtx.GetType(FirstObj.ClassInfo);
+
+  lDisplays := TDictionary<Integer, string>.Create;
+  try
+    var LengArray := 1;
+    //Cria as colunas do CDS
+    for lRttiProperty in lRttiClass.GetProperties do
+    begin
+      lRttiAtrrib :=  lRttiProperty.GetAttributes;
+
+      for var lAtrib in lRttiAtrrib  do
+      begin
+        var lFieldLength := 20;
+        if (lAtrib is TMappingField) then
+        begin
+          SetLength(lFieldsName, LengArray);
+          inc(LengArray);
+
+          lFieldsName[IdxFields] := TMappingField(lAtrib).FieldName;
+          lFieldLength := TMappingField(lAtrib).FieldLength;
+
+          Result.FieldDefs.Add(lFieldsName[IdxFields], ftString, lFieldLength);
+          Inc(IdxFields);
+        end;
+
+        if (lAtrib is TMappingDisplayGrid) then
+          lDisplays.Add(IdxFields, TMappingDisplayGrid(lAtrib).FieldDisplay);
+      end;
+    end;
+
+    Result.CreateDataSet;
+    var lDisplay := '';
+    var Idx := 0;
+
+    for var lPair in lDisplays do
+    begin
+      lDisplay := lPair.Value;
+      Idx := lPair.Key;
+
+      Result.Fields[Idx].DisplayLabel := lDisplay; //lDisplay;
+    end;
+  finally
+    lDisplays.Free;
+  end;
+
+
+  for var lModel in AList do
+  begin
+     lRttiClass := lCtx.GetType(lModel.ClassInfo);
+     Result.Append;
+     IdxFields := 0;
+
+     for lRttiProperty in lRttiClass.GetProperties do
+     begin
+       lRttiAtrrib :=  lRttiProperty.GetAttributes;
+       for var lAtrib in lRttiAtrrib  do
+       begin
+         if lAtrib is TMappingField then
+         begin
+           Result.Fields[IdxFields].AsString :=
+             lRttiProperty.GetValue(TObject(lModel)).ToString;
+
+           inc(IdxFields);
+         end;
+       end;
+     end;
+     Result.Post;
+  end;
+
+  SetLength(lFieldsName, 0);
 end;
 
 end.

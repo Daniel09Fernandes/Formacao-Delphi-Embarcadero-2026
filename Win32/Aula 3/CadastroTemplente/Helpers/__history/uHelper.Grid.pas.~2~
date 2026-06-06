@@ -1,0 +1,15 @@
+unit uHelper.Grid;
+
+interface
+
+uses
+  FMX.Grid, Datasnap.DBClient;
+
+type
+  THelperGrid = class helper for TGrid
+  end;
+
+
+implementation
+
+end.

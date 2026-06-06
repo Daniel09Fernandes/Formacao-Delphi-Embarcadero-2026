@@ -1,0 +1,35 @@
+unit uBase.Controller;
+
+interface
+
+uses
+  Classes,
+  FMX.Types,
+  FMX.Forms,
+  SysUtils,
+  UITypes;
+
+type
+  TControllerBase<T: Class, Constructor> = class
+     class function AbrirTela(AOwer, AParent: TComponent): Boolean;
+  end;
+
+implementation
+
+{ TControllerBase }
+
+class function TControllerBase<T>.AbrirTela(AOwer, AParent: TComponent): Boolean;
+begin
+  var lForm := T.Create;
+  try
+    if Assigned(AParent) then
+      TForm(lForm).Parent := TFmxObject(AParent);
+
+    var lModalResult := TForm(lForm).ShowModal;
+    Result := lModalResult = mrOK;
+  finally
+    lForm.Free;
+  end;
+end;
+
+end.
