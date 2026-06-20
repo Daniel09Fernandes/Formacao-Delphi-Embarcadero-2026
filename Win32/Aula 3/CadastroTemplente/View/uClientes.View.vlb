@@ -1,6 +1,6 @@
 ﻿[DsDados]
 Visible=True
-Coordinates=422,347,58,51
+Coordinates=558,367,58,33
 
 [RDados]
 Coordinates=373,299,53,33
@@ -97,6 +97,12 @@ Coordinates=0,0,47,51
 Coordinates=200,248,50,51
 
 []
-Coordinates=231,11,65,33
+Coordinates=354,337,46,51
 Visible=True
+
+[BindSourceDB1]
+Coordinates=490,357,92,69
+
+[BindingsList1]
+Coordinates=145,1,82,33
 

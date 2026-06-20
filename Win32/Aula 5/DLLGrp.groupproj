@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{DE41F069-076B-4536-B142-756A0F68C7EF}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="CalculoDLL.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ClienteDLL\ClienteDLL.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="CalculoDLL">
+        <MSBuild Projects="CalculoDLL.dproj"/>
+    </Target>
+    <Target Name="CalculoDLL:Clean">
+        <MSBuild Projects="CalculoDLL.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CalculoDLL:Make">
+        <MSBuild Projects="CalculoDLL.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ClienteDLL">
+        <MSBuild Projects="ClienteDLL\ClienteDLL.dproj"/>
+    </Target>
+    <Target Name="ClienteDLL:Clean">
+        <MSBuild Projects="ClienteDLL\ClienteDLL.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ClienteDLL:Make">
+        <MSBuild Projects="ClienteDLL\ClienteDLL.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="CalculoDLL;ClienteDLL"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="CalculoDLL:Clean;ClienteDLL:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="CalculoDLL:Make;ClienteDLL:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

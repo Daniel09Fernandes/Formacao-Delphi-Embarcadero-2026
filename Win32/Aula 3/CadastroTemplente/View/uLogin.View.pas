@@ -7,7 +7,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   System.Skia, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.Skia,
-  System.ImageList, FMX.ImgList, uHelper.Dialog;
+  System.ImageList, FMX.ImgList, uHelper.Form;
 
 type
   TFrLogin = class(TForm)
@@ -87,9 +87,9 @@ begin
      ModalResult := mrOK;
   {$endif}
 
-   {$ifdef App_Console}
-    Self.ShowMessage('E Console');
-   {$endif}
+//   {$ifdef App_Console}
+//    Self.ShowMessage('E Console');
+//   {$endif}
 end;
 
 procedure TFrLogin.FormCreate(Sender: TObject);

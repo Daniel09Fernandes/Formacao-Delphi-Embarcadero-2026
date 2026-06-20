@@ -1,0 +1,317 @@
+unit uThread.Main;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Samples.Gauges, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.NumberBox,
+  SyncObjs,
+  Threading;
+
+type
+  TOperacao = reference to function(A, B: Double): Double;
+
+  TForm1 = class(TForm)
+    Panel1: TPanel;
+    Memo1: TMemo;
+    Gauge1: TGauge;
+    Gauge2: TGauge;
+    Gauge3: TGauge;
+    Gauge4: TGauge;
+    Button1: TButton;
+    Button2: TButton;
+    NumberBox1: TNumberBox;
+    NumberBox2: TNumberBox;
+
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+  private
+    FProc: TProc;
+    FCriticalSection: TCriticalSection;
+    FSl: TStringList;
+
+    procedure ExecutarAlgoComoParametro(AProc: TProc);
+
+    procedure Cliente;
+    procedure Estoque;
+    procedure BaixarNF;
+
+    procedure CriticalSection;
+    procedure Paralelismo;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+
+function GetProc(AGauge: TGauge): TProc;
+  begin
+    Result :=
+      procedure
+      begin
+        for var i := 0 to 100 do
+        begin
+          TThread.NameThreadForDebugging('Gauge'+ i.ToString);
+
+          TThread.Synchronize(nil,
+          procedure
+          begin
+             AGauge.MaxValue := 100;
+             AGauge.Progress := i;
+          end);
+        end;
+      end
+  end;
+
+procedure TForm1.BaixarNF;
+begin
+  FCriticalSection.Acquire;
+  Memo1.Lines.Add('Teste 3');
+  FCriticalSection.Leave;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+  function ExecutarOperacao(X, Y: Double; AFunc: TOperacao): Double;
+  begin
+     Result := AFunc(X, Y);
+  end;
+begin
+  var lNum1:Double := NumberBox1.Value;
+  var lNum2:Double := NumberBox2.Value;
+  Memo1.Clear;
+
+  Var Retorno: Double;
+
+  Retorno := ExecutarOperacao(lNum1, lNum2,
+                                        function (X, Y: double): double
+                                        begin
+                                          Result := X+ Y;
+                                        end);
+
+  Memo1.Lines.Add('A Soma: '+ Retorno.ToString);
+
+    Retorno := ExecutarOperacao(lNum1, lNum2,
+                                        function (X, Y: double): double
+                                        begin
+                                          Result := X - Y;
+                                        end);
+
+  Memo1.Lines.Add('A Subitracao: '+ Retorno.ToString);
+
+
+  Retorno := ExecutarOperacao(lNum1, lNum2,
+                                        function (X, Y: double): double
+                                        begin
+                                          Result := X / Y;
+                                        end);
+
+  Memo1.Lines.Add('A Divisao: '+ Retorno.ToString);
+
+
+  Retorno := ExecutarOperacao(lNum1, lNum2,
+                                        function (X, Y: double): double
+                                        begin
+                                          Result := X * Y;
+                                        end);
+
+  Memo1.Lines.Add('A Multiplicacao: '+ Retorno.ToString);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+const
+  VAL_MAX = 100;
+
+  function GetProc(AGauge: TGauge; AProc: TProc): TProc;
+  begin
+    AGauge.MaxValue := VAL_MAX;
+    Result :=
+      procedure
+      begin
+        for var i := 0 to VAL_MAX do
+        begin
+          TThread.NameThreadForDebugging('Gauge'+ i.ToString);
+          ExecutarAlgoComoParametro(AProc);
+
+          TThread.Synchronize(nil,
+          procedure
+          begin
+             AGauge.Progress := i;
+          end);
+        end;
+      end
+  end;
+begin
+  Paralelismo;
+  exit;
+
+  var proc :=
+    procedure
+    begin
+      sleep(5);
+    end;
+//
+//  Gauge1.MaxValue := VAL_MAX;
+//  Gauge2.MaxValue := VAL_MAX;
+//  Gauge3.MaxValue := VAL_MAX;
+//  Gauge4.MaxValue := VAL_MAX;
+
+  TThread.CreateAnonymousThread(GetProc(Gauge1, proc)).Start;
+  TThread.CreateAnonymousThread(GetProc(Gauge2, proc)).Start;
+  TThread.CreateAnonymousThread(GetProc(Gauge3, proc)).Start;
+  TThread.CreateAnonymousThread(GetProc(Gauge4, proc)).Start;
+//  TThread.CreateAnonymousThread(
+//    procedure
+//    begin
+//      for var i := 0 to VAL_MAX do
+//      begin
+//        TThread.Synchronize(nil,
+//         procedure
+//         begin
+//            Gauge1.Progress := i;
+//            ExecutarAlgoComoParametro(proc);
+//         end
+//        );
+//      end;
+//    end
+//  ).Start;
+//
+//  TThread.CreateAnonymousThread(
+//    procedure
+//    begin
+//      for var i := 0 to VAL_MAX do
+//      begin
+//        TThread.Synchronize(nil,
+//         procedure
+//         begin
+//            Gauge2.Progress := i;
+//            ExecutarAlgoComoParametro(proc);
+//         end
+//        );
+//      end;
+//    end
+//  ).Start;
+//
+//  TThread.CreateAnonymousThread(
+//    procedure
+//    begin
+//      for var i := 0 to VAL_MAX do
+//      begin
+//       TThread.Synchronize(nil,
+//         procedure
+//         begin
+//            Gauge3.Progress := i;
+//            ExecutarAlgoComoParametro(proc);
+//         end
+//        );
+//      end;
+//    end
+//  ).Start;
+//
+//  TThread.CreateAnonymousThread(
+//    procedure
+//    begin
+//      for var i := 0 to VAL_MAX do
+//      begin
+//        TThread.Synchronize(nil,
+//         procedure
+//         begin
+//            Gauge4.Progress := i;
+//            ExecutarAlgoComoParametro(proc);
+//         end
+//        );
+//      end;
+//    end
+//  ).Start;
+end;
+
+procedure TForm1.Cliente;
+begin
+  FCriticalSection.Acquire;
+  Memo1.Lines.Add('Teste 1');
+  FCriticalSection.Leave;
+end;
+
+procedure TForm1.CriticalSection;
+begin
+  TThread.CreateAnonymousThread(
+    procedure
+    begin
+      FCriticalSection.Acquire;
+        FSl.Add('Teste');
+      FCriticalSection.Leave;
+    end).Start;
+
+  TThread.CreateAnonymousThread(
+    procedure
+    begin
+//       TThread.Queue(nil,
+//       procedure
+//       begin
+//         FSl.Add('Teste');
+//       end);
+
+      FCriticalSection.Acquire;
+        FSl.Add('Teste');
+      FCriticalSection.Leave;
+    end).Start;
+end;
+
+procedure TForm1.Estoque;
+begin
+  FCriticalSection.Acquire;
+  Memo1.Lines.Add('Teste 2');
+  FCriticalSection.Leave;
+end;
+
+procedure TForm1.ExecutarAlgoComoParametro(AProc: TProc);
+begin
+  AProc;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  FCriticalSection := TCriticalSection.Create;
+  FSl := TStringList.Create;
+  FProc :=
+     procedure
+     begin
+       ShowMessage('Teste Proc');
+     end;
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  FreeAndnil(FCriticalSection);
+  FSl.Free;
+end;
+
+procedure TForm1.Paralelismo;
+var
+  Tasks: array [0..2] of ITask;
+begin
+
+  Tasks[0] := TTask.Create(Cliente);
+  Tasks[0].Start;
+
+  Tasks[1] := TTask.Create(Estoque);
+  Tasks[1].Start;
+
+  Tasks[2] := TTask.Create(BaixarNF);
+  Tasks[2].Start;
+
+//  TTask.WaitForAll(Tasks);
+
+  Memo1.Lines.Add('Finalizei');
+
+end;
+
+end.

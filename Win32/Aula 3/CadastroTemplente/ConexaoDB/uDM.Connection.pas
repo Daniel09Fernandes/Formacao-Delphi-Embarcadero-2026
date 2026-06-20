@@ -14,6 +14,8 @@ type
   TDMConnection = class(TDataModule)
     FDCon: TFDConnection;
     QryRTTI: TFDQuery;
+    QryPersistencia: TFDQuery;
+    FDTransaction1: TFDTransaction;
   private
     { Private declarations }
   public

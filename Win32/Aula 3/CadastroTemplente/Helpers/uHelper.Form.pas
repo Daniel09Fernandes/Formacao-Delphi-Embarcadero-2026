@@ -1,0 +1,41 @@
+unit uHelper.Form;
+
+interface
+
+uses
+  uDialog, FMX.Forms,
+  Data.Bind.Components,
+  FMX.StdCtrls,
+  Classes, SysUtils,
+  Data.Bind.DBScope;
+
+type
+  TDlgType = TDialogType;
+
+  TFormHelper = class helper for TForm
+    function ShowMessage(AMsg: string;  ADlgType: TDialogType = dInfo): Boolean;
+
+    procedure CleanAllBinds;
+  end;
+
+implementation
+
+{ TFormHelper }
+
+procedure TFormHelper.CleanAllBinds;
+begin
+  for var I := pred(Self.ComponentCount) downto 0 do
+  begin
+    if (Self.Components[i] is TBindSourceDB) or
+       (Self.Components[i] is TBindingsList) or
+       (Self.Components[i] is TLinkControlToField) then
+     FreeAndNil(Self.Components[i]);
+  end;
+end;
+
+function TFormHelper.ShowMessage(AMsg: string; ADlgType: TDialogType): Boolean;
+begin
+  Result := TFrDialog.ShowMessage(AMsg, ADlgType);
+end;
+
+end.

@@ -1,6 +1,6 @@
 object DMConnection: TDMConnection
-  Height = 169
-  Width = 234
+  Height = 275
+  Width = 252
   object FDCon: TFDConnection
     Params.Strings = (
       
@@ -16,5 +16,16 @@ object DMConnection: TDMConnection
     Connection = FDCon
     Left = 128
     Top = 48
+  end
+  object QryPersistencia: TFDQuery
+    Connection = FDCon
+    Transaction = FDTransaction1
+    Left = 64
+    Top = 112
+  end
+  object FDTransaction1: TFDTransaction
+    Connection = FDCon
+    Left = 64
+    Top = 176
   end
 end

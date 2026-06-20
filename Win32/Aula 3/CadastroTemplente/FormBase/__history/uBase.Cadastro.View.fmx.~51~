@@ -1,0 +1,825 @@
+object FrCadBase: TFrCadBase
+  Left = 0
+  Top = 0
+  BorderStyle = None
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 640
+  Position = MainFormCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object RContext: TRectangle
+    Align = Client
+    Fill.Color = xFF1A1A1A
+    Size.Width = 640.000000000000000000
+    Size.Height = 454.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object TabControl1: TTabControl
+      Align = Client
+      Images = ImageList1
+      Margins.Left = 2.000000000000000000
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 2.000000000000000000
+      Margins.Bottom = 2.000000000000000000
+      Size.Width = 636.000000000000000000
+      Size.Height = 442.000000000000000000
+      Size.PlatformDefault = False
+      TabIndex = 1
+      TabOrder = 0
+      TabPosition = PlatformDefault
+      Sizes = (
+        636s
+        416s
+        636s
+        416s)
+      object TabConsulta: TTabItem
+        CustomIcon = <
+          item
+          end>
+        IsSelected = False
+        ImageIndex = 11
+        Size.Width = 83.000000000000000000
+        Size.Height = 26.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = ''
+        TabOrder = 0
+        Text = 'Consulta'
+        ExplicitSize.cx = 83.000000000000000000
+        ExplicitSize.cy = 26.000000000000000000
+        object RConsulta: TRectangle
+          Align = Client
+          Fill.Color = xFF494747
+          Size.Width = 636.000000000000000000
+          Size.Height = 416.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = x64393939
+          object RConsultar: TRectangle
+            Align = Top
+            Fill.Color = xFF7D7D7D
+            Margins.Left = 8.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 8.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Position.X = 8.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 620.000000000000000000
+            Size.Height = 79.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Color = x64BABABA
+            object Label1: TLabel
+              StyledSettings = [Family, Size, Style]
+              Position.X = 8.000000000000000000
+              Position.Y = 8.000000000000000000
+              TextSettings.FontColor = xFFE6E6E6
+              Text = 'Consulta de registros'
+              TabOrder = 0
+            end
+            object EdtPesquisa: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 1
+              Position.X = 16.000000000000000000
+              Position.Y = 33.000000000000000000
+              Size.Width = 441.000000000000000000
+              Size.Height = 24.000000000000000000
+              Size.PlatformDefault = False
+              OnKeyDown = EdtPesquisaKeyDown
+            end
+            object BtnPesquisa: TButton
+              Tag = 1
+              Images = ImageList1
+              ImageIndex = 11
+              Position.X = 466.000000000000000000
+              Position.Y = 33.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 24.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              Text = 'Pesquisar  '
+              OnClick = BtnPesquisaClick
+            end
+          end
+          object RDados: TRectangle
+            Align = Client
+            Fill.Color = xFF7D7D7D
+            Margins.Left = 8.000000000000000000
+            Margins.Top = 2.000000000000000000
+            Margins.Right = 8.000000000000000000
+            Size.Width = 620.000000000000000000
+            Size.Height = 256.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Color = x64BABABA
+            object Registros: TLabel
+              Align = Top
+              StyledSettings = [Family, Size]
+              Size.Width = 620.000000000000000000
+              Size.Height = 31.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.FontColor = xFFE6E6E6
+              Text = '   Consulta de registros'
+              TabOrder = 0
+            end
+            object GrdDados: TGrid
+              Align = Client
+              CanFocus = True
+              ClipChildren = True
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 2.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 2.000000000000000000
+              Size.Width = 610.000000000000000000
+              Size.Height = 221.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              Options = [ColumnResize, ColumnMove, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick, AutoDisplacement]
+              OnCellDblClick = GrdDadosCellDblClick
+              Viewport.Width = 606.000000000000000000
+              Viewport.Height = 196.000000000000000000
+            end
+          end
+          object RNavegacao: TRectangle
+            Align = Bottom
+            Fill.Color = xFF282828
+            Margins.Left = 8.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 8.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Position.X = 8.000000000000000000
+            Position.Y = 362.000000000000000000
+            Size.Width = 620.000000000000000000
+            Size.Height = 49.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            object BtnFirst: TButton
+              Tag = 1
+              Images = ImageList1
+              ImageIndex = 9
+              Position.X = 256.000000000000000000
+              Position.Y = 13.000000000000000000
+              Size.Width = 27.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 3
+              OnClick = BtnFirstClick
+            end
+            object BtnPrior: TButton
+              Tag = 1
+              Images = ImageList1
+              ImageIndex = 3
+              Margins.Left = 60.000000000000000000
+              Position.X = 286.000000000000000000
+              Position.Y = 13.000000000000000000
+              Size.Width = 27.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              OnClick = BtnPriorClick
+            end
+            object BtnNext: TButton
+              Tag = 1
+              Images = ImageList1
+              ImageIndex = 5
+              Margins.Left = 120.000000000000000000
+              Position.X = 316.000000000000000000
+              Position.Y = 13.000000000000000000
+              Size.Width = 27.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              OnClick = BtnNextClick
+            end
+            object BtnLast: TButton
+              Tag = 1
+              Images = ImageList1
+              ImageIndex = 10
+              Margins.Left = 180.000000000000000000
+              Position.X = 346.000000000000000000
+              Position.Y = 13.000000000000000000
+              Size.Width = 27.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              OnClick = BtnLastClick
+            end
+          end
+        end
+      end
+      object TabCadastro: TTabItem
+        CustomIcon = <
+          item
+          end>
+        IsSelected = True
+        ImageIndex = 0
+        Margins.Left = 5.000000000000000000
+        Size.Width = 85.000000000000000000
+        Size.Height = 26.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = ''
+        TabOrder = 0
+        Text = 'Cadastro  '
+        ExplicitSize.cx = 85.000000000000000000
+        ExplicitSize.cy = 26.000000000000000000
+        object RCadastro: TRectangle
+          Align = Client
+          Fill.Color = xFF494747
+          Size.Width = 636.000000000000000000
+          Size.Height = 416.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = x64393939
+          object RCrud: TRectangle
+            Align = Top
+            Fill.Color = xFF7D7D7D
+            Margins.Left = 8.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 8.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Position.X = 8.000000000000000000
+            Position.Y = 331.000000000000000000
+            Size.Width = 620.000000000000000000
+            Size.Height = 58.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Color = x64BABABA
+            object BtnNovo: TButton
+              Enabled = False
+              Images = ImageList1
+              ImageIndex = 12
+              Position.X = 93.000000000000000000
+              Position.Y = 18.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 4
+              Text = 'Novo'
+              OnClick = BtnNovoClick
+            end
+            object BtnAlterar: TButton
+              Enabled = False
+              Images = ImageList1
+              ImageIndex = 8
+              Position.X = 185.000000000000000000
+              Position.Y = 18.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 3
+              Text = 'Alterar'
+              OnClick = BtnAlterarClick
+            end
+            object BtnSalvar: TButton
+              Images = ImageList1
+              ImageIndex = 4
+              Position.X = 275.000000000000000000
+              Position.Y = 18.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              Text = 'Salvar'
+              OnClick = BtnSalvarClick
+            end
+            object BtnDel: TButton
+              Enabled = False
+              Images = ImageList1
+              ImageIndex = 7
+              Position.X = 363.000000000000000000
+              Position.Y = 24.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              Text = 'Deletar'
+              OnClick = BtnDelClick
+            end
+            object BtnCancel: TButton
+              Images = ImageList1
+              ImageIndex = 1
+              Position.X = 451.000000000000000000
+              Position.Y = 18.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = 'Cancelar'
+              OnClick = BtnCancelClick
+            end
+          end
+          object REditor: TRectangle
+            Align = Top
+            Fill.Color = xFF7D7D7D
+            Margins.Left = 8.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 8.000000000000000000
+            Position.X = 8.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 620.000000000000000000
+            Size.Height = 311.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Color = x64BABABA
+          end
+        end
+      end
+    end
+  end
+  object RWindowsBar: TRectangle
+    Align = Top
+    Fill.Color = xFF266D5E
+    Size.Width = 640.000000000000000000
+    Size.Height = 26.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object ImgClose: TImage
+      MultiResBitmap = <
+        item
+          Width = 24
+          Height = 24
+          PNG = {
+            89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+            F80000000473424954080808087C086488000000554944415448896360180523
+            16703130307C2141FD17A81E9234FC27D21252D492AC916CC389318062C3F119
+            4435C3B1194875C3D12D21C970266ABB825C40D320A26924D33499D234A3D1BC
+            A8A07961370A8611000031F041ED8EB79A2A0000000049454E44AE426082}
+        end>
+      Align = RightCenter
+      Cursor = crHandPoint
+      Margins.Left = 15.000000000000000000
+      Position.X = 616.000000000000000000
+      Position.Y = 1.000000000000000000
+      Size.Width = 24.000000000000000000
+      Size.Height = 24.000000000000000000
+      Size.PlatformDefault = False
+      OnClick = ImgCloseClick
+    end
+    object ImgMax: TImage
+      MultiResBitmap = <
+        item
+          Width = 24
+          Height = 24
+          PNG = {
+            89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+            F80000000473424954080808087C0864880000004C49444154488963601805C3
+            1E30E210FF4F845A62D4303091E72EE2010B01795C3E4497C3E61B06067AF880
+            E6168C82C10BFEE34B7AA4A81FFAC994504E46F6363165110618CD68A3807200
+            00EFE209123FF4F08D0000000049454E44AE426082}
+        end>
+      Align = RightCenter
+      Cursor = crHandPoint
+      Margins.Left = 15.000000000000000000
+      Position.X = 577.000000000000000000
+      Position.Y = 1.000000000000000000
+      Size.Width = 24.000000000000000000
+      Size.Height = 24.000000000000000000
+      Size.PlatformDefault = False
+      OnClick = ImgMaxClick
+    end
+    object ImgMin: TImage
+      MultiResBitmap = <
+        item
+          Width = 24
+          Height = 24
+          PNG = {
+            89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+            F80000000473424954080808087C0864880000002549444154488963601805A3
+            60148C8251300A46011180118FDC7F6A98C544A221A380FA0000D6E40104689C
+            C4320000000049454E44AE426082}
+        end>
+      Align = RightCenter
+      Cursor = crHandPoint
+      Margins.Left = 15.000000000000000000
+      Position.X = 538.000000000000000000
+      Position.Y = 1.000000000000000000
+      Size.Width = 24.000000000000000000
+      Size.Height = 24.000000000000000000
+      Size.PlatformDefault = False
+      OnClick = ImgMinClick
+    end
+    object LblTitulo: TLabel
+      StyledSettings = [Family, Size, Style]
+      Position.X = 9.000000000000000000
+      Position.Y = 5.000000000000000000
+      TextSettings.FontColor = xFFE6E6E6
+      Text = 'Titulo'
+      TabOrder = 0
+    end
+  end
+  object ImageList1: TImageList
+    Source = <
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C08648800000085494441544889ED924B0A80
+              300C449F9EAC1774E925BC4441F05C75938204FB895A11E9832C929699662874
+              BE88038294BB310760383108893BD6390063719F063C1AD13F691E4550559A47
+              26996F2D0C66759635B146A4C5531B5E228AAF4A7C7A527C96DEAB3E49CD6FD1
+              E2BACF52936500962BE216032F2626712A233A3EC024DE799F1DC6EC5F1A6AF2
+              13270000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\app_registration_24dp_000000_FILL0_wght40' +
+              '0_GRAD0_opsz24.png'
+          end>
+        Name = 'Item 0'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C08648800000106494441544889E5953B8A02
+              4110405F6CE42D1441104150234D0451034510F6601B78003DC0067B8BCD3631
+              10CDBC81A8239AF440D154CF54CF9888050D43D7ABD7D5F3E9814F883670001E
+              DED803AD32E281220D8D7EAC7C2B8A2FC05261664022B8B555FE2B8A46067E2E
+              F86D1EDC1570C5D850E2DDAE5A169C42BD02F285B85663E492E748F95D996B6A
+              0527971C169403ACDCFC9F5694B93D1177C725817CD0635920D4F94B16C8EBBC
+              D4025679A667E712D3408145BE74ECBF96ECB9E4B560E7926F8780B4DB4964E7
+              0063CB8BD2F23EFB9B515E1535F53CF847C0FEF3D0421E111B63436CBC5D4C14
+              E6CB3B8BBEADF234627E389D58B98C0E7054A43BA05146FC1EF104C0A89171B8
+              C26E530000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\block_24dp_000000.png'
+          end>
+        Name = 'Item 1'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000003249444154488963601805A3
+              000DFC8762A20113EDDC326AC160B1801187384929059F7934F701A960341F8C
+              5A300A46240000267605149BF6F66A0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\add_24dp_000000_FILL0_wght400_GRAD0_opsz2' +
+              '4.png'
+          end>
+        Name = 'Item 2'
+      end
+      item
+        MultiResBitmap.Height = 12
+        MultiResBitmap.Width = 12
+        MultiResBitmap = <
+          item
+            Scale = 2.000000000000000000
+            Width = 25
+            Height = 25
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000019000000190806000000C4E985
+              630000000473424954080808087C0864880000004649444154488963601805A3
+              60308203B4B6E00A0303C37F0606864FB4B6E03F030383C2A8050362C12A240B
+              1C6861010CD0DC27A31651CD229AE57818A079D9350A460161000028EE2183A4
+              D23A820000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\chevron_left_25dp_FFFFFF_FILL0_wght400_GR' +
+              'AD0_opsz24.png'
+          end
+          item
+            Width = 25
+            Height = 25
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000019000000190806000000C4E985
+              630000000473424954080808087C0864880000004649444154488963601805A3
+              60308203B4B6E00A0303C37F0606864FB4B6E03F030383C2A8050362C12A240B
+              1C6861010CD0DC27A31651CD229AE57818A079D9350A460161000028EE2183A4
+              D23A820000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\chevron_left_25dp_FFFFFF_FILL0_wght400_GR' +
+              'AD0_opsz24.png'
+          end>
+        Name = 'Item 3'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000006849444154488963601805A3
+              603081FB0C0C0C0AB432FC210303C37F28A63A78444BC31FD3D2F027E41A6ECD
+              C0C0F095809AA794B81CA6F1070EF967D408169801BFD0C45F5033CC6106FD85
+              F25F92633823119690AA8764C5C896906438298026E97C148C02E20000928A25
+              30760C3E1D0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\check_24dp_000000_FILL0_wght400_GRAD0_ops' +
+              'z24.png'
+          end>
+        Name = 'Item 4'
+      end
+      item
+        MultiResBitmap.Height = 25
+        MultiResBitmap.Width = 25
+        MultiResBitmap = <
+          item
+            Width = 25
+            Height = 25
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000019000000190806000000C4E985
+              630000000473424954080808087C0864880000004549444154488963601805A3
+              60A0413EAD2DA8656060F80FC534055F462DA29B458C645A846C01413398C8B0
+              E00B29169003681E2743DF821A7A25DB3C5A5B300A460179000042C21C695698
+              E1F30000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\chevron_right_25dp_FFFFFF_FILL0_wght400_G' +
+              'RAD0_opsz24.png'
+          end>
+        Name = 'Item 5'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000554944415448896360180523
+              16703130307C2141FD17A81E9234FC27D21252D492AC916CC389318062C3F119
+              4435C3B1194875C3D12D21C970266ABB825C40D320A26924D33499D234A3D1BC
+              A8A07961370A8611000031F041ED8EB79A2A0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\close_24dp_000000_FILL0_wght400_GRAD0_ops' +
+              'z24.png'
+          end>
+        Name = 'Item 6'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000404944415448896360180504
+              002391EAFE93AB1F97025C06926C1E1399060D1E802F0C490D26AC66D13C8846
+              2D18B560D482510B28B4C0960473CCA8E096910A00C7360393D411EDFE000000
+              0049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\delete_24dp_000000.png'
+          end>
+        Name = 'Item 7'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000006B494441544889EDCD310A80
+              301044D17F0D0B0515BC891E4A8F6269E131D7264208318D93543BB0CD16EF83
+              AFC13AC080B306DE07FCBD4B1D38928001B7021E81AD10F9B52982D6F0DBA3DF
+              A2C27391598DA7912AB80183E38EB7C1A98D970212FC2B20C3730129EECBEE01
+              C1C068C25538FE8B0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\edit_24dp_000000.png'
+          end>
+        Name = 'Item 8'
+      end
+      item
+        MultiResBitmap.Height = 25
+        MultiResBitmap.Width = 25
+        MultiResBitmap = <
+          item
+            Width = 25
+            Height = 25
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000019000000190806000000C4E985
+              630000000473424954080808087C0864880000005349444154488963601805A3
+              6020C07F28562042ED545A5B3215492D4D2C41B6C08B1696506C01214BA86201
+              3E4BA866012E4B4291C4EB29B50097250CF4F009D52D1AF0D445358B064D8E47
+              B668148C82010000462B3B91C6A7BC4D0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\first_page_25dp_FFFFFF_FILL0_wght400_GRAD' +
+              '0_opsz24.png'
+          end>
+        Name = 'Item 9'
+      end
+      item
+        MultiResBitmap.Height = 25
+        MultiResBitmap.Width = 25
+        MultiResBitmap = <
+          item
+            Width = 25
+            Height = 25
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000019000000190806000000C4E985
+              630000000473424954080808087C0864880000006249444154488963601805A3
+              60A0C05422D428303030FC8762AC80058F66644DD9A4B98D78E085E4427C3E22
+              E8136A5844B125C45844154B085944354B18181818EA910C0BA5852534F709CD
+              E384E6A98B2EF984180B28B684815A65D7281805B403004D75384E63B97F6D00
+              00000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\last_page_25dp_FFFFFF_FILL0_wght400_GRAD0' +
+              '_opsz24.png'
+          end>
+        Name = 'Item 10'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C086488000000934944415448896360180514
+              0019060686470C0C0CFF91F023A838C560179AC1E8781725866F443228134D2E
+              13496E233986CB2019800FC0D4901C5CB030CF23A02E0F294E4802C4B89E24B5
+              4CA4BA805440770B1E4369F4D4830E60F2C749B590D4542440AA050C68990C3D
+              35E521C97D21C77018D84820277FA18625D8CAA2E348C142154B0881514B06A7
+              255CB4B46018020078734C79DC450BE20000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\search_24dp_000000_FILL0_wght400_GRAD0_op' +
+              'sz24.png'
+          end>
+        Name = 'Item 11'
+      end
+      item
+        MultiResBitmap.Height = 24
+        MultiResBitmap.Width = 24
+        MultiResBitmap = <
+          item
+            Width = 24
+            Height = 24
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+              F80000000473424954080808087C0864880000003249444154488963601805A3
+              000DFC8762A20113EDDC326AC160B1801187384929059F7934F701A960341F8C
+              5A300A46240000267605149BF6F66A0000000049454E44AE426082}
+            FileName = 
+              'D:\Fontes\Formacao-Delphi-Embarcadero-2026\Win32\Aula 3\Cadastro' +
+              'Templente\assets\Icons\add_24dp_000000_FILL0_wght400_GRAD0_opsz2' +
+              '4.png'
+          end>
+        Name = 'Item 12'
+      end>
+    Destination = <
+      item
+        Layers = <
+          item
+            Name = 'Item 0'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 1'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 2'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 3'
+            SourceRect.Right = 25.000000000000000000
+            SourceRect.Bottom = 25.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 4'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 5'
+            SourceRect.Right = 25.000000000000000000
+            SourceRect.Bottom = 25.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 6'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 7'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 8'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 9'
+            SourceRect.Right = 25.000000000000000000
+            SourceRect.Bottom = 25.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 10'
+            SourceRect.Right = 25.000000000000000000
+            SourceRect.Bottom = 25.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 11'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end
+      item
+        Layers = <
+          item
+            Name = 'Item 12'
+            SourceRect.Right = 24.000000000000000000
+            SourceRect.Bottom = 24.000000000000000000
+          end>
+      end>
+    Left = 576
+    Top = 118
+  end
+  object DsDados: TDataSource
+    Left = 384
+    Top = 240
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSource = DsDados
+    ScopeMappings = <>
+    Left = 304
+    Top = 224
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 196
+    Top = 229
+    object LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      GridControl = GrdDados
+      Columns = <>
+    end
+  end
+end

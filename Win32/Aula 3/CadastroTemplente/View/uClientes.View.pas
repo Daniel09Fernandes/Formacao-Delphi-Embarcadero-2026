@@ -12,13 +12,38 @@ uses
   FMX.Grid, FMX.Edit, FMX.Controls.Presentation, FMX.TabControl,
   uConexao.Controller,
   uCliente.Model,
-  uHelper.Grid;
+  uHelper.Grid,
+  uHelper.ClientDataset,
+  uHelper.Form;
 
 type
   TFrCadClientes = class(TFrCadBase)
+    EdtID: TEdit;
+    Label2: TLabel;
+    EdtNome: TEdit;
+    Label3: TLabel;
+    EdtIdade: TEdit;
+    Label4: TLabel;
+    EditEnd: TEdit;
+    lblEnd: TLabel;
+    EdtCpfCnpj: TEdit;
+    Label6: TLabel;
+    EdtTp: TEdit;
+    Label7: TLabel;
+    EdtBairro: TEdit;
+    Label8: TLabel;
+    EdtCidade: TEdit;
+    Label10: TLabel;
     procedure FormShow(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure BtnSalvarClick(Sender: TObject);
+    procedure BtnDelClick(Sender: TObject);
+    procedure BtnPesquisaClick(Sender: TObject);
   private
     FListaCliente: TListaClientes;
+    procedure VinculaEdits;
+    function GetModel: TClientes;
+    procedure ConsultarDados(AFieldWhere: string = '');
   public
     { Public declarations }
   end;
@@ -28,15 +53,112 @@ implementation
 
 {$R *.fmx}
 
+function TFrCadClientes.GetModel: TClientes;
+begin
+  Result := TClientes.create;
+  Result.Cds := TClientDataSet(DsDados.DataSet);
+end;
+
+procedure TFrCadClientes.BtnDelClick(Sender: TObject);
+begin
+  var lModel := GetModel;
+  try
+    lModel.Persistir(TipoPersistencia.tpDelete);
+  finally
+    lModel.Free;
+  end;
+  ConsultarDados();
+  inherited;
+end;
+
+procedure TFrCadClientes.BtnPesquisaClick(Sender: TObject);
+begin
+  ConsultarDados(EdtPesquisa.Text);
+end;
+
+procedure TFrCadClientes.BtnSalvarClick(Sender: TObject);
+begin
+  var lModel := GetModel;
+  try
+    case DsDados.DataSet.State  of
+      dsEdit: lModel.Persistir(TipoPersistencia.tpUpdate);
+      dsInsert: lModel.Persistir(TipoPersistencia.tpInsert);
+    end;
+  finally
+    lModel.Free;
+  end;
+  ConsultarDados();
+  inherited;
+end;
+
+procedure TFrCadClientes.FormDestroy(Sender: TObject);
+begin
+  inherited;
+
+  if Assigned(FListaCliente) then
+    FreeAndNil(FListaCliente);
+end;
+
 procedure TFrCadClientes.FormShow(Sender: TObject);
 begin
   inherited;
-  FListaCliente := TConexaoController<TClientes>.GetListObject();
-  var Cds := TConexaoController<TClientes>
-    .ObjectListToCds(FListaCliente);
-  //CdsDados.Open;
-   DsDados.DataSet := Cds;
-  //GrdDados.AjustarDisplay(Cds);
+  ConsultarDados;
+  VinculaEdits;
+end;
+
+procedure TFrCadClientes.ConsultarDados(AFieldWhere: string = '');
+var
+  lWhere: TWhereDB;
+  lParam: TParamsWhereDB;
+begin
+  lWhere := nil;
+  if Assigned(FListaCliente) then
+    FreeAndNil(FListaCliente);
+
+  if Assigned(DsDados.DataSet) then
+  begin
+    TClientDataSet(DsDados.DataSet).EmptyDataSet;
+  end;
+
+  if not AFieldWhere.Trim.IsEmpty then
+  begin
+    lWhere := TWhereDB.Create;
+    lParam.Operation := ' LIKE ';
+    lParam.Field := FIELD_NOME;
+    lParam.Value := QuotedStr(AFieldWhere +'%');
+
+    lWhere.Add(lParam);
+  end;
+
+  try
+    FListaCliente := TConexaoController<TClientes>.GetListObject(lWhere);
+    var Cds := TConexaoController<TClientes>
+      .ObjectListToCds(FListaCliente);
+
+
+    if Assigned(DsDados.DataSet) then
+    begin
+      FListaCliente[0].CloneCds(Cds, TClientDataSet(DsDados.DataSet));
+      Cds.Free;
+    end
+    else
+      DsDados.DataSet := Cds;
+  finally
+    if Assigned(lWhere) then
+      lWhere.Free;
+  end;
+end;
+
+procedure TFrCadClientes.VinculaEdits;
+begin
+  DsDados.DataSet.BindFieldToEdit(EdtID, FIELD_ID);
+  DsDados.DataSet.BindFieldToEdit(EdtNome, FIELD_NOME);
+  DsDados.DataSet.BindFieldToEdit(EdtIdade, FIELD_IDADE);
+  DsDados.DataSet.BindFieldToEdit(EdtTp, FIELD_FISJUR);
+  DsDados.DataSet.BindFieldToEdit(EdtCpfCnpj, FIELD_CPF_CNPJ);
+  DsDados.DataSet.BindFieldToEdit(EditEnd, FIELD_END);
+  DsDados.DataSet.BindFieldToEdit(EdtBairro, FIELD_BAIRRO);
+  DsDados.DataSet.BindFieldToEdit(EdtCidade, FIELD_CIDADE);
 end;
 
 end.

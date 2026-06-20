@@ -1,0 +1,4 @@
+object DSServerModule1: TDSServerModule1
+  Height = 480
+  Width = 640
+end

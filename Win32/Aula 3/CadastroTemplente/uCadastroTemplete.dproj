@@ -329,7 +329,7 @@
             <Form>FrDialog</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="Helpers\uHelper.Dialog.pas"/>
+        <DCCReference Include="Helpers\uHelper.Form.pas"/>
         <DCCReference Include="Controller\uLogin.Controller.pas"/>
         <DCCReference Include="FormBase\uBase.Cadastro.View.pas">
             <Form>FrCadBase</Form>
@@ -343,6 +343,8 @@
         <DCCReference Include="Controller\uClientes.Controller.pas"/>
         <DCCReference Include="Controller\uBase.Controller.pas"/>
         <DCCReference Include="Helpers\uHelper.Grid.pas"/>
+        <DCCReference Include="Helpers\uHelper.ClientDataset.pas"/>
+        <DCCReference Include="Model\uBase.Model.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -1,0 +1,87 @@
+unit uHelper.ClientDataset;
+
+interface
+
+uses
+  Datasnap.DBClient, Data.DB,
+  FMX.Edit,Fmx.ListBox,  Data.Bind.Components,
+  FMX.StdCtrls,
+  Data.Bind.DBScope;
+
+type
+  TClientDatasetHelper = class helper for TDataSet
+  private
+
+  public
+    procedure BindFieldToEdit(AEdit: TEdit; const AFieldName: string);
+    procedure BindFieldToComboBox(AComboBox: TComboBox; const AFieldName: string);
+    procedure BindFieldToChckBox(ACheckBox: TCheckBox; const AFieldName: string);
+  end;
+
+implementation
+
+{ TClientDatasetHelper }
+
+procedure TClientDatasetHelper.BindFieldToChckBox(ACheckBox: TCheckBox;
+  const AFieldName: string);
+var
+  BindSource: TBindSourceDB;
+  BindingsList: TBindingsList;
+  LinkControlToField: TLinkControlToField;
+begin
+  BindSource := TBindSourceDB.Create(ACheckBox);
+  BindSource.Name := 'bind_'+self.Name;
+  BindSource.DataSet := Self;
+
+  BindingsList := TBindingsList.Create(Self);
+
+  LinkControlToField := TLinkControlToField.Create(BindingsList);
+  LinkControlToField.Name := 'LinkControl_'+ACheckBox.Name;
+  LinkControlToField.Control := ACheckBox;
+  LinkControlToField.DataSource := BindSource;
+  LinkControlToField.FieldName := AFieldName;
+  LinkControlToField.Track := True;
+end;
+
+procedure TClientDatasetHelper.BindFieldToComboBox(AComboBox: TComboBox;
+  const AFieldName: string);
+var
+  BindSource: TBindSourceDB;
+  BindingsList: TBindingsList;
+  LinkControlToField: TLinkControlToField;
+begin
+  BindSource := TBindSourceDB.Create(AComboBox);
+  BindSource.Name := 'bind_'+self.Name;
+  BindSource.DataSet := Self;
+
+  BindingsList := TBindingsList.Create(Self);
+
+  LinkControlToField := TLinkControlToField.Create(BindingsList);
+  LinkControlToField.Name := 'LinkControl_'+AComboBox.Name;
+  LinkControlToField.Control := AComboBox;
+  LinkControlToField.DataSource := BindSource;
+  LinkControlToField.FieldName := AFieldName;
+  LinkControlToField.Track := True;
+end;
+
+procedure TClientDatasetHelper.BindFieldToEdit(AEdit: TEdit;
+  const AFieldName: string);
+var
+  BindSource: TBindSourceDB;
+  BindingsList: TBindingsList;
+  LinkControlToField: TLinkControlToField;
+begin
+  BindSource := TBindSourceDB.Create(AEdit);
+  BindSource.DataSet := Self;
+  BindingsList := TBindingsList.Create(BindSource);
+
+  LinkControlToField := TLinkControlToField.Create(BindingsList);
+  LinkControlToField.Control := AEdit;
+  LinkControlToField.DataSource := BindSource;
+  LinkControlToField.FieldName := AFieldName;
+  LinkControlToField.Track := True;
+
+  BindingsList.Notify(AEdit, '');
+end;
+
+end.

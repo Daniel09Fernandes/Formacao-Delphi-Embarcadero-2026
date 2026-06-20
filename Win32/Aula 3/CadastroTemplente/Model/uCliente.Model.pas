@@ -6,11 +6,26 @@ interface
 
 uses
   uDBMapping.Attributes,
-  System.Generics.Collections;
+  System.Generics.Collections,
+  uBase.Model,
+  Datasnap.DBClient;
+
+const
+  TABLE = 'tab_clientes';
+  FIELD_ID = 'ID';
+  FIELD_NOME = 'Nome';
+  FIELD_IDADE = 'Idade';
+  FIELD_CPF_CNPJ = 'CPF_CNPJ';
+  FIELD_FISJUR = 'FISJUR';
+  FIELD_END = 'Endereco';
+  FIELD_BAIRRO = 'Bairro';
+  FIELD_CIDADE = 'Cidade';
 
 type
-  [TMappingTable('tab_clientes')]
-  TClientes = class
+  TipoPersistencia = TTipoPersistencia;
+
+  [TMappingTable(TABLE)]
+  TClientes = class(TModelBase)
   private
     FId: Integer;
     FNome: string;
@@ -23,31 +38,49 @@ type
     function GetFisJur: string;
   public
     [TMappingDisplayGrid('Cód')]
-    [TMappingField('ID', 4)]
+    [TMappingField(FIELD_ID, 4)]
     property Id: Integer read FId write FId;
-    [TMappingField('Nome')]
+    [TMappingField(FIELD_NOME)]
     property Nome: string read FNome write FNome;
-    [TMappingField('Idade')]
+    [TMappingField(FIELD_IDADE)]
     property Idade: Integer read FIdade write FIdade;
     [TMappingDisplayGrid('CPF ou CNPJ')]
-    [TMappingField('CPF_CNPJ')]
+    [TMappingField(FIELD_CPF_CNPJ)]
     property CpfCnpj: string read FCpfCnpj write FCpfCnpj;
     [TMappingDisplayGrid('P. Fisica ou Juridica')]
-    [TMappingField('FISJUR')]
+    [TMappingField(FIELD_FISJUR)]
     property FisJur: string read GetFisJur write FFisJur;
     [TMappingDisplayGrid('Endereço')]
-    [TMappingField('Endereco')]
+    [TMappingField(FIELD_END)]
     property Endereco: string read FEndereco write FEndereco;
-    [TMappingField('Bairro')]
+    [TMappingField(FIELD_BAIRRO)]
     property Bairro: string read FBairro write FBairro;
-    [TMappingField('Cidade')]
+    [TMappingField(FIELD_CIDADE)]
     property Cidade: string read FCidade write FCidade;
+
+    property Cds;
+
+    procedure Persistir(ATipo: TTipoPersistencia); override;
+    Procedure CloneCds(CdsOrigem, CdsDestino: TClientDataSet); override;
+
+    constructor create;
   end;
 
   TListaClientes = TObjectList<TClientes>;
 implementation
 
 { TClientes }
+
+procedure TClientes.CloneCds(CdsOrigem, CdsDestino: TClientDataSet);
+begin
+  inherited CloneCds(CdsOrigem, CdsDestino);
+end;
+
+constructor TClientes.create;
+begin
+  Tabela := TABLE;
+  PK := FIELD_ID;
+end;
 
 function TClientes.GetFisJur: string;
 begin
@@ -58,6 +91,11 @@ begin
   else
     if FFisJur = 'J' then
       Result := 'Juridica';
+end;
+
+procedure TClientes.Persistir(ATipo: TTipoPersistencia);
+begin
+  inherited Persistir(ATipo);
 end;
 
 end.

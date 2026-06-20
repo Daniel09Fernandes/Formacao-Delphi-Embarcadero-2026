@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2026/06/20 13:17:31.290,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\FormUnit1.pas</Transaction>
+    <Transaction>2026/06/20 13:17:33.844,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2026/06/20 13:17:35.092,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\WebModuleUnit1.pas</Transaction>
+    <Transaction>2026/06/20 13:17:36.233,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\base64.js</Transaction>
+    <Transaction>2026/06/20 13:17:36.621,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\serverfunctionexecutor.js</Transaction>
+    <Transaction>2026/06/20 13:17:36.794,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\json2.js</Transaction>
+    <Transaction>2026/06/20 13:17:36.961,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\callbackframework.js</Transaction>
+    <Transaction>2026/06/20 13:17:37.189,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\serverfunctions.js</Transaction>
+    <Transaction>2026/06/20 13:17:37.351,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\base64-min.js</Transaction>
+    <Transaction>2026/06/20 13:17:37.540,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\json2-min.js</Transaction>
+    <Transaction>2026/06/20 13:17:37.834,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\serverfunctionexecutor-min.js</Transaction>
+    <Transaction>2026/06/20 13:17:38.085,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\callbackframework-min.js</Transaction>
+    <Transaction>2026/06/20 13:17:38.275,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\connection.js</Transaction>
+    <Transaction>2026/06/20 13:17:38.611,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\js\serverfunctioninvoker.js</Transaction>
+    <Transaction>2026/06/20 13:17:38.810,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\css\main.css</Transaction>
+    <Transaction>2026/06/20 13:17:39.044,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\css\serverfunctioninvoker.css</Transaction>
+    <Transaction>2026/06/20 13:17:39.362,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\templates\reversestring.html</Transaction>
+    <Transaction>2026/06/20 13:17:39.665,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\templates\serverfunctioninvoker.html</Transaction>
+    <Transaction>2026/06/20 13:17:39.863,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\images\collapse.png</Transaction>
+    <Transaction>2026/06/20 13:17:40.061,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\images\expand.png</Transaction>
+    <Transaction>2026/06/20 13:19:19.218,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\Server.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\Server.dproj</Transaction>
+    <Transaction>2026/06/20 13:44:21.676,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\shared\uPessoa.Model.pas</Transaction>
+    <Transaction>2026/06/20 14:44:13.192,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\Unit1.pas</Transaction>
+    <Transaction>2026/06/20 14:44:51.060,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\ServerMethodsTeste2.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\Unit1.pas</Transaction>
+    <Transaction>2026/06/20 14:44:51.060,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\ServerMethodsTeste2.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 1-2\Server\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

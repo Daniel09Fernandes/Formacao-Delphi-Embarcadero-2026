@@ -11,14 +11,16 @@ uses
   uMapping.RTTI in 'ConexaoDB\RTTI\uMapping.RTTI.pas',
   uConexao.Controller in 'Controller\uConexao.Controller.pas',
   uDialog in 'Dialog\uDialog.pas' {FrDialog},
-  uHelper.Dialog in 'Helpers\uHelper.Dialog.pas',
+  uHelper.Form in 'Helpers\uHelper.Form.pas',
   uLogin.Controller in 'Controller\uLogin.Controller.pas',
   uBase.Cadastro.View in 'FormBase\uBase.Cadastro.View.pas' {FrCadBase},
   uCliente.Model in 'Model\uCliente.Model.pas',
   uClientes.View in 'View\uClientes.View.pas' {FrCadClientes},
   uClientes.Controller in 'Controller\uClientes.Controller.pas',
   uBase.Controller in 'Controller\uBase.Controller.pas',
-  uHelper.Grid in 'Helpers\uHelper.Grid.pas';
+  uHelper.Grid in 'Helpers\uHelper.Grid.pas',
+  uHelper.ClientDataset in 'Helpers\uHelper.ClientDataset.pas',
+  uBase.Model in 'Model\uBase.Model.pas';
 
 {$R *.res}
 
@@ -26,6 +28,5 @@ begin
   Application.Initialize;
   Application.CreateForm(TFrMain, FrMain);
   Application.CreateForm(TDMConnection, DMConnection);
-  Application.CreateForm(TFrCadBase, FrCadBase);
   Application.Run;
 end.

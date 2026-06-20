@@ -1,0 +1,162 @@
+unit uBase.Model;
+
+interface
+
+uses
+   Classes, SysUtils,
+   Datasnap.DBClient,
+   StrUtils,
+   Variants,
+   Data.DB,
+   uDM.Connection,
+   uHelper.Form;
+
+type
+  TTipoPersistencia = (tpInsert, tpUpdate, tpDelete);
+
+  TModelBase = class
+  private
+    FCds: TClientDataset;
+    FTabela: string;
+    FPK: string;
+  protected
+    property Cds: TClientDataset read FCds write FCds;
+    property Tabela: string read FTabela write FTabela;
+    property PK: string read FPK write FPK;
+
+    function NexID: Integer;
+    procedure Persistir(ATipo: TTipoPersistencia); virtual;
+    procedure CloneCds(CdsOrigem, CdsDestino: TClientDataSet); virtual;
+  end;
+
+implementation
+
+{ TModelBase }
+
+procedure TModelBase.CloneCds(CdsOrigem, CdsDestino: TClientDataSet);
+begin
+  CdsOrigem.DisableControls;
+  CdsOrigem.First;
+  while not CdsOrigem.Eof do
+  begin
+    CdsDestino.Append;
+
+    for var i := 0 to CdsOrigem.FieldCount -1 do
+      CdsDestino.Fields[i].Value := CdsDestino.Fields[i].Value;
+
+    CdsDestino.Post;
+
+    CdsOrigem.Next;
+  end;
+end;
+
+function TModelBase.NexID: Integer;
+begin
+  DMConnection.QryPersistencia.Close;
+  try
+    DMConnection.QryPersistencia.SQL.Clear;
+    DMConnection.QryPersistencia.SQL.Add(
+      'select Max('+pk+') +1 as ID from '+ Tabela);
+    DMConnection.QryPersistencia.Open;
+
+    Result := DMConnection.QryPersistencia.FieldByName('ID').AsInteger
+  finally
+    DMConnection.QryPersistencia.Close;
+  end;
+end;
+
+procedure TModelBase.Persistir(ATipo: TTipoPersistencia);
+var
+  lCommand: string;
+  lFields: string;
+  lValues: string;
+  lPkValue: string;
+begin
+   if not Assigned(CDS) then
+     raise Exception.Create('Cds não foi informado!');
+
+   if not pk.Trim.IsEmpty then
+   begin
+     lPkValue := '';
+     if not VarIsNull(cds.FieldByName(pk).Value) then
+       lPkValue := cds.FieldByName(pk).Value;
+
+     if cds.FieldByName(pk).DataType = ftString then
+       lPkValue := lPkValue.QuotedString;
+   end;
+
+  case ATipo of
+    tpInsert:
+      begin
+        lCommand := 'insert into '+ Tabela;
+
+        for var I := 0 to Cds.Fields.Count -1 do
+        begin
+          lFields := lFields + Cds.Fields[i].FieldName + ', ';
+
+          if Cds.Fields[i].FieldName = pk then
+            lValues := lValues + NexID.ToString + ', '
+          else
+           if Cds.Fields[i].DataType = ftString then
+              lValues := lValues + Cds.Fields[i].AsString.QuotedString+ ', '
+            else
+              lValues := lValues + Cds.Fields[i].AsString+ ', ';
+        end;
+
+        lCommand := lCommand + '(' +
+          lFields.Substring(0, Length(lFields)-2) +
+         ' ) select ' +
+         lValues.Substring(0, Length(lValues)-2);
+      end;
+    tpUpdate:
+      begin
+        lCommand := 'update '+Tabela +' set ';
+        var RecordCount := Cds.Fields.Count -1;
+
+        for var I := 0 to RecordCount do
+        begin
+          if Cds.Fields[i].FieldName = pk then
+            continue;
+
+          if Cds.Fields[i].DataType = ftString then
+            lValues := lValues +
+              Cds.Fields[i].FieldName + ' = '+
+                Cds.Fields[i].AsString.QuotedString +
+                ifthen(I = RecordCount, '', ', ')
+          else
+          begin
+            lValues := lValues +
+              Cds.Fields[i].FieldName + ' = ' +
+                Cds.Fields[i].AsString +
+                ifthen(I = RecordCount, '', ', ')
+          end;
+        end;
+
+        lCommand := lCommand + lValues +
+          ' where '+ pk +' = '+ lPkValue;
+      end;
+    tpDelete:
+      begin
+        lCommand := ' delete from '+ Tabela +
+          ' where '+ pk +' = '+ lPkValue;
+      end;
+  end;
+
+  DMConnection.QryPersistencia.Close;
+  try
+    DMConnection.QryPersistencia.Transaction.StartTransaction;
+    try
+      DMConnection.QryPersistencia.SQL.Clear;
+      DMConnection.QryPersistencia.SQL.Add(lCommand);
+      DMConnection.QryPersistencia.ExecSQL;
+      DMConnection.QryPersistencia.Transaction.Commit;
+    except
+      DMConnection.QryPersistencia.Transaction.Rollback;
+      raise;
+    end;
+  finally
+    DMConnection.QryPersistencia.Close;
+  end;
+end;
+
+end.

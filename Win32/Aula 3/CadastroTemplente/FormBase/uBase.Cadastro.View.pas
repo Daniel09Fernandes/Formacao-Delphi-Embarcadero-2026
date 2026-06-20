@@ -11,7 +11,9 @@ uses
   System.Bindings.Outputs, Fmx.Bind.Editors, Data.Bind.EngExt,
   Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.Grid, Data.Bind.DBScope,
   FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
-  FMX.ListView;
+  FMX.ListView,
+  uHelper.ClientDataset,
+  uHelper.Form;
 
 type
   TFrCadBase = class(TForm)
@@ -67,14 +69,15 @@ type
     procedure ImgCloseClick(Sender: TObject);
     procedure ImgMaxClick(Sender: TObject);
     procedure GrdDadosCellDblClick(const Column: TColumn; const Row: Integer);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
-    { Private declarations }
-  public
-    { Public declarations }
-  end;
 
-var
-  FrCadBase: TFrCadBase;
+  protected
+    procedure ControleTela(IsEnabled: Boolean);
+    procedure SetTitulo(ATitulo: string);
+  public
+  end;
 
 implementation
 
@@ -86,16 +89,19 @@ Uses
 procedure TFrCadBase.BtnAlterarClick(Sender: TObject);
 begin
   DsDados.DataSet.Edit;
+  ControleTela(True);
 end;
 
 procedure TFrCadBase.BtnCancelClick(Sender: TObject);
 begin
   DsDados.DataSet.Cancel;
+  ControleTela(False);
 end;
 
 procedure TFrCadBase.BtnDelClick(Sender: TObject);
 begin
-  DsDados.DataSet.Delete;
+  //DsDados.DataSet.Delete;
+  ControleTela(True);
 end;
 
 procedure TFrCadBase.BtnFirstClick(Sender: TObject);
@@ -115,6 +121,7 @@ end;
 
 procedure TFrCadBase.BtnNovoClick(Sender: TObject);
 begin
+  ControleTela(True);
   DsDados.DataSet.Append;
 end;
 
@@ -142,7 +149,8 @@ end;
 
 procedure TFrCadBase.BtnSalvarClick(Sender: TObject);
 begin
-  DsDados.DataSet.Post;
+  //DsDados.DataSet.Post;
+  ControleTela(False);
 end;
 
 procedure TFrCadBase.EdtPesquisaKeyDown(Sender: TObject; var Key: Word;
@@ -159,6 +167,46 @@ begin
   RWindowsBar.fILL.Color := WIN_BAR_COLOR;
 
   TabControl1.ActiveTab := TabConsulta;
+end;
+
+procedure TFrCadBase.FormDestroy(Sender: TObject);
+begin
+  self.CleanAllBinds;
+end;
+
+procedure TFrCadBase.FormShow(Sender: TObject);
+begin
+  ControleTela(False);
+end;
+
+procedure TFrCadBase.ControleTela(IsEnabled: Boolean);
+const
+  COMP_DEFAULT = 0;
+  COMP_IS_PK = 9;
+begin
+  for var i := 0 to ComponentCount -1 do
+  begin
+    if Components[i] is TEdit then
+    begin
+      var EdtTemp := TEdit(Components[i]);
+      if (EdtTemp.Tag = COMP_IS_PK) then
+      begin
+        EdtTemp.Enabled := False;
+       continue;
+      end;
+
+      if (EdtTemp.Tag = COMP_DEFAULT) then
+        EdtTemp.Enabled := IsEnabled;
+    end;
+
+    if Components[i] is TButton then
+    begin
+      var BtnTemp := TButton(Components[i]);
+
+      if BtnTemp.Tag = 0 then
+        BtnTemp.Enabled := not BtnTemp.Enabled;
+    end;
+  end;
 end;
 
 procedure TFrCadBase.GrdDadosCellDblClick(const Column: TColumn;
@@ -184,6 +232,11 @@ end;
 procedure TFrCadBase.ImgMinClick(Sender: TObject);
 begin
   WindowState := TWindowState.wsMinimized;
+end;
+
+procedure TFrCadBase.SetTitulo(ATitulo: string);
+begin
+  LblTitulo.Text := ATitulo;
 end;
 
 end.

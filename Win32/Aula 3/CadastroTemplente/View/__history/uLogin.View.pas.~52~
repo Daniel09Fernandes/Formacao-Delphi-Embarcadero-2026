@@ -1,0 +1,100 @@
+unit uLogin.View;
+
+interface
+
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  System.Skia, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.Skia,
+  System.ImageList, FMX.ImgList, uHelper.Dialog;
+
+type
+  TFrLogin = class(TForm)
+    RContext: TRectangle;
+    SkAnimatedImage1: TSkAnimatedImage;
+    EdtUser: TEdit;
+    EdtSenha: TEdit;
+    BtnLogin: TButton;
+    BtnCancelar: TButton;
+    LblUser: TLabel;
+    LblSenha: TLabel;
+    ImageList1: TImageList;
+    procedure FormCreate(Sender: TObject);
+    procedure BtnLoginClick(Sender: TObject);
+    procedure BtnCancelarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrLogin: TFrLogin;
+
+implementation
+
+{$R *.fmx}
+
+uses
+  uConst.Sys,
+  uLogin.Model,
+  uConexao.Controller;
+
+procedure TFrLogin.BtnCancelarClick(Sender: TObject);
+begin
+  if ShowMessage('Deseja realmente sair do sistema?', TDlgType.dQuest) then
+    Application.Terminate;
+end;
+
+procedure TFrLogin.BtnLoginClick(Sender: TObject);
+  function SetWhere(AField, AValue:string): TParamsWhereDB;
+  begin
+    Result.Operation := '=';
+    Result.Field := AField;
+    Result.Value := AValue;
+  end;
+begin
+  {$ifdef Release}
+  try
+    var lwhere := TWhereDB.Create;
+    try
+      if (EdtUser.Text.Trim.IsEmpty) or (EdtSenha.Text.IsEmpty) then
+        ShowMessage('Usuario e Senha devem estar preenchido', TDlgType.dAlert);
+
+
+      lwhere.Add(SetWhere('username', EdtUser.Text.QuotedString));
+      lwhere.Add(SetWhere('senha', EdtSenha.Text.QuotedString));
+      var lLogin := TConexaoController<TLoginModel>.GetListObject(lwhere);
+
+      try
+        if  lLogin.Count > 0 then
+          ModalResult := mrOK
+        else
+          ShowMessage('Usuario ou senha invalido!', TDlgType.dAlert);
+      finally
+        lLogin.Free;
+      end;
+    finally
+      lwhere.Free;
+    end;
+  except
+    on E:Exception do
+      ShowMessage('Erro na tela TFrLogin: '+ sLineBreak + E.Message,
+        TDlgType.dError);
+  end;
+  {$else}
+     ModalResult := mrOK;
+  {$endif}
+
+   {$ifdef App_Console}
+    Self.ShowMessage('E Console');
+   {$endif}
+end;
+
+procedure TFrLogin.FormCreate(Sender: TObject);
+begin
+  RContext.Fill.Color := DEFAULT_COLLOR;
+end;
+
+end.

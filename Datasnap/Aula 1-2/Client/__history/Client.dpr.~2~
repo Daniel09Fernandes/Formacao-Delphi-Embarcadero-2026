@@ -1,0 +1,15 @@
+program Client;
+
+uses
+  Vcl.Forms,
+  uMain.View in 'uMain.View.pas' {FrmMain},
+  uPessoa.Model in '..\shared\uPessoa.Model.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFrmMain, FrmMain);
+  Application.Run;
+end.
