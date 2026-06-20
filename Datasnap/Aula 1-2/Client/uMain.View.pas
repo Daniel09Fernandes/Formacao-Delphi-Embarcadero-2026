@@ -99,13 +99,16 @@ procedure TFrmMain.BtnEnvPessoaNaoNativoClick(Sender: TObject);
 //  sl.Add('foo');
 //  //Log ('Count: ' + IntToStr (sl.Count));
 //end;
+  var SmartPessoa: TSmartWrapper<TPessoa>;
 begin
+  var lPessoaS := TSmartPointer<TPessoa>.Create(
+    TJson.JsonToObject<TPessoa>(mEnvPessoaNaoNativo.Text)).Value;
 
   var
-    lPessoaDefault: TPessoa  := TSmartWrapper<TPessoa>.New(
+    lPessoaDefault: TPessoa  := SmartPessoa.New(
         TJson.JsonToObject<TPessoa>(mEnvPessoaNaoNativo.Text));
 
-   var  lPessoa2: TPessoa  := TSmartWrapper<TPessoa>.New(
+   var  lPessoa2: TPessoa  := SmartPessoa.New(
         TJson.JsonToObject<TPessoa>(mEnvPessoaNaoNativo.Text));
 
 //  var lPessoaDefault := TJson.JsonToObject<TPessoa>(mEnvPessoaNaoNativo.Text);
@@ -121,9 +124,9 @@ begin
 //   mRecPessoa.Lines.Add(TJson.ObjectToJsonString(lPessoa));
 //   Application.ProcessMessages;
 //
-  var lResp :=
-    ClientModule1.ServerMethods1Client.SetPessoaNaoNativo(
-      TJson.ObjectToJsonString(lPessoaDefault));
+//  var lResp :=
+//    ClientModule1.ServerMethods1Client.SetPessoaNaoNativo(
+//      TJson.ObjectToJsonString(lPessoaDefault));
 
 ShowMessage(lPessoaDefault.Nome);
 

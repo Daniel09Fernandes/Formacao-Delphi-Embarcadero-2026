@@ -19,7 +19,6 @@ object FrmMain: TFrmMain
     ActivePage = Datasnap
     Align = alClient
     TabOrder = 0
-    ExplicitHeight = 506
     object TabSheet1: TTabSheet
       Caption = 'Json'
       object Panel1: TPanel
@@ -62,7 +61,6 @@ object FrmMain: TFrmMain
         Height = 516
         Align = alClient
         TabOrder = 1
-        ExplicitHeight = 423
       end
     end
     object Datasnap: TTabSheet
