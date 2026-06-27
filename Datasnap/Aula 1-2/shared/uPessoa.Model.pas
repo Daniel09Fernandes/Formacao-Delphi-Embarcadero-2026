@@ -1,6 +1,8 @@
 unit uPessoa.Model;
 
 interface
+uses
+  Generics.Collections;
 
 type
 
@@ -20,6 +22,7 @@ type
     property Ativo: Boolean read FAtivo write FAtivo;
   end;
 
+  TListaPessoa = TObjectList<TPessoa>;
 implementation
 
 end.

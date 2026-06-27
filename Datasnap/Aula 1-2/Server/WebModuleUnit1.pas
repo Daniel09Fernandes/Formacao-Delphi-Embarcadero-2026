@@ -53,7 +53,7 @@ implementation
 {$R *.dfm}
 
 uses ServerMethodsUnit1,
-     ServerMethodsTeste2,
+     ServerMethodsFiles,
      Web.WebReq;
 
 procedure TWebModule1.DSServerClass1GetClass(
@@ -65,7 +65,7 @@ end;
 procedure TWebModule1.DSServerClass2GetClass(DSServerClass: TDSServerClass;
   var PersistentClass: TPersistentClass);
 begin
-   PersistentClass := ServerMethodsTeste2.TServerMethodsTeste;
+  PersistentClass := ServerMethodsFiles.TServerMethodsArquivos;
 end;
 
 procedure TWebModule1.ServerFunctionInvokerHTMLTag(Sender: TObject; Tag: TTag;

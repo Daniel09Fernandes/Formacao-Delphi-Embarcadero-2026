@@ -11,7 +11,9 @@ uses
   ServerMethodsUnit1 in 'ServerMethodsUnit1.pas' {ServerMethods1: TDSServerModule},
   WebModuleUnit1 in 'WebModuleUnit1.pas' {WebModule1: TWebModule},
   uPessoa.Model in '..\shared\uPessoa.Model.pas',
-  ServerMethodsTeste2 in 'ServerMethodsTeste2.pas' {ServerMethodsTeste: TDSServerModule};
+  ServerMethodsFiles in 'ServerMethodsFiles.pas' {ServerMethodsArquivos: TDSServerModule},
+  uService.Api.Bitcoin in 'Services\uService.Api.Bitcoin.pas',
+  uBitcoin.Api.Model in '..\shared\uBitcoin.Api.Model.pas';
 
 {$R *.res}
 

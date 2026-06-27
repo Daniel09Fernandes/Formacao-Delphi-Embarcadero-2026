@@ -1,0 +1,231 @@
+unit ServerMethodsUnit1;
+
+interface
+
+uses System.SysUtils, System.Classes, System.Json,
+    DataSnap.DSProviderDataModuleAdapter,
+    Datasnap.DSServer, Datasnap.DSAuth,
+    DateUtils,
+    Rest.Json,
+    System.Hash,
+    uPessoa.Model,
+    uBitcoin.Api.Model,
+    uService.Api.Bitcoin,
+    Winapi.Windows;
+type
+  TServerMethods1 = class(TDSServerModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function EchoString(Value: string): string;
+    function ReverseString(Value: string): string;
+    function SayMyName: string;
+
+    function GetPessoaNativo: TPessoa;
+    function SetPessoaNativo(APessoa: TPessoa): Boolean;
+
+    function GetPessoaNaoNativo: string;
+    function SetPessoaNaoNativo(APessoa: string): Boolean;
+    function GetRecordsBitcoins: TBitcoinModel;
+
+    function GetPessoaNaoNativoJO: TJSONObject;
+
+    function GetListaPessoa: TListaPessoa;
+
+    function GetThreadID: Cardinal;
+
+    procedure MetodoDemorado;
+
+    function AutenticarUsuario(ASenha: string): string;
+  end;
+
+implementation
+
+
+{$R *.dfm}
+
+
+uses System.StrUtils;
+
+function TServerMethods1.AutenticarUsuario(ASenha: string): string;
+const
+  SENHA_ESTATICA = '@#23!B' + 'Aula 2026';
+begin
+//   if ASenha = SENHA_ESTATICA then Result := 'OK'
+  var lHashServ := THashSHA2.GetHashString(SENHA_ESTATICA);
+
+  if CompareStr(ASenha, ) = 0 then
+    Result := 'OK'
+  else
+    Result := 'Senha Invalida';
+end;
+
+function TServerMethods1.EchoString(Value: string): string;
+begin
+  Result := Value;
+end;
+
+function TServerMethods1.GetThreadID: Cardinal;
+begin
+  Result := GetCurrentThreadId;
+end;
+
+procedure TServerMethods1.MetodoDemorado;
+begin
+  Sleep(10000);
+end;
+
+function TServerMethods1.GetListaPessoa: TListaPessoa;
+var
+  ArrLetras: array[0..24] of char;
+begin
+{$Region ' Alfabeto'}
+  ArrLetras[0] := 'A';
+  ArrLetras[1] := 'B';
+  ArrLetras[2] := 'C';
+  ArrLetras[3] := 'D';
+  ArrLetras[4] := 'E';
+  ArrLetras[5] := 'F';
+  ArrLetras[6] := 'G';
+  ArrLetras[7] := 'H';
+  ArrLetras[8] := 'I';
+  ArrLetras[9] := 'J';
+  ArrLetras[10] := 'K';
+  ArrLetras[11] := 'L';
+  ArrLetras[12] := 'M';
+  ArrLetras[13] := 'N';
+  ArrLetras[14] := 'O';
+  ArrLetras[15] := 'P';
+  ArrLetras[16] := 'Q';
+  ArrLetras[17] := 'R';
+  ArrLetras[18] := 'S';
+  ArrLetras[19] := 'T';
+  ArrLetras[20] := 'U';
+  ArrLetras[21] := 'V';
+  ArrLetras[22] := 'X';
+  ArrLetras[23] := 'Z';
+{$endregion}
+
+//Result := TObjectList<TPessoa>.Create(True);
+//devido ao fato de TListaPessoa ser um TObjectList<TPessoa> é
+// Mesma coisa que usar assim:
+  Result := TListaPessoa.Create(True);
+
+  for var I := 0 to 10 do
+  begin
+    var lPessoa := TPessoa.Create;
+    lPessoa.ID := Random(200);
+    lPessoa.Nome :=
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)];
+    lPessoa.DataNascimento := IncYear(now, -Random(70));
+    lPessoa.Renda := Random(5000);
+    lPessoa.Ativo := True;
+
+    Result.Add(lPessoa);
+  end;
+end;
+
+function TServerMethods1.GetPessoaNaoNativo: string;
+begin
+  var lPessoa := TPessoa.Create;
+  try
+    lPessoa.ID := 2;
+    lPessoa.Nome := 'Server Pessoa não nativo';
+    lPessoa.DataNascimento := IncYear(now, -22);
+    lPessoa.Renda := 222.34;
+    lPessoa.Ativo := False;
+
+    Result := TJson.ObjectToJsonString(lPessoa);
+  finally
+    lPessoa.Free;
+  end;
+end;
+
+function TServerMethods1.GetPessoaNaoNativoJO: TJSONObject;
+begin
+  var lPessoa := TPessoa.Create;
+  try
+    lPessoa.ID := 3;
+    lPessoa.Nome := 'Server Pessoa não nativo JsonObject';
+    lPessoa.DataNascimento := IncYear(now, -28);
+    lPessoa.Renda := 822.34;
+    lPessoa.Ativo := False;
+
+    Result := TJson.ObjectToJsonObject(lPessoa);
+  finally
+    lPessoa.Free;
+  end;
+end;
+
+function TServerMethods1.GetPessoaNativo: TPessoa;
+begin
+  Result := TPessoa.Create;
+  Result.ID := 1;
+  Result.Nome := 'Server Pessoa - Nativo';
+  Result.DataNascimento := IncYear(Now, -32);
+  Result.Renda := 54321;
+  Result.Ativo := True;
+end;
+
+function TServerMethods1.GetRecordsBitcoins: TBitcoinModel;
+begin
+  var lServices := TServicesBitcoinAPI.Create;
+  try
+    Result := lServices.GetRecordsBitcoins;
+  finally
+    lServices.Free;
+  end;
+end;
+
+function TServerMethods1.ReverseString(Value: string): string;
+begin
+  Result := System.StrUtils.ReverseString(Value);
+end;
+
+function TServerMethods1.SayMyName: string;
+begin
+  Result := 'Daniel';
+end;
+
+function TServerMethods1.SetPessoaNaoNativo(APessoa: string): Boolean;
+begin
+  Result := False;
+  var lPessoa := TJson.JsonToObject<TPessoa>(APessoa);
+
+  var jsonObj := TJson.ObjectToJsonString(lPessoa);
+
+  var stl := TStringList.Create;
+  try
+    stl.Add(jsonObj);
+    stl.SaveToFile('log-pessoa.json', TEncoding.UTF8);
+  finally
+    stl.Free;
+  end;
+
+  Result := True;
+end;
+
+function TServerMethods1.SetPessoaNativo(APessoa: TPessoa): Boolean;
+begin
+  var jsonObj := TJson.ObjectToJsonString(APessoa);
+  Result := False;
+
+  var stl := TStringList.Create;
+  try
+    stl.Add(jsonObj);
+    stl.SaveToFile('log-pessoa.json', TEncoding.UTF8);
+  finally
+    stl.Free;
+  end;
+
+  Result := True;
+end;
+
+end.
+

@@ -7,9 +7,15 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls,
   uPessoa.Model,
   Rest.Json,
+  System.IOUtils,
+  System.Hash,
   ClientModuleUnit1,
   System.Generics.Collections,
-  SmartPointerClass;
+  SmartPointerClass, Data.DB, Vcl.Grids, Vcl.DBGrids, REST.Types,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, REST.Response.Adapter, REST.Client,
+  Data.Bind.Components, Data.Bind.ObjectScope, Vcl.ExtDlgs;
 
 type
   TSmartWrapper<W:class, constructor> = record
@@ -41,11 +47,62 @@ type
     Panel7: TPanel;
     mRecPessoaNaoNativo: TMemo;
     BtnRecPessoaNaoNativo: TButton;
+    TabSheet2: TTabSheet;
+    Panel8: TPanel;
+    Panel9: TPanel;
+    Panel10: TPanel;
+    DBGrid1: TDBGrid;
+    BtnJsonToCds: TButton;
+    RESTClient1: TRESTClient;
+    RESTRequest1: TRESTRequest;
+    RESTResponse1: TRESTResponse;
+    RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter;
+    FDMemTable1: TFDMemTable;
+    DataSource1: TDataSource;
+    Panel11: TPanel;
+    mJsonComplexo: TMemo;
+    Button1: TButton;
+    Button2: TButton;
+    TabSheet3: TTabSheet;
+    Panel12: TPanel;
+    Panel13: TPanel;
+    BtnCurrentThread: TButton;
+    mThread: TMemo;
+    Button3: TButton;
+    BtMetodoDemorado: TButton;
+    CbAsync: TCheckBox;
+    RESTMetodoDemorado: TRESTClient;
+    RESTRequestMetodoDemorado: TRESTRequest;
+    Hash: TTabSheet;
+    Panel14: TPanel;
+    Panel15: TPanel;
+    Splitter1: TSplitter;
+    EdtSenha: TEdit;
+    Button4: TButton;
+    mHashServer: TMemo;
+    mDados: TMemo;
+    mHash: TMemo;
+    TabSheet4: TTabSheet;
+    Panel16: TPanel;
+    BtnUploadIMG: TButton;
+    BtnDownloadIMG: TButton;
+    ImgLogo: TImage;
+    OpenPictureDialog1: TOpenPictureDialog;
     procedure BtnmSerealizarClick(Sender: TObject);
     procedure BtnDeserealizarClick(Sender: TObject);
     procedure BtnEnvPessoaClick(Sender: TObject);
     procedure BtnRecPessoaClick(Sender: TObject);
     procedure BtnEnvPessoaNaoNativoClick(Sender: TObject);
+    procedure BtnJsonToCdsClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure BtnCurrentThreadClick(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure BtMetodoDemoradoClick(Sender: TObject);
+    procedure mDadosExit(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure BtnDownloadIMGClick(Sender: TObject);
+    procedure BtnUploadIMGClick(Sender: TObject);
   private
 
   public
@@ -59,6 +116,32 @@ implementation
 
 {$R *.dfm}
 
+uses
+  Vcl.Imaging.pngimage;
+
+procedure TFrmMain.BtMetodoDemoradoClick(Sender: TObject);
+begin
+  BtMetodoDemorado.Enabled := False;
+  if not CbAsync.Checked then
+    ClientModule1.ServerMethods1Client.MetodoDemorado
+  else
+  begin
+    RESTRequestMetodoDemorado.ExecuteAsync(
+    procedure
+    begin
+      ShowMessage('Finalizado o async!');
+      BtMetodoDemorado.Enabled := True;
+    end);
+  end;
+
+  ShowMessage('Finalizado!');
+end;
+
+procedure TFrmMain.BtnCurrentThreadClick(Sender: TObject);
+begin
+  mThread.Lines.Add('Current Thread ID:'+ GetCurrentThreadId.ToString);
+end;
+
 procedure TFrmMain.BtnDeserealizarClick(Sender: TObject);
 begin
   //NÃO FAÇA ISSO!!!
@@ -71,6 +154,24 @@ begin
   MJson.Lines.Add('Data Nascimento: '+ FormatDateTime('yyyy-mm-dd', lPessoa.DataNascimento));
   MJson.Lines.Add('Renda: '+ lPessoa.Renda.ToString);
   MJson.Lines.Add('Ativo: '+ lPessoa.Ativo.ToString);
+end;
+
+procedure TFrmMain.BtnDownloadIMGClick(Sender: TObject);
+begin
+  var lSize: Cardinal := 0;
+  var stm: TBytesStream := ClientModule1
+     .ServerMethodsArquivos.GetFile('LOGO', lSize) as TBytesStream;
+
+  var png := TPngImage.Create;
+  try
+    png.LoadFromStream(stm);
+
+    ImgLogo.Stretch := True;
+    ImgLogo.Proportional := True;
+    ImgLogo.Picture.Assign(png);
+  finally
+    png.Free;
+  end;
 end;
 
 procedure TFrmMain.BtnEnvPessoaClick(Sender: TObject);
@@ -132,6 +233,11 @@ ShowMessage(lPessoaDefault.Nome);
 
 end;
 
+procedure TFrmMain.BtnJsonToCdsClick(Sender: TObject);
+begin
+  RESTRequest1.Execute();
+end;
+
 procedure TFrmMain.BtnmSerealizarClick(Sender: TObject);
 const
   DATA_NASCIMENTO = '11/04/1994';
@@ -169,6 +275,90 @@ begin
 
  // Pessoa é liberada pelo DS
  //  lPessoa.Free;
+end;
+
+procedure TFrmMain.BtnUploadIMGClick(Sender: TObject);
+begin
+//  OpenPictureDialog1.InitialDir := ExtractFilePath(ParamStr(0));
+  if OpenPictureDialog1.Execute then
+  begin
+    var lStream := TStringStream.Create;
+    lStream.LoadFromFile(OpenPictureDialog1.FileName);
+
+    var lName := TPath.GetFileNameWithoutExtension(OpenPictureDialog1.FileName);
+
+    try
+      ClientModule1.ServerMethodsArquivos.SetFile(lName, lStream);
+    except
+      if Assigned(lStream) then
+        lStream.Free;
+
+      raise;
+    end;
+  end;
+end;
+
+procedure TFrmMain.Button1Click(Sender: TObject);
+begin
+  var lModel := ClientModule1.ServerMethods1Client.GetRecordsBitcoins;
+
+  mJsonComplexo.Lines.Add('Endereco'+ lModel.Addresses.First);
+  mJsonComplexo.Lines.Add('First Input'+ lModel.Inputs.First.Addresses.First);
+
+  for var input in lModel.Inputs do
+  begin
+     for var address in input.Addresses do
+       mJsonComplexo.Lines.Add('Endereco Input: '+ address);
+
+     mJsonComplexo.Lines.Add('Age Input: '+ input.Age.ToString);
+     mJsonComplexo.Lines.Add('Input - OutputIndex: '+ input.OutputIndex.ToString);
+  end;
+
+end;
+
+procedure TFrmMain.Button2Click(Sender: TObject);
+begin
+  var lListaPessoas := ClientModule1.ServerMethods1Client.GetListaPessoa;
+  mJsonComplexo.Lines.Add('Objetos da lista');
+  mJsonComplexo.Lines.Add('--------------------------------');
+
+  for var pessoa in lListaPessoas do
+  begin
+    mJsonComplexo.Lines.Add('ID: '+ pessoa.ID.ToString);
+    mJsonComplexo.Lines.Add('Nome: '+ pessoa.Nome);
+    mJsonComplexo.Lines.Add('Data Nascimento: '+ DateTimeToStr(pessoa.DataNascimento));
+    mJsonComplexo.Lines.Add('Renda: '+ pessoa.Renda.ToString);
+    mJsonComplexo.Lines.Add('Ativo: '+ pessoa.Ativo.ToString);
+
+    mJsonComplexo.Lines.Add('');
+    mJsonComplexo.Lines.Add('--------------------------------');
+    mJsonComplexo.Lines.Add('');
+  end;
+end;
+
+procedure TFrmMain.Button3Click(Sender: TObject);
+begin
+  var lThreadIDServer := ClientModule1.ServerMethods1Client.GetThreadID;
+  mThread.Lines.Add('Current Server Thread ID:'+ lThreadIDServer.ToString);
+end;
+
+procedure TFrmMain.Button4Click(Sender: TObject);
+begin
+  var lHash := THashSHA2.GetHashString(EdtSenha.Text + 'Aula 2026');
+
+  var lResponseAuth :=
+    ClientModule1.ServerMethods1Client.AutenticarUsuario(lHash);
+
+   mHashServer.Lines.Add(lResponseAuth);
+end;
+
+procedure TFrmMain.mDadosExit(Sender: TObject);
+begin
+  if string(mDados.Text).Trim.IsEmpty then
+    Exit;
+
+  var lHash := THashSHA2.GetHashString(mDados.Text);
+  mHash.Lines.Add(lHash);
 end;
 
 { TSmartWrapper<T> }

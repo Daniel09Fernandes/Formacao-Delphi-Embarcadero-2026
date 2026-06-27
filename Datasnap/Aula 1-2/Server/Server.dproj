@@ -139,11 +139,13 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <DesignClass>TWebModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\shared\uPessoa.Model.pas"/>
-        <DCCReference Include="ServerMethodsTeste2.pas">
-            <Form>ServerMethodsTeste</Form>
+        <DCCReference Include="ServerMethodsFiles.pas">
+            <Form>ServerMethodsArquivos</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="Services\uService.Api.Bitcoin.pas"/>
+        <DCCReference Include="..\shared\uBitcoin.Api.Model.pas"/>
         <None Include="js\base64.js"/>
         <None Include="js\serverfunctionexecutor.js"/>
         <None Include="js\json2.js"/>

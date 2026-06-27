@@ -1,17 +1,19 @@
 //
 // Created by the DataSnap proxy generator.
-// 20/06/2026 16:32:20
+// 27/06/2026 17:31:10
 //
 
 unit ClientClassesUnit1;
 
 interface
 
-uses System.JSON, Datasnap.DSProxyRest, Datasnap.DSClientRest, Data.DBXCommon, Data.DBXClient, Data.DBXDataSnap, Data.DBXJSON, Datasnap.DSProxy, System.Classes, System.SysUtils, Data.DB, Data.SqlExpr, Data.DBXDBReaders, Data.DBXCDSReaders, uPessoa.Model, Data.DBXJSONReflect;
+uses System.JSON, Datasnap.DSProxyRest, Datasnap.DSClientRest, Data.DBXCommon, Data.DBXClient, Data.DBXDataSnap, Data.DBXJSON, Datasnap.DSProxy, System.Classes, System.SysUtils, Data.DB, Data.SqlExpr, Data.DBXDBReaders, Data.DBXCDSReaders, uPessoa.Model, uBitcoin.Api.Model, System.Generics.Collections, Data.DBXJSONReflect;
 
 type
 
+  IDSRestCachedTObjectList<TPessoa> = interface;
   IDSRestCachedTPessoa = interface;
+  IDSRestCachedTBitcoinModel = interface;
 
   TServerMethods1Client = class(TDSAdminRestClient)
   private
@@ -23,8 +25,15 @@ type
     FSetPessoaNativoCommand: TDSRestCommand;
     FGetPessoaNaoNativoCommand: TDSRestCommand;
     FSetPessoaNaoNativoCommand: TDSRestCommand;
+    FGetRecordsBitcoinsCommand: TDSRestCommand;
+    FGetRecordsBitcoinsCommand_Cache: TDSRestCommand;
     FGetPessoaNaoNativoJOCommand: TDSRestCommand;
     FGetPessoaNaoNativoJOCommand_Cache: TDSRestCommand;
+    FGetListaPessoaCommand: TDSRestCommand;
+    FGetListaPessoaCommand_Cache: TDSRestCommand;
+    FGetThreadIDCommand: TDSRestCommand;
+    FMetodoDemoradoCommand: TDSRestCommand;
+    FAutenticarUsuarioCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -37,24 +46,48 @@ type
     function SetPessoaNativo(APessoa: TPessoa; const ARequestFilter: string = ''): Boolean;
     function GetPessoaNaoNativo(const ARequestFilter: string = ''): string;
     function SetPessoaNaoNativo(APessoa: string; const ARequestFilter: string = ''): Boolean;
+    function GetRecordsBitcoins(const ARequestFilter: string = ''): TBitcoinModel;
+    function GetRecordsBitcoins_Cache(const ARequestFilter: string = ''): IDSRestCachedTBitcoinModel;
     function GetPessoaNaoNativoJO(const ARequestFilter: string = ''): TJSONObject;
     function GetPessoaNaoNativoJO_Cache(const ARequestFilter: string = ''): IDSRestCachedJSONObject;
+    function GetListaPessoa(const ARequestFilter: string = ''): TObjectList<uPessoa.Model.TPessoa>;
+    function GetListaPessoa_Cache(const ARequestFilter: string = ''): IDSRestCachedTObjectList<uPessoa.Model.TPessoa>;
+    function GetThreadID(const ARequestFilter: string = ''): Cardinal;
+    procedure MetodoDemorado;
+    function AutenticarUsuario(ASenha: string; const ARequestFilter: string = ''): string;
   end;
 
-  TServerMethodsTesteClient = class(TDSAdminRestClient)
+  TServerMethodsArquivosClient = class(TDSAdminRestClient)
   private
     FTesteCommand: TDSRestCommand;
+    FGetFileCommand: TDSRestCommand;
+    FGetFileCommand_Cache: TDSRestCommand;
+    FSetFileCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
     destructor Destroy; override;
+
     function Teste(const ARequestFilter: string = ''): string;
+    function GetFile(ANameFile: string; out Size: Cardinal; const ARequestFilter: string = ''): TStream;
+    function GetFile_Cache(ANameFile: string; out Size: Cardinal; const ARequestFilter: string = ''): IDSRestCachedStream;
+    function SetFile(ANameFile: string; AArquivo: TStream; const ARequestFilter: string = ''): Boolean;
   end;
 
+  IDSRestCachedTObjectList<TPessoa> = interface(IDSRestCachedObject<TObjectList<uPessoa.Model.TPessoa>>)
+  end;
+
+  TDSRestCachedTObjectList<TPessoa> = class(TDSRestCachedObject<TObjectList<uPessoa.Model.TPessoa>>, IDSRestCachedTObjectList<uPessoa.Model.TPessoa>, IDSRestCachedCommand)
+  end;
   IDSRestCachedTPessoa = interface(IDSRestCachedObject<TPessoa>)
   end;
 
   TDSRestCachedTPessoa = class(TDSRestCachedObject<TPessoa>, IDSRestCachedTPessoa, IDSRestCachedCommand)
+  end;
+  IDSRestCachedTBitcoinModel = interface(IDSRestCachedObject<TBitcoinModel>)
+  end;
+
+  TDSRestCachedTBitcoinModel = class(TDSRestCachedObject<TBitcoinModel>, IDSRestCachedTBitcoinModel, IDSRestCachedCommand)
   end;
 
 const
@@ -102,6 +135,16 @@ const
     (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
   );
 
+  TServerMethods1_GetRecordsBitcoins: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TBitcoinModel')
+  );
+
+  TServerMethods1_GetRecordsBitcoins_Cache: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
   TServerMethods1_GetPessoaNaoNativoJO: array [0..0] of TDSRestParameterMetaData =
   (
     (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TJSONObject')
@@ -112,9 +155,51 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
-  TServerMethodsTeste_Teste: array [0..0] of TDSRestParameterMetaData =
+  TServerMethods1_GetListaPessoa: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TObjectList<uPessoa.Model.TPessoa>')
+  );
+
+  TServerMethods1_GetListaPessoa_Cache: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TServerMethods1_GetThreadID: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 13; TypeName: 'Cardinal')
+  );
+
+  TServerMethods1_AutenticarUsuario: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'ASenha'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TServerMethodsArquivos_Teste: array [0..0] of TDSRestParameterMetaData =
   (
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TServerMethodsArquivos_GetFile: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANameFile'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'Size'; Direction: 2; DBXType: 13; TypeName: 'Cardinal'),
+    (Name: ''; Direction: 4; DBXType: 33; TypeName: 'TStream')
+  );
+
+  TServerMethodsArquivos_GetFile_Cache: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANameFile'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'Size'; Direction: 2; DBXType: 13; TypeName: 'Cardinal'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TServerMethodsArquivos_SetFile: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANameFile'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AArquivo'; Direction: 1; DBXType: 33; TypeName: 'TStream'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
   );
 
 implementation
@@ -251,6 +336,44 @@ begin
   Result := FSetPessoaNaoNativoCommand.Parameters[1].Value.GetBoolean;
 end;
 
+function TServerMethods1Client.GetRecordsBitcoins(const ARequestFilter: string): TBitcoinModel;
+begin
+  if FGetRecordsBitcoinsCommand = nil then
+  begin
+    FGetRecordsBitcoinsCommand := FConnection.CreateCommand;
+    FGetRecordsBitcoinsCommand.RequestType := 'GET';
+    FGetRecordsBitcoinsCommand.Text := 'TServerMethods1.GetRecordsBitcoins';
+    FGetRecordsBitcoinsCommand.Prepare(TServerMethods1_GetRecordsBitcoins);
+  end;
+  FGetRecordsBitcoinsCommand.Execute(ARequestFilter);
+  if not FGetRecordsBitcoinsCommand.Parameters[0].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FGetRecordsBitcoinsCommand.Parameters[0].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TBitcoinModel(FUnMarshal.UnMarshal(FGetRecordsBitcoinsCommand.Parameters[0].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FGetRecordsBitcoinsCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TServerMethods1Client.GetRecordsBitcoins_Cache(const ARequestFilter: string): IDSRestCachedTBitcoinModel;
+begin
+  if FGetRecordsBitcoinsCommand_Cache = nil then
+  begin
+    FGetRecordsBitcoinsCommand_Cache := FConnection.CreateCommand;
+    FGetRecordsBitcoinsCommand_Cache.RequestType := 'GET';
+    FGetRecordsBitcoinsCommand_Cache.Text := 'TServerMethods1.GetRecordsBitcoins';
+    FGetRecordsBitcoinsCommand_Cache.Prepare(TServerMethods1_GetRecordsBitcoins_Cache);
+  end;
+  FGetRecordsBitcoinsCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTBitcoinModel.Create(FGetRecordsBitcoinsCommand_Cache.Parameters[0].Value.GetString);
+end;
+
 function TServerMethods1Client.GetPessoaNaoNativoJO(const ARequestFilter: string): TJSONObject;
 begin
   if FGetPessoaNaoNativoJOCommand = nil then
@@ -277,6 +400,82 @@ begin
   Result := TDSRestCachedJSONObject.Create(FGetPessoaNaoNativoJOCommand_Cache.Parameters[0].Value.GetString);
 end;
 
+function TServerMethods1Client.GetListaPessoa(const ARequestFilter: string): TObjectList<uPessoa.Model.TPessoa>;
+begin
+  if FGetListaPessoaCommand = nil then
+  begin
+    FGetListaPessoaCommand := FConnection.CreateCommand;
+    FGetListaPessoaCommand.RequestType := 'GET';
+    FGetListaPessoaCommand.Text := 'TServerMethods1.GetListaPessoa';
+    FGetListaPessoaCommand.Prepare(TServerMethods1_GetListaPessoa);
+  end;
+  FGetListaPessoaCommand.Execute(ARequestFilter);
+  if not FGetListaPessoaCommand.Parameters[0].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FGetListaPessoaCommand.Parameters[0].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TObjectList<uPessoa.Model.TPessoa>(FUnMarshal.UnMarshal(FGetListaPessoaCommand.Parameters[0].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FGetListaPessoaCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TServerMethods1Client.GetListaPessoa_Cache(const ARequestFilter: string): IDSRestCachedTObjectList<uPessoa.Model.TPessoa>;
+begin
+  if FGetListaPessoaCommand_Cache = nil then
+  begin
+    FGetListaPessoaCommand_Cache := FConnection.CreateCommand;
+    FGetListaPessoaCommand_Cache.RequestType := 'GET';
+    FGetListaPessoaCommand_Cache.Text := 'TServerMethods1.GetListaPessoa';
+    FGetListaPessoaCommand_Cache.Prepare(TServerMethods1_GetListaPessoa_Cache);
+  end;
+  FGetListaPessoaCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTObjectList<uPessoa.Model.TPessoa>.Create(FGetListaPessoaCommand_Cache.Parameters[0].Value.GetString);
+end;
+
+function TServerMethods1Client.GetThreadID(const ARequestFilter: string): Cardinal;
+begin
+  if FGetThreadIDCommand = nil then
+  begin
+    FGetThreadIDCommand := FConnection.CreateCommand;
+    FGetThreadIDCommand.RequestType := 'GET';
+    FGetThreadIDCommand.Text := 'TServerMethods1.GetThreadID';
+    FGetThreadIDCommand.Prepare(TServerMethods1_GetThreadID);
+  end;
+  FGetThreadIDCommand.Execute(ARequestFilter);
+  Result := FGetThreadIDCommand.Parameters[0].Value.GetInt64;
+end;
+
+procedure TServerMethods1Client.MetodoDemorado;
+begin
+  if FMetodoDemoradoCommand = nil then
+  begin
+    FMetodoDemoradoCommand := FConnection.CreateCommand;
+    FMetodoDemoradoCommand.RequestType := 'GET';
+    FMetodoDemoradoCommand.Text := 'TServerMethods1.MetodoDemorado';
+  end;
+  FMetodoDemoradoCommand.Execute;
+end;
+
+function TServerMethods1Client.AutenticarUsuario(ASenha: string; const ARequestFilter: string): string;
+begin
+  if FAutenticarUsuarioCommand = nil then
+  begin
+    FAutenticarUsuarioCommand := FConnection.CreateCommand;
+    FAutenticarUsuarioCommand.RequestType := 'GET';
+    FAutenticarUsuarioCommand.Text := 'TServerMethods1.AutenticarUsuario';
+    FAutenticarUsuarioCommand.Prepare(TServerMethods1_AutenticarUsuario);
+  end;
+  FAutenticarUsuarioCommand.Parameters[0].Value.SetWideString(ASenha);
+  FAutenticarUsuarioCommand.Execute(ARequestFilter);
+  Result := FAutenticarUsuarioCommand.Parameters[1].Value.GetWideString;
+end;
+
 constructor TServerMethods1Client.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -297,37 +496,92 @@ begin
   FSetPessoaNativoCommand.Free;
   FGetPessoaNaoNativoCommand.Free;
   FSetPessoaNaoNativoCommand.Free;
+  FGetRecordsBitcoinsCommand.Free;
+  FGetRecordsBitcoinsCommand_Cache.Free;
   FGetPessoaNaoNativoJOCommand.Free;
   FGetPessoaNaoNativoJOCommand_Cache.Free;
+  FGetListaPessoaCommand.Free;
+  FGetListaPessoaCommand_Cache.Free;
+  FGetThreadIDCommand.Free;
+  FMetodoDemoradoCommand.Free;
+  FAutenticarUsuarioCommand.Free;
   inherited;
 end;
 
-function TServerMethodsTesteClient.Teste(const ARequestFilter: string): string;
+function TServerMethodsArquivosClient.Teste(const ARequestFilter: string): string;
 begin
   if FTesteCommand = nil then
   begin
     FTesteCommand := FConnection.CreateCommand;
     FTesteCommand.RequestType := 'GET';
-    FTesteCommand.Text := 'TServerMethodsTeste.Teste';
-    FTesteCommand.Prepare(TServerMethodsTeste_Teste);
+    FTesteCommand.Text := 'TServerMethodsArquivos.Teste';
+    FTesteCommand.Prepare(TServerMethodsArquivos_Teste);
   end;
   FTesteCommand.Execute(ARequestFilter);
   Result := FTesteCommand.Parameters[0].Value.GetWideString;
 end;
 
-constructor TServerMethodsTesteClient.Create(ARestConnection: TDSRestConnection);
+function TServerMethodsArquivosClient.GetFile(ANameFile: string; out Size: Cardinal; const ARequestFilter: string): TStream;
+begin
+  if FGetFileCommand = nil then
+  begin
+    FGetFileCommand := FConnection.CreateCommand;
+    FGetFileCommand.RequestType := 'GET';
+    FGetFileCommand.Text := 'TServerMethodsArquivos.GetFile';
+    FGetFileCommand.Prepare(TServerMethodsArquivos_GetFile);
+  end;
+  FGetFileCommand.Parameters[0].Value.SetWideString(ANameFile);
+  FGetFileCommand.Execute(ARequestFilter);
+  Size := FGetFileCommand.Parameters[1].Value.GetInt64;
+  Result := FGetFileCommand.Parameters[2].Value.GetStream(FInstanceOwner);
+end;
+
+function TServerMethodsArquivosClient.GetFile_Cache(ANameFile: string; out Size: Cardinal; const ARequestFilter: string): IDSRestCachedStream;
+begin
+  if FGetFileCommand_Cache = nil then
+  begin
+    FGetFileCommand_Cache := FConnection.CreateCommand;
+    FGetFileCommand_Cache.RequestType := 'GET';
+    FGetFileCommand_Cache.Text := 'TServerMethodsArquivos.GetFile';
+    FGetFileCommand_Cache.Prepare(TServerMethodsArquivos_GetFile_Cache);
+  end;
+  FGetFileCommand_Cache.Parameters[0].Value.SetWideString(ANameFile);
+  FGetFileCommand_Cache.ExecuteCache(ARequestFilter);
+  Size := FGetFileCommand_Cache.Parameters[1].Value.GetInt64;
+  Result := TDSRestCachedStream.Create(FGetFileCommand_Cache.Parameters[2].Value.GetString);
+end;
+
+function TServerMethodsArquivosClient.SetFile(ANameFile: string; AArquivo: TStream; const ARequestFilter: string): Boolean;
+begin
+  if FSetFileCommand = nil then
+  begin
+    FSetFileCommand := FConnection.CreateCommand;
+    FSetFileCommand.RequestType := 'POST';
+    FSetFileCommand.Text := 'TServerMethodsArquivos."SetFile"';
+    FSetFileCommand.Prepare(TServerMethodsArquivos_SetFile);
+  end;
+  FSetFileCommand.Parameters[0].Value.SetWideString(ANameFile);
+  FSetFileCommand.Parameters[1].Value.SetStream(AArquivo, FInstanceOwner);
+  FSetFileCommand.Execute(ARequestFilter);
+  Result := FSetFileCommand.Parameters[2].Value.GetBoolean;
+end;
+
+constructor TServerMethodsArquivosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
 end;
 
-constructor TServerMethodsTesteClient.Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean);
+constructor TServerMethodsArquivosClient.Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean);
 begin
   inherited Create(ARestConnection, AInstanceOwner);
 end;
 
-destructor TServerMethodsTesteClient.Destroy;
+destructor TServerMethodsArquivosClient.Destroy;
 begin
   FTesteCommand.Free;
+  FGetFileCommand.Free;
+  FGetFileCommand_Cache.Free;
+  FSetFileCommand.Free;
   inherited;
 end;
 

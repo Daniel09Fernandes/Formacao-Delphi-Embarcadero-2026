@@ -7,7 +7,8 @@ uses
   ClientClassesUnit1 in 'ClientClassesUnit1.pas',
   ClientModuleUnit1 in 'ClientModuleUnit1.pas' {ClientModule1: TDataModule},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  uBitcoin.Api.Model in '..\shared\uBitcoin.Api.Model.pas';
 
 {$R *.res}
 

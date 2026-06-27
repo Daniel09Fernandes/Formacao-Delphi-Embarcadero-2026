@@ -7,7 +7,11 @@ uses System.SysUtils, System.Classes, System.Json,
     Datasnap.DSServer, Datasnap.DSAuth,
     DateUtils,
     Rest.Json,
-    uPessoa.Model;
+    System.Hash,
+    uPessoa.Model,
+    uBitcoin.Api.Model,
+    uService.Api.Bitcoin,
+    Winapi.Windows;
 type
   TServerMethods1 = class(TDSServerModule)
   private
@@ -23,9 +27,17 @@ type
 
     function GetPessoaNaoNativo: string;
     function SetPessoaNaoNativo(APessoa: string): Boolean;
-
+    function GetRecordsBitcoins: TBitcoinModel;
 
     function GetPessoaNaoNativoJO: TJSONObject;
+
+    function GetListaPessoa: TListaPessoa;
+
+    function GetThreadID: Cardinal;
+
+    procedure MetodoDemorado;
+
+    function AutenticarUsuario(ASenha: string): string;
   end;
 
 implementation
@@ -36,9 +48,87 @@ implementation
 
 uses System.StrUtils;
 
+function TServerMethods1.AutenticarUsuario(ASenha: string): string;
+const
+  SENHA_ESTATICA = '@#23!B' + 'Aula 2026';
+begin
+//   if ASenha = SENHA_ESTATICA then Result := 'OK'
+  var lHashServ := THashSHA2.GetHashString(SENHA_ESTATICA);
+
+  if CompareStr(ASenha, lHashServ) = 0 then
+    Result := 'OK'
+  else
+    Result := 'Senha Invalida';
+end;
+
 function TServerMethods1.EchoString(Value: string): string;
 begin
   Result := Value;
+end;
+
+function TServerMethods1.GetThreadID: Cardinal;
+begin
+  Result := GetCurrentThreadId;
+end;
+
+procedure TServerMethods1.MetodoDemorado;
+begin
+  Sleep(10000);
+end;
+
+function TServerMethods1.GetListaPessoa: TListaPessoa;
+var
+  ArrLetras: array[0..24] of char;
+begin
+{$Region ' Alfabeto'}
+  ArrLetras[0] := 'A';
+  ArrLetras[1] := 'B';
+  ArrLetras[2] := 'C';
+  ArrLetras[3] := 'D';
+  ArrLetras[4] := 'E';
+  ArrLetras[5] := 'F';
+  ArrLetras[6] := 'G';
+  ArrLetras[7] := 'H';
+  ArrLetras[8] := 'I';
+  ArrLetras[9] := 'J';
+  ArrLetras[10] := 'K';
+  ArrLetras[11] := 'L';
+  ArrLetras[12] := 'M';
+  ArrLetras[13] := 'N';
+  ArrLetras[14] := 'O';
+  ArrLetras[15] := 'P';
+  ArrLetras[16] := 'Q';
+  ArrLetras[17] := 'R';
+  ArrLetras[18] := 'S';
+  ArrLetras[19] := 'T';
+  ArrLetras[20] := 'U';
+  ArrLetras[21] := 'V';
+  ArrLetras[22] := 'X';
+  ArrLetras[23] := 'Z';
+{$endregion}
+
+//Result := TObjectList<TPessoa>.Create(True);
+//devido ao fato de TListaPessoa ser um TObjectList<TPessoa> é
+// Mesma coisa que usar assim:
+  Result := TListaPessoa.Create(True);
+
+  for var I := 0 to 10 do
+  begin
+    var lPessoa := TPessoa.Create;
+    lPessoa.ID := Random(200);
+    lPessoa.Nome :=
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)]+
+       ArrLetras[Random(24)];
+    lPessoa.DataNascimento := IncYear(now, -Random(70));
+    lPessoa.Renda := Random(5000);
+    lPessoa.Ativo := True;
+
+    Result.Add(lPessoa);
+  end;
 end;
 
 function TServerMethods1.GetPessoaNaoNativo: string;
@@ -81,6 +171,16 @@ begin
   Result.DataNascimento := IncYear(Now, -32);
   Result.Renda := 54321;
   Result.Ativo := True;
+end;
+
+function TServerMethods1.GetRecordsBitcoins: TBitcoinModel;
+begin
+  var lServices := TServicesBitcoinAPI.Create;
+  try
+    Result := lServices.GetRecordsBitcoins;
+  finally
+    lServices.Free;
+  end;
 end;
 
 function TServerMethods1.ReverseString(Value: string): string;
