@@ -1,0 +1,73 @@
+unit uController.Base;
+
+interface
+
+uses
+  Classes, SysUtils,
+  Rest.Json,
+  Horse,
+  SmartPointerClass,
+  uModel.ErrorAPI;
+
+type
+  TControllerBase<T: Class, Constructor> = class
+  private
+    FCodeError: Integer;
+    FCodeSuccess: Integer;
+    Smartp: TSmartPointer<T>;
+  protected
+   FRequest: THorseRequest;
+   FResponse: THorseResponse;
+
+   property CodeError: Integer read FCodeError write FCodeError;
+   property CodeSuccess: Integer read FCodeSuccess write FCodeSuccess;
+
+   procedure Execute(AExecute: TProc);
+
+   function NewSmartObject<T: Class, Constructor>:T;
+  public
+    constructor Create(AReq: THorseRequest; ARes: THorseResponse); Virtual;
+
+  end;
+
+implementation
+
+{ TControllerBase }
+
+constructor TControllerBase.Create(AReq: THorseRequest; ARes: THorseResponse);
+begin
+  FRequest := AReq;
+  FResponse := ARes;
+
+  FCodeError := 500;
+  FCodeSuccess := 200;
+end;
+
+procedure TControllerBase.Execute(AExecute: TProc);
+begin
+  try
+    FResponse.Status(FCodeSuccess);
+    FResponse.ContentType('application/json');
+    AExecute;
+  except
+    on E: Exception do
+    begin
+      var lModel := NewSmartObject<TModelErrorApi>;
+      lModel.Message := Self.UnitScope + ' - '+E.Message;
+      FResponse.Status(FCodeError);
+      FResponse.ContentType('application/json');
+      FResponse.AddHeader('except', Self.ClassName);
+      FResponse.Send(TJson.ObjectToJsonString(lModel));
+    end;
+  end;
+end;
+
+
+
+function TControllerBase.NewSmartObject<T>: T;
+begin
+  Result := Smartp.Value;
+//      TSmartPointer<T>.Create(T.Create).Value;
+end;
+
+end.

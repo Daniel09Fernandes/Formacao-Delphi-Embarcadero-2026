@@ -1,0 +1,53 @@
+unit uSwagger.Documentation;
+
+interface
+
+uses
+  SysUtils,
+  Classes,
+  Horse,
+  Horse.GBSwagger,
+  uModel.ErrorAPI;
+
+procedure DocumentationAPI;
+procedure WriteRouteAPI(APort: Integer);
+procedure RegisterControllers;
+
+implementation
+
+uses
+  uController.Login;
+
+procedure RegisterControllers;
+begin
+  THorseGBSwaggerRegister.RegisterPath(TControllerLogin);
+end;
+
+procedure WriteRouteAPI(APort: Integer);
+const
+  SWAGGER_URL = 'Server running on http://localhost:%s/swagger/doc/html';
+begin
+  Writeln(Format(SWAGGER_URL, [APort.ToString]));
+end;
+
+procedure DocumentationAPI;
+begin
+  THorse.Use(HorseSwagger);
+
+  Swagger
+    .Register
+      .SchemaOnError(TModelErrorApi)
+    .&End
+    .Info
+      .Title('API Aula 3')
+      .Description('API em Horse')
+      .Contact
+        .Name('Contact DinosDev')
+        .Email('DinosDev@email.com.br')
+        .URL('http://www.DinosDev.com.br')
+      .&End
+    .&End
+    .BasePath('v1');
+end;
+
+end.

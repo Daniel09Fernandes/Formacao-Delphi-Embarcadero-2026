@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/09/04 08:47:24.000.868,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/09/04 22:35:43.000.642,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/09 00:08:01.000.213,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/09 00:09:53.000.950,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:48.000.063,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:49.000.503,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:50.000.650,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerContainerUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:22.000.291,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:23.000.977,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerContainerUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:23.000.222,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2026/07/04 09:35:06.000.624,=FireDACCommon.dcp</Transaction>
+    <Transaction>2026/07/04 09:35:06.000.445,=dbrtl.dcp</Transaction>
+    <Transaction>2026/07/04 09:35:06.000.568,=FireDACCommonDriver.dcp</Transaction>
+    <Transaction>2026/07/04 09:35:06.000.512,=emsserverresource.dcp</Transaction>
+    <Transaction>2026/07/04 09:35:06.000.763,=FireDACSQLiteDriver.dcp</Transaction>
+    <Transaction>2026/07/04 09:35:06.000.384,=emsserverapi.dcp</Transaction>
+    <Transaction>2026/07/04 09:35:06.000.708,=FireDAC.dcp</Transaction>
+    <Transaction>2026/07/04 09:35:11.000.455,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/07/04 09:38:41.000.745,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 3\uResource.Clientes.pas</Transaction>
+    <Transaction>2026/07/04 09:38:41.000.745,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 3\uResource.Clientes.dfm</Transaction>
+    <Transaction>2026/07/04 09:39:33.000.013,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 3\RADServerSample.dproj</Transaction>
+    <Transaction>2026/07/04 10:30:23.803,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 3\RadServer\Unit1.pas</Transaction>
+    <Transaction>2026/07/04 10:30:38.630,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 3\RadServer\uModel.Clientes.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 3\RadServer\Unit1.pas</Transaction>
+    <Transaction>2026/07/04 10:45:34.452,=RESTComponents.dcp</Transaction>
+  </Transactions>
+</BorlandProject>

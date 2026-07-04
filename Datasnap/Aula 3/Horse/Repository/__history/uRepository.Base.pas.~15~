@@ -1,0 +1,41 @@
+unit uRepository.Base;
+
+interface
+
+uses
+  Data.DB,
+  ADRConn.Model.Interfaces;
+
+type
+  TRepositoryBase = class(TInterfacedObject)
+   private
+     FQuery: IADRQuery;
+     FConnection: IADRConnection;
+
+     function GetConection: IADRConnection;
+   public
+
+  end;
+
+implementation
+
+{ TRepositoryBase }
+
+function TRepositoryBase.GetConection: IADRConnection;
+begin
+  if Assigned(FConnection) then
+    Exit(FConnection);
+
+  FConnection := CreateConnection;
+  FConnection.Params
+    .Driver(adrSQLite)
+    .Database('D:\Fontes\Formacao-Delphi-Embarcadero-2026\Datasnap\Aula 3\Horse\db\CadTemplete.db');
+//    .Server('127.0.0.1')
+//    .Port(5432)
+//    .UserName('postgres')
+//    .Password('postgres');
+
+  Result := FConnection.Connect;
+end;
+
+end.

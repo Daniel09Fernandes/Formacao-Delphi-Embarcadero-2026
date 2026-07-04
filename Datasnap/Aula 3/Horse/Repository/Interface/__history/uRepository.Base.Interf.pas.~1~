@@ -1,0 +1,7 @@
+unit uRepository.Base;
+
+interface
+
+implementation
+
+end.

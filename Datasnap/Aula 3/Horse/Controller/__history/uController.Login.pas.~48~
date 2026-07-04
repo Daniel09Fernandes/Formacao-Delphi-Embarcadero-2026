@@ -1,0 +1,62 @@
+unit uController.Login;
+
+interface
+
+uses
+  Classes, SysUtils,
+  Rest.Json,
+  Horse,
+  SmartPointerClass,
+  GBSwagger.Path.Attributes,
+  GBSwagger.Validator.Interfaces,
+//  Annotation.Classes,
+  System.JSON,
+  uModel.Login,
+  uModel.ErrorAPI,
+  uController.Base;
+
+type
+  [SwagPath('Login', 'LoginOnSystem')]
+  TControllerLogin = class(TControllerBase)
+  private
+    procedure LoginOnSystem;
+  public
+    constructor Create(AReq: THorseRequest; ARes: THorseResponse); override;
+
+    [SwagPOST('Login on System')]
+    [SwagParamBody('Body', TModelRequestLogin, 'Json body to login', False, True)]
+    [SwagResponse(200, TModelResponseLogin)]
+    [SwagResponse(404, TModelErrorApi)]
+    procedure Login;
+  end;
+
+implementation
+
+{ TControllerLogin }
+
+uses
+  uServices.Login;
+
+constructor TControllerLogin.Create(AReq: THorseRequest; ARes: THorseResponse);
+begin
+  inherited create(AReq, ARes);
+end;
+
+procedure TControllerLogin.Login;
+begin
+  Execute(LoginOnSystem);
+end;
+
+procedure TControllerLogin.LoginOnSystem;
+begin
+   var lModel := TSmartPointer<TModelRequestLogin>(
+      TJson.JsonToObject<TModelRequestLogin>(FRequest.Body)
+    ).Value;
+
+   if TServicesLogin.New.Login(lModel.Username, lModel.Password) then
+   begin
+
+   end;
+end;
+
+end.

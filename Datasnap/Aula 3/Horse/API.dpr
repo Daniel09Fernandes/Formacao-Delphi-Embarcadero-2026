@@ -1,0 +1,38 @@
+program API;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  System.SysUtils,
+  Horse,
+  uController.Login in 'Controller\uController.Login.pas',
+  uSwagger.Documentation in 'uSwagger.Documentation.pas',
+  uModel.ErrorAPI in 'Model\uModel.ErrorAPI.pas',
+  uModel.Login in 'Model\uModel.Login.pas',
+  SmartPointerClass in '..\..\SmartPointerClass.pas',
+  uController.Base in 'Controller\uController.Base.pas',
+  uRepository.Login.Interf in 'Repository\Interface\uRepository.Login.Interf.pas',
+  uRepository.Base in 'Repository\uRepository.Base.pas',
+  uRepository.Login in 'Repository\uRepository.Login.pas',
+  uServices.Login.Interf in 'Services\Interface\uServices.Login.Interf.pas',
+  uServices.Login in 'Services\uServices.Login.pas';
+
+begin
+  try
+    ReportMemoryLeaksOnShutdown := True;
+
+    const
+      HORSE_PORT = 9002;
+
+    DocumentationAPI;
+    RegisterControllers;
+    WriteRouteAPI(HORSE_PORT);
+
+    THorse.Listen(HORSE_PORT);
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+end.

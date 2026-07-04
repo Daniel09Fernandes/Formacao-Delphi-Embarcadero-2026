@@ -1,0 +1,30 @@
+unit uRepository.Base;
+
+interface
+
+uses
+  Data.DB,
+  ADRConn.Model.Interfaces;
+
+type
+  TRepositoryBase = class(TInterfacedObject)
+   private
+     FQuery: IADRQuery;
+     FConnection: IADRConnection;
+
+     function GetConection: IADRConnection;
+   public
+
+  end;
+
+implementation
+
+{ TRepositoryBase }
+
+function TRepositoryBase.GetConection: IADRConnection;
+begin
+   if Assigned(FConnection) then
+     Exit(FConnection);
+end;
+
+end.

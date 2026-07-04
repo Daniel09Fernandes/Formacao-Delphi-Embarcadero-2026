@@ -1,0 +1,28 @@
+unit uRepository.Login;
+
+interface
+
+uses
+  uRepository.Base,
+  uRepository.Login.Interf;
+
+type
+  TRepositoryLogin = class(TRepositoryBase, IRepositoryLogin)
+  private
+
+  public
+    function Login(AUsername, APassword: string): Boolean;
+  end;
+
+implementation
+
+{ TRepositoryLogin }
+
+function TRepositoryLogin.Login(AUsername, APassword: string): Boolean;
+const
+  SQL_LOGIN = 'SELECT Id FROM tab_login WHERE username = %s and senha = %s';
+begin
+
+end;
+
+end.

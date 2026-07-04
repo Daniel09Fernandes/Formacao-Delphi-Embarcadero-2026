@@ -1,0 +1,16 @@
+unit uModel.ErrorAPI;
+
+interface
+
+type
+  TErrorApiModel = class
+  private
+    FMessage: string;
+
+  public
+    property &Message: string read FMessage write FMessage;
+  end;
+
+implementation
+
+end.

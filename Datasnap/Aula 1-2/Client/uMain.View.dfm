@@ -16,7 +16,7 @@ object FrmMain: TFrmMain
     Top = 0
     Width = 624
     Height = 599
-    ActivePage = TabSheet4
+    ActivePage = Datasnap
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -315,7 +315,6 @@ object FrmMain: TFrmMain
         Caption = 'Panel8'
         ShowCaption = False
         TabOrder = 1
-        ExplicitTop = 152
         DesignSize = (
           616
           416)
@@ -376,8 +375,6 @@ object FrmMain: TFrmMain
         Caption = 'Panel12'
         ShowCaption = False
         TabOrder = 0
-        ExplicitTop = 0
-        ExplicitHeight = 65
         object mThread: TMemo
           Left = 1
           Top = 1
@@ -398,7 +395,6 @@ object FrmMain: TFrmMain
         Caption = 'Panel12'
         ShowCaption = False
         TabOrder = 1
-        ExplicitTop = 8
         object BtnCurrentThread: TButton
           Left = 1
           Top = 8
@@ -447,7 +443,6 @@ object FrmMain: TFrmMain
         Align = alClient
         Caption = 'Panel14'
         TabOrder = 0
-        ExplicitLeft = 350
         object Splitter1: TSplitter
           Left = 1
           Top = 90
@@ -464,9 +459,6 @@ object FrmMain: TFrmMain
           Align = alTop
           TabOrder = 0
           OnExit = mDadosExit
-          ExplicitLeft = 11
-          ExplicitTop = 3
-          ExplicitWidth = 255
         end
         object mHash: TMemo
           Left = 1
@@ -486,8 +478,6 @@ object FrmMain: TFrmMain
         Align = alLeft
         Caption = 'Panel14'
         TabOrder = 1
-        ExplicitLeft = -48
-        ExplicitTop = -3
         object EdtSenha: TEdit
           Left = 4
           Top = 17
@@ -549,7 +539,6 @@ object FrmMain: TFrmMain
           Caption = 'Enviar arquivo'
           TabOrder = 0
           OnClick = BtnUploadIMGClick
-          ExplicitLeft = 4
         end
         object BtnDownloadIMG: TButton
           AlignWithMargins = True
@@ -561,8 +550,6 @@ object FrmMain: TFrmMain
           Caption = 'Baixar Arquivo'
           TabOrder = 1
           OnClick = BtnDownloadIMGClick
-          ExplicitLeft = 12
-          ExplicitTop = 8
         end
       end
     end

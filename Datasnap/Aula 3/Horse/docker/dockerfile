@@ -1,0 +1,38 @@
+# Use the official Ubuntu 22.04 image as the base
+FROM ubuntu:22.04
+
+
+# Update package list and install necessary packages
+RUN apt-get update && apt-get install -y \
+    wget \
+    unzip \
+    libgtk2.0-0 \
+    libdbus-glib-1-2 \
+    libxt6 \
+    libnss3 \
+    libasound2 \
+    libxss1 \
+    libgconf-2-4 \
+	libssl-dev \
+	libcurl4-openssl-dev \
+	sqlite3
+
+# Create a directory for the binary
+RUN mkdir /app
+
+# Copy the Delphi binary from your local machine to the container
+COPY API CadTemplete.db libsqlite3.so /app/
+
+# Grant execute permissions to the binary
+RUN chmod +x /app/API \
+   chmod 755 CadTemplete.db \
+   chmod 755 libsqlite3.so 
+
+# Expose the port that the binary listens on
+EXPOSE 8080
+
+# Set the working directory
+WORKDIR /app
+
+# Run the Delphi binary when the container starts
+CMD ["./API"]

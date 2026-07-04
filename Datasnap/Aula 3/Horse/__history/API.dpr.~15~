@@ -1,0 +1,31 @@
+program API;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  System.SysUtils,
+  Horse,
+  uController.Login in 'Controller\uController.Login.pas',
+  uSwagger.Documentation in 'uSwagger.Documentation.pas',
+  uModel.ErrorAPI in 'Model\uModel.ErrorAPI.pas',
+  uModel.Login in 'Model\uModel.Login.pas';
+
+begin
+  try
+    ReportMemoryLeaksOnShutdown := True;
+
+    const
+      HORSE_PORT = 9002;
+
+    DocumentationAPI;
+    RegisterControllers;
+    WriteRouteAPI(HORSE_PORT);
+
+    THorse.Listen(HORSE_PORT);
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+end.

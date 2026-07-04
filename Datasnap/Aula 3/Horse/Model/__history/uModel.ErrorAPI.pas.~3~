@@ -1,0 +1,24 @@
+unit uModel.ErrorAPI;
+
+interface
+
+type
+  TErrorApiModel = class
+  private
+    FMessage: string;
+    procedure SetMessage(const Value: string);
+
+  public
+    property &Message: string read FMessage write SetMessage;
+  end;
+
+implementation
+
+{ TErrorApiModel }
+
+procedure TErrorApiModel.SetMessage(const Value: string);
+begin
+  FMessage := 'Api Exception control: ' + Value;
+end;
+
+end.

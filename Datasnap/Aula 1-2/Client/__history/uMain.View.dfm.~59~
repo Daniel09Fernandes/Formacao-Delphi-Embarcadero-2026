@@ -16,7 +16,7 @@ object FrmMain: TFrmMain
     Top = 0
     Width = 624
     Height = 599
-    ActivePage = Hash
+    ActivePage = TabSheet4
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -25,8 +25,6 @@ object FrmMain: TFrmMain
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = 320
-    ExplicitTop = -8
     object TabSheet1: TTabSheet
       Caption = 'Json'
       object Panel1: TPanel
@@ -452,11 +450,32 @@ object FrmMain: TFrmMain
         ExplicitLeft = 350
         object Splitter1: TSplitter
           Left = 1
-          Top = 1
-          Height = 567
+          Top = 90
+          Height = 6
           ExplicitLeft = 0
           ExplicitTop = 312
           ExplicitHeight = 100
+        end
+        object mDados: TMemo
+          Left = 1
+          Top = 1
+          Width = 270
+          Height = 89
+          Align = alTop
+          TabOrder = 0
+          OnExit = mDadosExit
+          ExplicitLeft = 11
+          ExplicitTop = 3
+          ExplicitWidth = 255
+        end
+        object mHash: TMemo
+          Left = 1
+          Top = 96
+          Width = 270
+          Height = 472
+          Align = alBottom
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          TabOrder = 1
         end
       end
       object Panel15: TPanel
@@ -478,12 +497,13 @@ object FrmMain: TFrmMain
           TextHint = 'Informe a senha'
         end
         object Button4: TButton
-          Left = 135
+          Left = 131
           Top = 16
           Width = 75
           Height = 25
           Caption = 'Autenticar'
           TabOrder = 1
+          OnClick = Button4Click
         end
         object mHashServer: TMemo
           Left = 1
@@ -493,6 +513,56 @@ object FrmMain: TFrmMain
           Align = alBottom
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 2
+        end
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Arquivos'
+      ImageIndex = 5
+      object ImgLogo: TImage
+        Left = 0
+        Top = 57
+        Width = 616
+        Height = 512
+        Align = alClient
+        ExplicitLeft = 112
+        ExplicitTop = 112
+        ExplicitWidth = 105
+        ExplicitHeight = 105
+      end
+      object Panel16: TPanel
+        Left = 0
+        Top = 0
+        Width = 616
+        Height = 57
+        Align = alTop
+        Caption = 'Panel16'
+        ShowCaption = False
+        TabOrder = 0
+        object BtnUploadIMG: TButton
+          AlignWithMargins = True
+          Left = 135
+          Top = 4
+          Width = 125
+          Height = 49
+          Align = alLeft
+          Caption = 'Enviar arquivo'
+          TabOrder = 0
+          OnClick = BtnUploadIMGClick
+          ExplicitLeft = 4
+        end
+        object BtnDownloadIMG: TButton
+          AlignWithMargins = True
+          Left = 4
+          Top = 4
+          Width = 125
+          Height = 49
+          Align = alLeft
+          Caption = 'Baixar Arquivo'
+          TabOrder = 1
+          OnClick = BtnDownloadIMGClick
+          ExplicitLeft = 12
+          ExplicitTop = 8
         end
       end
     end
@@ -560,5 +630,9 @@ object FrmMain: TFrmMain
     SynchronizedEvents = False
     Left = 400
     Top = 120
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    Left = 356
+    Top = 26
   end
 end
