@@ -1,0 +1,138 @@
+unit uWizard.Menu;
+
+interface
+
+uses
+  ToolsAPI, uMain.View, classes, VCL.Menus, SysUtils,
+  Vcl.Forms, Vcl.Dialogs;
+
+type
+  TOtaMenuWizard = class(TNotifierObject, IOTAWizard)
+  private
+    FMenuItem: TMenuItem;
+    FMenuChatIA: TMenuItem;
+    procedure OnMenuChatItemClick(Sender: TObject);
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    function GetIDString: string;
+    function GetName: string;
+    function GetState: TWizardState;
+    procedure Execute;
+  end;
+
+implementation
+
+{ TOtaMenuWizard }
+
+constructor TOtaMenuWizard.Create;
+const
+  MENU_IDE = 'ToolsIA';
+  SUB_MENU_IDE = 'Chat IA';
+var
+  lMenuDelphi: TMainMenu;
+  LMenuToolsIA: TMenuItem;
+  lChatMenu: TMenuItem;
+begin
+  FMenuItem := nil;
+  FMenuChatIA := nil;
+
+  if not Assigned(BorlandIDEServices) then
+    Exit;
+
+  lMenuDelphi := (BorlandIDEServices as INTAServices).MainMenu;
+  if not Assigned(lMenuDelphi) then
+    raise Exception.Create('Erro ao localizar o menu da IDE');
+
+  // 1. Procura se o menu Pai já existe
+  LMenuToolsIA := lMenuDelphi.Items.Find(MENU_IDE);
+
+  // 2. Se não existir, cria o menu Pai
+  if not Assigned(LMenuToolsIA) then
+  begin
+    FMenuItem := TMenuItem.Create(lMenuDelphi);
+    FMenuItem.Caption := MENU_IDE;
+    lMenuDelphi.Items.Add(FMenuItem);
+    LMenuToolsIA := FMenuItem;
+  end;
+
+  // 3. Verifica se o Submenu já existe (limpeza de segurança)
+  lChatMenu := LMenuToolsIA.Find(SUB_MENU_IDE);
+  if Assigned(lChatMenu) then
+  begin
+    LMenuToolsIA.Remove(lChatMenu);
+    lChatMenu.Free; // Libera o antigo da memória para não vazar
+  end;
+
+  // 4. Cria o seu Submenu
+  FMenuChatIA := TMenuItem.Create(LMenuToolsIA);
+  FMenuChatIA.Caption := SUB_MENU_IDE;
+  FMenuChatIA.OnClick := OnMenuChatItemClick;
+  LMenuToolsIA.Add(FMenuChatIA);
+end;
+
+destructor TOtaMenuWizard.Destroy;
+var
+  lMenuDelphi: TMainMenu;
+  LMenuToolsIA: TMenuItem;
+begin
+  if Assigned(BorlandIDEServices) then
+  begin
+    lMenuDelphi := (BorlandIDEServices as INTAServices).MainMenu;
+    if Assigned(lMenuDelphi) then
+    begin
+      if Assigned(FMenuChatIA) then
+      begin
+        LMenuToolsIA := lMenuDelphi.Items.Find('ToolsIA');
+        if Assigned(LMenuToolsIA) then
+          LMenuToolsIA.Remove(FMenuChatIA);
+
+        FreeAndNil(FMenuChatIA);
+      end;
+
+      if Assigned(FMenuItem) then
+      begin
+        if FMenuItem.Count = 0 then
+        begin
+          lMenuDelphi.Items.Remove(FMenuItem);
+          FreeAndNil(FMenuItem);
+        end;
+      end;
+    end;
+  end;
+
+  TFrChat.FreeMemory;
+  inherited;
+end;
+
+procedure TOtaMenuWizard.Execute;
+begin
+  TFrChat.New;
+end;
+
+function TOtaMenuWizard.GetIDString: string;
+begin
+  // Corrigido: Removido o espaço em branco da String ID
+  Result := 'Chat.WizardMenu.ChatIA';
+end;
+
+function TOtaMenuWizard.GetName: string;
+begin
+  Result := 'OTA Wizard ChatIA';
+end;
+
+function TOtaMenuWizard.GetState: TWizardState;
+begin
+  Result := [wsEnabled];
+end;
+
+procedure TOtaMenuWizard.OnMenuChatItemClick(Sender: TObject);
+begin
+  Execute;
+end;
+
+initialization
+  RegisterPackageWizard(TOtaMenuWizard.Create);
+
+end.

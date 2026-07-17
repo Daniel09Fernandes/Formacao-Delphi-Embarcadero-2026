@@ -128,6 +128,7 @@ begin
       lPessoaFisica.Nome := 'Daniel 2';
       lPessoaFisica.Endereco := 'Rua 2';
       lPessoaFisica.Telefone := '222222';
+      lPessoaFisica.CPF := '321';
     finally
       lPessoaFisica.Free;
     end;

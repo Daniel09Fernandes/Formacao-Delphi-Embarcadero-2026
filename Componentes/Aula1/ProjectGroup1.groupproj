@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{CE7ABB25-F01E-4557-B1E4-3477A66094B1}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="PrjTestCom.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Componente\PnlValidador\PanelValidador.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Componente\OTAWizard\OTAWizardIA.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PrjTestCom">
+        <MSBuild Projects="PrjTestCom.dproj"/>
+    </Target>
+    <Target Name="PrjTestCom:Clean">
+        <MSBuild Projects="PrjTestCom.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PrjTestCom:Make">
+        <MSBuild Projects="PrjTestCom.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PanelValidador">
+        <MSBuild Projects="Componente\PnlValidador\PanelValidador.dproj"/>
+    </Target>
+    <Target Name="PanelValidador:Clean">
+        <MSBuild Projects="Componente\PnlValidador\PanelValidador.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PanelValidador:Make">
+        <MSBuild Projects="Componente\PnlValidador\PanelValidador.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="OTAWizardIA">
+        <MSBuild Projects="Componente\OTAWizard\OTAWizardIA.dproj"/>
+    </Target>
+    <Target Name="OTAWizardIA:Clean">
+        <MSBuild Projects="Componente\OTAWizard\OTAWizardIA.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OTAWizardIA:Make">
+        <MSBuild Projects="Componente\OTAWizard\OTAWizardIA.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PrjTestCom;PanelValidador;OTAWizardIA"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PrjTestCom:Clean;PanelValidador:Clean;OTAWizardIA:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PrjTestCom:Make;PanelValidador:Make;OTAWizardIA:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

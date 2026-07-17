@@ -21,7 +21,7 @@ object TFormCadPadrao: TTFormCadPadrao
     Width = 618
     Height = 41
     Align = alTop
-    Color = 14254118
+    Color = 16449599
     ParentBackground = False
     TabOrder = 0
     object LbNome: TLabel
@@ -52,7 +52,7 @@ object TFormCadPadrao: TTFormCadPadrao
     Width = 618
     Height = 341
     Align = alClient
-    Color = 16580067
+    Color = 16085138
     ParentBackground = False
     TabOrder = 1
     object Panel4: TPanel
@@ -65,7 +65,7 @@ object TFormCadPadrao: TTFormCadPadrao
       Margins.Right = 8
       Margins.Bottom = 5
       Align = alClient
-      Color = 11521950
+      Color = 13671851
       ParentBackground = False
       TabOrder = 0
       object Panel5: TPanel
@@ -75,7 +75,7 @@ object TFormCadPadrao: TTFormCadPadrao
         Width = 592
         Height = 152
         Align = alTop
-        Color = 16580067
+        Color = 16638956
         ParentBackground = False
         TabOrder = 0
       end

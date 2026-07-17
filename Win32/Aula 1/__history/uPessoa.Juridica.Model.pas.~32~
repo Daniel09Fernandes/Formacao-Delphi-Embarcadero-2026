@@ -1,0 +1,93 @@
+unit uPessoa.Juridica.Model;
+
+interface
+
+uses
+ uPessoa.Model;
+
+type
+  TPessoaJuridica = class sealed (TPessoa)
+  private
+    FNomeFantasia: string;
+    FCNPJ: string;
+
+    function GetCNPJ: string;
+    procedure SetCNPJ(const Value: string);
+  public
+     property NomeFantasia: string read FNomeFantasia write FNomeFantasia;
+     property CNPJ: string read GetCNPJ write SetCNPJ;
+
+     function AplicarMascaraNoIdentificador(AValue: string): string; override;
+
+     function CalcularBonusSalario(ASalario, ABonus: Double): Double; overload;
+     function CalcularBonusSalario(ASalario, ABonus: string): Double; overload;
+  end;
+
+//  TPessoaJuridicaExtrerior = class(TPessoaJuridica)
+//     procedure Teste;
+//  end;
+//
+//  TPessoaJuridicaInteriorDeMG = class(TPessoaJuridicaExtrerior)
+//    procedure TesteMG;
+//  end;
+
+implementation
+
+uses
+  MaskUtils,
+  SysUtils;
+
+{ TPessoaJuridicaExtrerior }
+//
+//procedure TPessoaJuridicaExtrerior.Teste;
+//begin
+//  Self.NomeFantasia := '';
+//end;
+//
+//{ TPessoaJuridicaInteriorDeMG }
+//
+//procedure TPessoaJuridicaInteriorDeMG.TesteMG;
+//begin
+//  Self.Teste;
+//end;
+
+{ TPessoaJuridica }
+
+function TPessoaJuridica.AplicarMascaraNoIdentificador(AValue: string): string;
+begin
+
+  Result := FormatMaskText('00\.000.\000\/0000-00;0;', AValue);
+ // Result := inherited;
+end;
+
+function TPessoaJuridica.CalcularBonusSalario(ASalario, ABonus: Double): Double;
+begin
+  Result := ASalario * ABonus;
+end;
+
+function TPessoaJuridica.CalcularBonusSalario(ASalario, ABonus: string): Double;
+var
+  OutSalario: Double;
+  OutBonus: Double;
+begin
+  if (TryStrToFloat(ASalario, OutSalario)) and
+     (TryStrToFloat(ABonus, OutBonus)) then
+    Result := CalcularBonusSalario(OutSalario, OutBonus)
+  else
+    raise Exception.Create('Erro ao calcular o bonus do salario!');
+end;
+
+function TPessoaJuridica.GetCNPJ: string;
+begin
+  Result := AplicarMascaraNoIdentificador(FCNPJ);
+end;
+
+procedure TPessoaJuridica.SetCNPJ(const Value: string);
+begin
+  if Value.Length < 14 then
+    raise Exception.Create('CNPJ Invalido');
+
+  FCNPJ := Value;
+end;
+
+end.

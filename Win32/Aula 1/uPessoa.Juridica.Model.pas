@@ -26,10 +26,10 @@ type
 //  TPessoaJuridicaExtrerior = class(TPessoaJuridica)
 //     procedure Teste;
 //  end;
-//
+////
 //  TPessoaJuridicaInteriorDeMG = class(TPessoaJuridicaExtrerior)
 //    procedure TesteMG;
-//  end;
+ // end;
 
 implementation
 
@@ -88,5 +88,19 @@ begin
 
   FCNPJ := Value;
 end;
+
+{ TPessoaJuridicaExtrerior }
+//
+//procedure TPessoaJuridicaExtrerior.Teste;
+//begin
+//
+//end;
+//
+//{ TPessoaJuridicaInteriorDeMG }
+//
+//procedure TPessoaJuridicaInteriorDeMG.TesteMG;
+//begin
+//
+//end;
 
 end.

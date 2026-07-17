@@ -1,0 +1,110 @@
+unit uWizard.Menu;
+
+interface
+
+uses
+  ToolsAPI, uMain.View, classes, VCL.Menus, SysUtils,
+  Vcl.Forms, Vcl.Dialogs;
+
+type
+  TOtaMenuWizard = class(TNotifierObject, IOTAWizard)
+  private
+    FMenuItem: TMenuItem;
+    FMenuChatIA: TMenuItem;
+
+    procedure OnMenuChatItemClick(Sender: TObject);
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    function GetIDString: string;
+    function GetName: string;
+    function GetState: TWizardState;
+    procedure Execute;
+  end;
+
+implementation
+
+{ TOtaMenuWizard }
+
+constructor TOtaMenuWizard.Create;
+begin
+  const MENU_IDE = 'ToolsIA';
+  const SUB_MENU_IDE = 'Chat IA';
+  var lMenuDelphi: TMainMenu;
+
+  lMenuDelphi := (BorlandIDEServices as INTAServices).MainMenu;
+
+  if not Assigned(lMenuDelphi) then
+    raise Exception.Create('Erro ao localizar o menu da IDE');
+
+  var lIndexMenu := -1;
+  var LMenuToolsIA := lMenuDelphi.Items.Find(MENU_IDE);
+  if Assigned(LMenuToolsIA) then
+  begin
+    lIndexMenu := LMenuToolsIA.MenuIndex;
+  end;
+
+  if lIndexMenu < 0 then
+  begin
+    FMenuItem := TMenuItem.Create(lMenuDelphi);
+    FMenuItem.Caption := MENU_IDE;
+    lMenuDelphi.Items.Add(FMenuItem);
+  end;
+
+  if not Assigned(LMenuToolsIA) then
+    LMenuToolsIA := lMenuDelphi.Items.Find(MENU_IDE);
+
+  var lChatMenu := LMenuToolsIA.Find(SUB_MENU_IDE);
+
+  if Assigned(lChatMenu) then
+    LMenuToolsIA.Remove(lChatMenu);
+
+  if (not Assigned(lChatMenu)) then
+  begin
+    ShowMessage('Criando sub menu');
+    FMenuChatIA := TMenuItem.Create(LMenuToolsIA);
+    FMenuChatIA.Caption := SUB_MENU_IDE;
+    FMenuChatIA.OnClick := OnMenuChatItemClick;
+    LMenuToolsIA.Add(FMenuChatIA);
+  end;
+end;
+
+destructor TOtaMenuWizard.Destroy;
+begin
+  FreeAndNil(FMenuItem);
+  FreeAndNil(FMenuChatIA);
+  TFrChat.FreeMemory;
+
+  inherited;
+end;
+
+procedure TOtaMenuWizard.Execute;
+begin
+  TFrChat.New;
+end;
+
+function TOtaMenuWizard.GetIDString: string;
+begin
+  Result := 'Chat.WizardMenu ChatIA';
+end;
+
+function TOtaMenuWizard.GetName: string;
+begin
+  Result := 'OTA Wizard ChatIA';
+end;
+
+function TOtaMenuWizard.GetState: TWizardState;
+begin
+  Result := [wsEnabled];
+end;
+
+procedure TOtaMenuWizard.OnMenuChatItemClick(Sender: TObject);
+begin
+  Execute;
+end;
+
+initialization
+  RegisterPackageWizard(TOtaMenuWizard.Create);
+
+end.

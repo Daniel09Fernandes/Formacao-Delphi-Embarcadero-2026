@@ -1,0 +1,130 @@
+object FrChat: TFrChat
+  AlignWithMargins = True
+  Left = 0
+  Top = 0
+  Caption = 'FrChat'
+  ClientHeight = 441
+  ClientWidth = 624
+  Color = 2039583
+  UseDockManager = True
+  DockSite = True
+  DragKind = dkDock
+  DragMode = dmAutomatic
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Visible = True
+  OnClose = FormClose
+  OnCreate = FormCreate
+  TextHeight = 15
+  object Panel1: TPanel
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 618
+    Height = 435
+    Align = alClient
+    Caption = 'Panel1'
+    Color = 4276545
+    ParentBackground = False
+    ShowCaption = False
+    TabOrder = 0
+    object Panel2: TPanel
+      AlignWithMargins = True
+      Left = 6
+      Top = 4
+      Width = 606
+      Height = 240
+      Margins.Left = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
+      Align = alTop
+      Caption = 'Panel2'
+      Color = 3684408
+      ParentBackground = False
+      ShowCaption = False
+      TabOrder = 0
+      object Label1: TLabel
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
+        Width = 598
+        Height = 20
+        Align = alTop
+        Caption = 'IA:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = 20
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        ExplicitWidth = 17
+      end
+      object mmoIA: TRichEdit
+        AlignWithMargins = True
+        Left = 4
+        Top = 30
+        Width = 598
+        Height = 206
+        Align = alClient
+        Color = 7811399
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = 14
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+    object Panel3: TPanel
+      AlignWithMargins = True
+      Left = 6
+      Top = 252
+      Width = 608
+      Height = 179
+      Margins.Left = 5
+      Align = alClient
+      Caption = 'Panel3'
+      Color = 3684408
+      ParentBackground = False
+      ShowCaption = False
+      TabOrder = 1
+      object Label2: TLabel
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
+        Width = 600
+        Height = 20
+        Align = alTop
+        Caption = 'Mensagem:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = 20
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        ExplicitWidth = 76
+      end
+      object mmoSelf: TRichEdit
+        AlignWithMargins = True
+        Left = 4
+        Top = 30
+        Width = 600
+        Height = 145
+        Align = alClient
+        Color = 7811399
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = 14
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        OnKeyDown = mmoSelfKeyDown
+      end
+    end
+  end
+end

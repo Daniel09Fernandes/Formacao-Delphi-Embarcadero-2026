@@ -1,0 +1,317 @@
+unit uMain.View;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
+
+  //Uses Exigidas
+  Vcl.ComCtrls, Vcl.ActnList, Vcl.ImgList, VCL.menus, IniFiles,
+
+  //TollsAPI
+  ToolsApi, DockForm, DesignIntf;
+
+type
+  IChatIA = interface
+    ['{015C61B1-FBA4-4EB5-88BA-CC68B62F8221}']
+
+    procedure Show;
+    procedure Close;
+  end;
+
+  TFrChat = class(TDockableForm, IChatIA, INTACustomDockableForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Label1: TLabel;
+    Panel3: TPanel;
+    Label2: TLabel;
+    mmoIA: TRichEdit;
+    mmoSelf: TRichEdit;
+    procedure mmoSelfKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+  private
+    FHistorico: string;
+
+    const
+      PROMPT_DEFUALT = 'Leve em consideração que estou em um ambiente Delphi versão %s';
+
+     procedure SetInitialPrompt;
+  protected
+    /// <summary>
+    /// Returns the Caption for the Dockable Form
+    /// </summary>
+    function GetCaption: string;
+    /// <summary>
+    /// Returns a unique identifier for this form.  This should not be translated.
+    /// This identifier is used as the section name when saving information for
+    /// this form in the desktop state file
+    /// </summary>
+    function GetIdentifier: string;
+    /// <summary>
+    /// Returns the class of the frame that you want embedded in the dockable form
+    /// </summary>
+    function GetFrameClass: TCustomFrameClass;
+    /// <summary>
+    /// Called when an instance of the specified frame class is created
+    /// </summary>
+    procedure FrameCreated(AFrame: TCustomFrame);
+    /// <summary>
+    /// Returns an action list that is used to populate the form's context menu.
+    /// By default the context menu will have 2 items that are common to all
+    /// dockable forms in the IDE: &quot;Stay on top&quot; and &quot;Dockable&quot;.  If the form
+    /// has a toolbar, there will also be a &quot;Toolbar&quot; menu item.  If this
+    /// function returns a non-nil action list, the items in the action list will
+    /// be added to the menu (above the default items).  To specify sub-menus, use
+    /// categories for the actions contained in the Action List.  Any action that
+    /// has a Category set, will appear on a sub-menu in the context menu.  The
+    /// Caption of the Parent menu will be the Category name.
+    /// </summary>
+    function GetMenuActionList: TCustomActionList;
+    /// <summary>
+    /// Returns an image list that contains the images associated with the action
+    /// list returned by GetMenuActionList
+    /// </summary>
+    function GetMenuImageList: TCustomImageList;
+    /// <summary>
+    /// Called when the popup menu is about to be shown.  This allows further
+    /// customization beyond just adding items from an Action List
+    /// </summary>
+    procedure CustomizePopupMenu(PopupMenu: TPopupMenu);
+    /// <summary>
+    /// Returns an action list that is used to populate a toolbar on the form.  If
+    /// nil is returned, then the dockable form will not have a toolbar.  Items in
+    /// the Action List that have '-' as the caption will be added to the toolbar
+    /// as a separator
+    /// </summary>
+    function GetToolBarActionList: TCustomActionList;
+    /// <summary>
+    /// Returns an image list that contains the images associated with the action
+    /// list returned by GetToolbarActionList
+    /// </summary>
+    function GetToolBarImageList: TCustomImageList;
+    /// <summary>
+    /// Called after the toolbar has been populated with the Action List returned
+    /// from GetToolbarActionList.  This allows further customization beyond just
+    /// adding items from an Action List
+    /// </summary>
+    procedure CustomizeToolBar(ToolBar: TToolBar);
+    /// <summary>
+    /// Called when state for this form is saved to a desktop file.  The Section
+    /// paramter is passed in for convenience, but it should match the string
+    /// returned by GetIdentifier.  This is only called for INTACustomDockableForm
+    /// instances that have been registered using INTAServices.RegisterDockableForm.
+    /// IsProject indicates whether the desktop being saved is a project desktop
+    /// (as opposed to a dekstop state)
+    /// </summary>
+    procedure SaveWindowState(Desktop: TCustomIniFile; const Section: string; IsProject: Boolean);
+    /// <summary>
+    /// Called when state for this form is loaded from a desktop file.  The
+    /// Section paramter is passed in for convenience, but it should match the
+    /// string returned by GetIdentifier.  This is only called for
+    /// INTACustomDockableForm instances that have been registered using
+    /// INTAServices.RegisterDockableForm
+    /// </summary>
+    procedure LoadWindowState(Desktop: TCustomIniFile; const Section: string);
+    /// <summary>
+    /// Allows the form to control the enabled state of the clipboard commands on
+    /// the IDE's &quot;Edit&quot; menu when this view is active
+    /// </summary>
+    function GetEditState: TEditState;
+    /// <summary>
+    /// Called when the user uses one of the clipboard commands on the IDE's &quot;Edit&quot;
+    /// menu
+    /// </summary>
+    function EditAction(Action: TEditAction): Boolean;
+
+  public
+    constructor Create(AOwner: TComponent); override;
+    class function CreateDocked(const Indentifier: string): TFrChat;
+    class procedure New;
+    class procedure FreeMemory;
+  end;
+
+var
+  FrChat: TFrChat;
+
+implementation
+
+{$R *.dfm}
+
+constructor TFrChat.Create(AOwner: TComponent);
+begin
+  inherited Create(Self);
+  SetInitialPrompt;
+end;
+
+class function TFrChat.CreateDocked(const Indentifier: string): TFrChat;
+var
+  lINTAServices: INTAServices;
+begin
+//  lINTAServices := (BorlandIDEServices as INTAServices);
+//
+//  if not Assigned(FrChat) then
+//    FrChat := TFrChat.Create(nil)
+//  else
+//    Exit;
+//
+//  if Assigned(lINTAServices) then
+//  begin
+//    lINTAServices.RegisterDockableForm(FrChat);
+//  end;
+end;
+
+procedure TFrChat.CustomizePopupMenu(PopupMenu: TPopupMenu);
+begin
+//
+end;
+
+procedure TFrChat.CustomizeToolBar(ToolBar: TToolBar);
+begin
+  //
+end;
+
+function TFrChat.EditAction(Action: TEditAction): Boolean;
+begin
+  Result := False;
+end;
+
+procedure TFrChat.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
+end;
+
+procedure TFrChat.FormCreate(Sender: TObject);
+begin
+  //Configurações especificas para o docking
+  DockSite := True;
+  AutoScroll := True;
+end;
+
+procedure TFrChat.FrameCreated(AFrame: TCustomFrame);
+begin
+  // Não implementa, pois não estamos usando frames
+end;
+
+class procedure TFrChat.FreeMemory;
+begin
+  if Assigned(FrChat) then
+  begin
+    var lINTAServices := (BorlandIDEServices as INTAServices);
+
+    if Assigned(lINTAServices) then
+    begin
+      lINTAServices.UnregisterDockableForm(FrChat);
+    end;
+
+    FreeAndNil(FrChat);
+  end;
+end;
+
+function TFrChat.GetCaption: string;
+begin
+  Result := 'Chat IA Wizard';
+end;
+
+function TFrChat.GetEditState: TEditState;
+begin
+  Result := [];
+end;
+
+function TFrChat.GetFrameClass: TCustomFrameClass;
+begin
+  Result := nil;
+end;
+
+function TFrChat.GetIdentifier: string;
+begin
+  Result := 'ChatIAWizard';
+end;
+
+function TFrChat.GetMenuActionList: TCustomActionList;
+begin
+  Result := nil;
+end;
+
+function TFrChat.GetMenuImageList: TCustomImageList;
+begin
+  Result := nil;
+end;
+
+function TFrChat.GetToolBarActionList: TCustomActionList;
+begin
+  Result := nil;
+end;
+
+function TFrChat.GetToolBarImageList: TCustomImageList;
+begin
+  Result := nil;
+end;
+
+procedure TFrChat.LoadWindowState(Desktop: TCustomIniFile;
+  const Section: string);
+begin
+  //Carrega o estado da janela;
+end;
+
+procedure TFrChat.mmoSelfKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_RETURN then
+  begin
+    mmoIA.Lines.Add('');
+    FHistorico := FHistorico + mmoSelf.Lines.text;
+    mmoSelf.Lines.Clear;
+  end;
+end;
+
+class procedure TFrChat.New;
+begin
+
+  if not Assigned(FrChat) then
+    FrChat := TFrChat.Create(nil)
+  else
+  begin
+    FrChat.Show;
+    FrChat.BringToFront;
+
+    Exit;
+  end;
+
+  var lINTAServices := (BorlandIDEServices as INTAServices);
+
+  if Assigned(lINTAServices) then
+  begin
+    lINTAServices.RegisterDockableForm(FrChat);
+  end;
+
+  FrChat.Show;
+  FrChat.BringToFront;
+
+//  if not Assigned(FrChat) then
+//  begin
+//    FrChat := CreateDocked('ChatIAWizard');
+//    FrChat.Show;
+//    FrChat.BringToFront;
+//  end
+//  else
+//  begin
+//    FrChat.Show;
+//    FrChat.BringToFront;
+//  end;
+end;
+
+procedure TFrChat.SaveWindowState(Desktop: TCustomIniFile;
+  const Section: string; IsProject: Boolean);
+begin
+  //
+end;
+
+procedure TFrChat.SetInitialPrompt;
+begin
+  FHistorico := Format(PROMPT_DEFUALT, [CompilerVersion.ToString]);
+end;
+
+end.

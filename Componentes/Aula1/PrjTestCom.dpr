@@ -1,0 +1,16 @@
+program PrjTestCom;
+
+uses
+  Vcl.Forms,
+  PrjTestComp in 'PrjTestComp.pas' {Form1},
+  uFrame.PopUp in 'uFrame.PopUp.pas' {FrPromo: TFrame},
+  Comp.Panel.Validador in 'Componente\PnlValidador\Comp.Panel.Validador.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

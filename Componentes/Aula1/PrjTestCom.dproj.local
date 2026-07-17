@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/09/04 08:47:24.000.868,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/09/04 22:35:43.000.642,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/09 00:08:01.000.213,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/09 00:09:53.000.950,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:48.000.063,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:49.000.503,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:50.000.650,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerContainerUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:22.000.291,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:23.000.977,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerContainerUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:23.000.222,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2026/07/11 10:22:35.000.211,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/07/11 10:23:20.000.684,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\uMain.dfm</Transaction>
+    <Transaction>2026/07/11 10:23:20.000.684,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\uMain.pas</Transaction>
+    <Transaction>2026/07/11 10:24:28.000.483,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\uMain.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\PrjTestComp.dfm</Transaction>
+    <Transaction>2026/07/11 10:24:28.000.483,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\uMain.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\PrjTestComp.pas</Transaction>
+    <Transaction>2026/07/11 10:25:05.000.806,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\PrjTestCom.dproj</Transaction>
+    <Transaction>2026/07/11 10:35:25.000.787,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Unit1.pas</Transaction>
+    <Transaction>2026/07/11 10:38:36.000.520,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Unit1.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\uFrame.PopUp.dfm</Transaction>
+    <Transaction>2026/07/11 10:38:36.000.520,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\uFrame.PopUp.pas</Transaction>
+    <Transaction>2026/07/11 14:11:11.000.830,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Comp.Panel.Validador.pas</Transaction>
+  </Transactions>
+</BorlandProject>

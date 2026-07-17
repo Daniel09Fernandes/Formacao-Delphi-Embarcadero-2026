@@ -1,17 +1,11 @@
 inherited FormCadPessoaFisica: TFormCadPessoaFisica
   Caption = 'FormCadPessoaFisica'
   StyleElements = [seFont, seClient, seBorder]
-  OnCreate = FormCreate
   TextHeight = 15
   inherited Panel1: TPanel
     StyleElements = [seFont, seClient, seBorder]
     inherited LbNome: TLabel
-      Width = 80
       StyleElements = [seFont, seClient, seBorder]
-      ExplicitLeft = 11
-      ExplicitTop = 4
-      ExplicitWidth = 80
-      ExplicitHeight = 25
     end
   end
   inherited Panel2: TPanel
