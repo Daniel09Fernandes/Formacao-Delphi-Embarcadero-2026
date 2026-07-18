@@ -1,0 +1,17 @@
+unit uPackage.DB.DataPicker.Register;
+
+interface
+
+uses
+  Classes, uPackage.DB.DataPicker, DesignIntf;
+
+procedure Register;
+
+implementation
+
+procedure Register;
+begin
+  RegisterComponents();
+end;
+
+end.

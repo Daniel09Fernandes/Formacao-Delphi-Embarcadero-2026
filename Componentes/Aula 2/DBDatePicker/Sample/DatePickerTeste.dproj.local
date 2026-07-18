@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/09/04 08:47:24.000.868,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/09/04 22:35:43.000.642,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/09 00:08:01.000.213,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/09 00:09:53.000.950,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:48.000.063,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:49.000.503,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:55:50.000.650,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerContainerUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:22.000.291,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:23.000.977,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerContainerUnit1.pas</Transaction>
+    <Transaction>2026/06/19 20:57:23.000.222,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
+    <Transaction>2026/07/18 10:17:37.000.544,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/07/18 10:25:21.000.142,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 2\DBDatePicker\Sample\uMain.Testes.pas</Transaction>
+    <Transaction>2026/07/18 10:25:21.000.142,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 2\DBDatePicker\Sample\uMain.Testes.dfm</Transaction>
+    <Transaction>2026/07/18 10:25:39.000.387,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 2\DBDatePicker\Sample\DataPickerTeste.dproj</Transaction>
+    <Transaction>2026/07/18 10:25:56.000.937,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 2\DBDatePicker\Sample\DataPickerTeste.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 2\DBDatePicker\Sample\DatePickerTeste.dproj</Transaction>
+    <Transaction>2026/07/18 11:11:57.000.831,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 2\DBDatePicker\Source\uPackage.DB.DataPicker.pas</Transaction>
+    <Transaction>2026/07/18 13:10:11.259,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 2\DBDatePicker\Sample\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

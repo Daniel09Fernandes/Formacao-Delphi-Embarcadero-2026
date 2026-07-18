@@ -1,0 +1,296 @@
+unit uView.Main;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, StrUtils,
+  Vcl.ExtCtrls, System.Generics.Collections,
+  uView.Parent, Vcl.Imaging.pngimage;
+
+type
+  TForm1 = class(TForm)
+    Panel1: TPanel;
+    ProgressBar1: TProgressBar;
+    BtnProcess: TButton;
+    BtnFreez: TButton;
+    BtnFormWin: TButton;
+    Label1: TLabel;
+    StaticText1: TStaticText;
+    TmrCapturaHandle: TTimer;
+    Panel2: TPanel;
+    LBHandles: TListBox;
+    CBAtivaCapturaHandle: TCheckBox;
+    EdtNovoCaption: TEdit;
+    EdtCaptionDestino: TEdit;
+    Panel3: TPanel;
+    BtnSetCaption: TButton;
+    EdtHandleAtual: TEdit;
+    BtnClick: TButton;
+    BtnClose: TButton;
+    BtnShake: TButton;
+    Image1: TImage;
+    procedure BtnProcessClick(Sender: TObject);
+    procedure BtnFreezClick(Sender: TObject);
+    procedure BtnFormWinClick(Sender: TObject);
+    procedure TmrCapturaHandleTimer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure CBAtivaCapturaHandleClick(Sender: TObject);
+    procedure LBHandlesClick(Sender: TObject);
+    procedure BtnSetCaptionClick(Sender: TObject);
+    procedure BtnClickClick(Sender: TObject);
+    procedure BtnCloseClick(Sender: TObject);
+    procedure BtnShakeClick(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+  private
+    FListaWnds: TDictionary<string, THandle>;
+    function GetHandleAtual: integer;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+  //
+  WinForm: TWndClass;
+  lFormWimMSG: HWND;
+  lEdtHandle: HWND;
+  lBtnHandle: HWND;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.BtnProcessClick(Sender: TObject);
+begin
+  ProgressBar1.Position := 0;
+  while ProgressBar1.Position <> ProgressBar1.Max do
+  begin
+    Sleep(600);
+    ProgressBar1.Position := ProgressBar1.Position +1;
+    Application.ProcessMessages;
+  end;
+end;
+
+function TForm1.GetHandleAtual: integer;
+begin
+  Result := StrToIntDef(EdtHandleAtual.Text, 0);
+end;
+
+procedure TForm1.Image1Click(Sender: TObject);
+begin
+
+  Winapi.Windows.SetParent(GetHandleAtual, FrParent.Handle)
+  FrParent.Show;
+end;
+
+procedure TForm1.BtnSetCaptionClick(Sender: TObject);
+begin
+  SetWindowText(GetHandleAtual, EdtNovoCaption.Text);
+end;
+
+procedure TForm1.BtnShakeClick(Sender: TObject);
+const
+  MAX_DELTA = 4;
+  SHAKE_TIME = 500;
+var
+  wRect, oRect: TRect;
+  DeltaX, DeltaY: integer;
+begin
+  GetWindowRect(GetHandleAtual, wRect);
+  oRect := wRect;
+
+  for var i := 0 to SHAKE_TIME do
+  begin
+    DeltaX := Random(MAX_DELTA);
+    DeltaY := Random(MAX_DELTA);
+
+    var dx := 1 + Random(2);
+    if dx = 2 then
+      dx := -1;
+
+    var dy := 1+ Random(2);
+    if dy = 2 then
+      dy := -1;
+
+
+    OffsetRect(wRect,  dx * DeltaX,   dy * DeltaY);
+
+    MoveWindow(GetHandleAtual,
+      wRect.left,
+      wRect.Top,
+      wRect.Right - wRect.Left,
+      wRect.Bottom - wRect.Top,
+      True);
+
+  end;
+
+  MoveWindow(GetHandleAtual,
+      oRect.left,
+      oRect.Top,
+      oRect.Right - oRect.Left,
+      oRect.Bottom - oRect.Top,
+      True);
+end;
+
+procedure TForm1.CBAtivaCapturaHandleClick(Sender: TObject);
+begin
+  TmrCapturaHandle.Enabled := CBAtivaCapturaHandle.Checked;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  FListaWnds := TDictionary<string, THandle>.Create;
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FListaWnds);
+end;
+
+procedure TForm1.LBHandlesClick(Sender: TObject);
+begin
+  if FListaWnds.Count <= 0 then
+    Exit;
+
+  if not FListaWnds.ContainsKey(LBHandles.Items[LBHandles.ItemIndex]) then
+    Exit;
+
+  EdtHandleAtual.Text := IntToStr(
+     FListaWnds[ //Pego o handle pela KEY
+       LBHandles.Items[ //Pego a Key do list box
+         LBHandles.ItemIndex //Pelo index atual do clique
+       ]
+     ]);
+end;
+
+procedure TForm1.TmrCapturaHandleTimer(Sender: TObject);
+var
+  lPoint: TPoint;
+  lHandle: HWND;
+  lCaptionHandle: array[0..255] of char;
+begin
+  GetCursorPos(lPoint);
+  lHandle := WindowFromPoint(lPoint);
+
+  GetWindowText(lHandle, @lCaptionHandle, Length(lCaptionHandle));
+  var lCaption := string(lCaptionHandle);
+
+  Winapi
+    .Windows
+    .GetClassName(lHandle, @lCaptionHandle, Length(lCaptionHandle));
+
+  var lClassName := string(lCaptionHandle);
+
+  var lKey := (if lCaption.Trim.IsEmpty then '0' else lCaption)  +' - '+
+              (if lClassName.Trim.IsEmpty then '0' else lClassName);
+
+  if not FListaWnds.ContainsKey(lKey) then
+  begin
+    FListaWnds.Add(lKey, lHandle);
+    LBHandles.Items.Add(lKey);
+  end
+  else
+    LBHandles.ItemIndex := LBHandles.Items.IndexOf(lKey);
+end;
+
+procedure OnClickButtonWin;
+var
+  lText: array[0..255] of char;
+begin
+  GetWindowText(lEdtHandle, lText, Length(lText));
+
+  MessageBox(lFormWimMSG, Pchar('Voce digitou: '+ lText),'O sistema diz: ',
+    MB_APPLMODAL or MB_ICONINFORMATION + MB_OK);
+end;
+
+function WinFormWndProc(pHandle: HWND; uMsg: UInt;
+   pWParam: WPARAM; pLParam: LPARAM): LRESULT; stdcall;
+begin
+  Result := 0;
+
+  case uMsg of
+    WM_DESTROY: PostQuitMessage(0);
+    WM_ACTIVATE: Winapi.Windows.SetFocus(lEdtHandle);
+
+    WM_COMMAND:
+      begin
+        if pLParam = lBtnHandle then
+        begin
+          case pWParam of
+            BN_CLICKED : OnClickButtonWin;
+          end;
+        end;
+      end
+      else
+        Result := DefWindowProc(pHandle, uMsg, pWParam, pLParam);
+  end;
+end;
+
+procedure CriarControlsWIN_Btn_Edt;
+begin
+  lEdtHandle := CreateWindowEx(
+    WS_EX_CLIENTEDGE,
+    'EDIT',
+    '',
+    WS_CHILD OR WS_VISIBLE OR ES_AUTOVSCROLL or ES_NOHIDESEL,
+    8, 16, 160, 21,
+    lFormWimMSG,
+    0, HInstance, nil);
+
+   lBtnHandle := CreateWindow(
+    'BUTTON',
+    'Exibir texto digitado',
+    WS_CHILD OR WS_VISIBLE OR BS_PUSHBUTTON or BS_TEXT,
+    8, 50, 200, 25,
+    lFormWimMSG,
+    0, HInstance, 0);
+end;
+
+procedure TForm1.BtnClickClick(Sender: TObject);
+begin
+  SendMessage(GetHandleAtual, WM_LBUTTONDOWN, 0, 0);
+  Sleep(100);
+  SendMessage(GetHandleAtual, WM_LBUTTONUP, 0, 0);
+end;
+
+procedure TForm1.BtnCloseClick(Sender: TObject);
+begin
+  SendMessage(GetHandleAtual, WM_CLOSE, 0, 0);
+end;
+
+procedure TForm1.BtnFormWinClick(Sender: TObject);
+begin
+  WinForm.style := 0;
+  WinForm.lpfnWndProc := @WinFormWndProc;
+  WinForm.cbClsExtra := 0;
+  WinForm.cbWndExtra := 0;
+  WinForm.hInstance := HInstance;
+  WinForm.hIcon := 0;
+  WinForm.hCursor := LoadCursor(0, IDC_ARROW);
+  WinForm.hbrBackground := COLOR_WINDOW;
+  WinForm.lpszMenuName := nil;
+  WinForm.lpszClassName := 'TMyWinForm';
+
+  Winapi.Windows.RegisterClass(WinForm);
+
+  lFormWimMSG := CreateWindow('TMyWinForm', 'Aula 2 turma 2026',
+    WS_OVERLAPPED,
+    Integer(CW_USEDEFAULT),
+    Integer(CW_USEDEFAULT),
+    320,320,
+    0,0, HInstance, nil);
+
+  CriarControlsWIN_Btn_Edt;
+
+  ShowWindow(lFormWimMSG, SW_SHOWNORMAL);
+end;
+
+procedure TForm1.BtnFreezClick(Sender: TObject);
+begin
+  Sleep(5000);
+end;
+
+end.

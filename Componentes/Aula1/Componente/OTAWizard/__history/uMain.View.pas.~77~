@@ -190,13 +190,8 @@ end;
 procedure TFrChat.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := TCloseAction.caHide;
-
   if Assigned(FChatGpt) then
     FreeAndNil(FChatGpt);
-
-  if Assigned(FDraculaThemeChat) then
-    FreeAndNil(FDraculaThemeChat);
-
   FrChat := nil;
 end;
 

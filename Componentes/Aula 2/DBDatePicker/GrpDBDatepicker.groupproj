@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{6A6ADB56-85B2-4136-A195-D2FB4B019700}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Sample\DatePickerTeste.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Packager\DBDatePicker.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="DatePickerTeste">
+        <MSBuild Projects="Sample\DatePickerTeste.dproj"/>
+    </Target>
+    <Target Name="DatePickerTeste:Clean">
+        <MSBuild Projects="Sample\DatePickerTeste.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DatePickerTeste:Make">
+        <MSBuild Projects="Sample\DatePickerTeste.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DBDatePicker">
+        <MSBuild Projects="Packager\DBDatePicker.dproj"/>
+    </Target>
+    <Target Name="DBDatePicker:Clean">
+        <MSBuild Projects="Packager\DBDatePicker.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DBDatePicker:Make">
+        <MSBuild Projects="Packager\DBDatePicker.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="DatePickerTeste;DBDatePicker"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="DatePickerTeste:Clean;DBDatePicker:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="DatePickerTeste:Make;DBDatePicker:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

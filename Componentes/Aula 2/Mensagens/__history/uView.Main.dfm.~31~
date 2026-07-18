@@ -1,0 +1,195 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 441
+  ClientWidth = 624
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 576
+    Top = 88
+    Width = 34
+    Height = 15
+    Caption = 'Label1'
+  end
+  object Image1: TImage
+    Left = 200
+    Top = 134
+    Width = 184
+    Height = 161
+    OnClick = Image1Click
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 624
+    Height = 65
+    Align = alTop
+    Caption = 'Panel1'
+    Color = 4227072
+    ParentBackground = False
+    ShowCaption = False
+    TabOrder = 0
+    object ProgressBar1: TProgressBar
+      Left = 13
+      Top = 38
+      Width = 132
+      Height = 17
+      TabOrder = 0
+    end
+    object BtnProcess: TButton
+      Left = 13
+      Top = 7
+      Width = 132
+      Height = 25
+      Caption = 'Processamento'
+      TabOrder = 1
+      OnClick = BtnProcessClick
+    end
+    object BtnFreez: TButton
+      Left = 155
+      Top = 7
+      Width = 75
+      Height = 25
+      Caption = 'Freez'
+      TabOrder = 2
+      OnClick = BtnFreezClick
+    end
+    object BtnFormWin: TButton
+      Left = 155
+      Top = 34
+      Width = 110
+      Height = 25
+      Caption = 'Form Windowns'
+      TabOrder = 3
+      OnClick = BtnFormWinClick
+    end
+    object EdtNovoCaption: TEdit
+      Left = 288
+      Top = 8
+      Width = 121
+      Height = 23
+      TabOrder = 4
+      Text = 'Novo texto***'
+    end
+    object EdtCaptionDestino: TEdit
+      Left = 424
+      Top = 8
+      Width = 121
+      Height = 23
+      TabOrder = 5
+      Text = 'Edit1'
+    end
+  end
+  object StaticText1: TStaticText
+    Left = 555
+    Top = 109
+    Width = 61
+    Height = 19
+    Caption = 'StaticText1'
+    TabOrder = 1
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 123
+    Width = 185
+    Height = 318
+    Align = alLeft
+    Caption = 'Panel2'
+    ShowCaption = False
+    TabOrder = 2
+    ExplicitTop = 65
+    ExplicitHeight = 376
+    DesignSize = (
+      185
+      318)
+    object LBHandles: TListBox
+      Left = 4
+      Top = 34
+      Width = 177
+      Height = 276
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      ItemHeight = 15
+      TabOrder = 0
+      OnClick = LBHandlesClick
+    end
+    object CBAtivaCapturaHandle: TCheckBox
+      Left = 4
+      Top = 11
+      Width = 97
+      Height = 17
+      Caption = 'Ativa Busca'
+      TabOrder = 1
+      OnClick = CBAtivaCapturaHandleClick
+    end
+  end
+  object Panel3: TPanel
+    Left = 0
+    Top = 65
+    Width = 624
+    Height = 58
+    Align = alTop
+    Caption = 'Panel3'
+    ShowCaption = False
+    TabOrder = 3
+    object BtnSetCaption: TButton
+      Left = 140
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = 'Set Caption'
+      TabOrder = 0
+      OnClick = BtnSetCaptionClick
+    end
+    object EdtHandleAtual: TEdit
+      Left = 9
+      Top = 13
+      Width = 121
+      Height = 23
+      TabOrder = 1
+      TextHint = 'Handle Atual'
+    end
+    object BtnClick: TButton
+      Left = 225
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = 'Click'
+      TabOrder = 2
+      OnClick = BtnClickClick
+    end
+    object BtnClose: TButton
+      Left = 309
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = 'Close'
+      TabOrder = 3
+      OnClick = BtnCloseClick
+    end
+    object BtnShake: TButton
+      Left = 392
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = 'Shake'
+      TabOrder = 4
+      OnClick = BtnShakeClick
+    end
+  end
+  object TmrCapturaHandle: TTimer
+    Enabled = False
+    Interval = 5000
+    OnTimer = TmrCapturaHandleTimer
+    Left = 56
+    Top = 240
+  end
+end

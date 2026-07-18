@@ -1,0 +1,129 @@
+unit uPackage.DB.DataPicker;
+
+interface
+uses
+  Classes, SysUtils,
+  VCL.ComCtrls,
+  VCL.DBCtrls,
+  Data.DB;
+
+type
+  TDBDateTimePicker = class(TDateTimePicker)
+  private
+    FDateLink: TFieldDataLink;
+    FSobre: string;
+
+    function IsValidDateLink: Boolean;
+    procedure DoDateChange(Sender: TObject);
+    procedure DoUpdateData(Sender: TObject);
+    Procedure DoChangeValeu(Sender: TObject);
+
+    function GetDateField: string;
+    procedure SetDateField(const Value: string);
+
+    function GetDataSource: TDataSource;
+    procedure SetDataSource(const Value: TDataSource);
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+
+  published
+    property DateField: string read GetDateField write SetDateField;
+    property DataSource: TDataSource read GetDataSource write SetDataSource;
+    property Sobre: string read FSobre;
+  end;
+
+
+implementation
+
+uses
+  VarUtils,
+  Variants;
+
+{ TDBDateTimePicker }
+
+constructor TDBDateTimePicker.Create(AOwner: TComponent);
+begin
+  inherited;
+  FSobre := 'Direitos reservado a Aquasoft';
+
+  FDateLink := TFieldDataLink.Create;
+  FDateLink.OnDataChange := DoDateChange;
+  FDateLink.OnUpdateData := DoUpdateData;
+
+  OnChange := DoChangeValeu;
+end;
+
+destructor TDBDateTimePicker.Destroy;
+begin
+  FreeAndNil(FDateLink);
+  inherited;
+end;
+
+procedure TDBDateTimePicker.DoChangeValeu(Sender: TObject);
+begin
+  if not FDateLink.Editing then
+    FDateLink.Edit;
+
+  FDateLink.Modified;
+  FDateLink.UpdateRecord;
+end;
+
+procedure TDBDateTimePicker.DoDateChange(Sender: TObject);
+begin
+  {Se a VCL estiver tentando liberar a mensagem de liberar o painel de datas do
+   TDBDatepicker, indica que a thread main ainda não está totalmente renderizada}
+  if (ComponentState = [csFreeNotification]) and
+     (FDateLink.Editing) then
+    Exit;
+
+  if IsValidDateLink and
+    (
+       (FDateLink.Field.IsNull ) or
+       (VarIsEmpty(FDateLink.Field.Value))
+     ) then
+  begin
+    Date := Now;
+  end
+  else
+    Date := FDateLink.Field.AsDateTime;
+end;
+
+procedure TDBDateTimePicker.DoUpdateData(Sender: TObject);
+begin
+  if IsValidDateLink then
+    FDateLink.Field.AsDateTime := Date;
+end;
+
+function TDBDateTimePicker.GetDataSource: TDataSource;
+begin
+  Result := FDateLink.DataSource;
+end;
+
+function TDBDateTimePicker.GetDateField: string;
+begin
+  Result := FDateLink.FieldName;
+end;
+
+function TDBDateTimePicker.IsValidDateLink: Boolean;
+begin
+  Result := Assigned(FDateLink) and
+     Assigned(FDateLink.DataSource) and
+     Assigned(FDateLink.Field) and
+     (
+       (FDateLink.Field.DataType = TFieldType.ftDateTime) or
+       (FDateLink.Field.DataType = TFieldType.ftDate)
+     );
+end;
+
+procedure TDBDateTimePicker.SetDataSource(const Value: TDataSource);
+begin
+  FDateLink.DataSource := Value;
+end;
+
+procedure TDBDateTimePicker.SetDateField(const Value: string);
+begin
+  FDateLink.FieldName := Value;
+end;
+
+end.

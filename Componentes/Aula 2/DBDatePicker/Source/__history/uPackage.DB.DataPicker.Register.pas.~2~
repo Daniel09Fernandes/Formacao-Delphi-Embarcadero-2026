@@ -1,0 +1,10 @@
+unit uPackage.DB.DataPicker.Register;
+
+interface
+
+uses
+  Classes, uPackage.DB.DataPicker, DesignIntf;
+
+implementation
+
+end.

@@ -77,7 +77,6 @@ object FrChat: TFrChat
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 0
       end

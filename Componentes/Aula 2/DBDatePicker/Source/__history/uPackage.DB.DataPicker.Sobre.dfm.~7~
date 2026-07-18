@@ -1,0 +1,60 @@
+object FrAbout: TFrAbout
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'FrAbout'
+  ClientHeight = 480
+  ClientWidth = 640
+  Color = clBtnFace
+  TransparentColor = True
+  TransparentColorValue = clNone
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  OnKeyDown = FormKeyDown
+  TextHeight = 15
+  object Image1: TImage
+    Left = 0
+    Top = 0
+    Width = 640
+    Height = 461
+    Align = alClient
+    ExplicitLeft = 216
+    ExplicitTop = 176
+    ExplicitWidth = 105
+    ExplicitHeight = 105
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 461
+    Width = 640
+    Height = 19
+    Color = 10395294
+    Panels = <
+      item
+        Text = 'Desenvolvido por @Aquasoft'
+        Width = 200
+      end
+      item
+        Text = 'Contato: (11) 9836-7356'
+        Width = 200
+      end
+      item
+        Alignment = taRightJustify
+        Bevel = pbNone
+        Text = 'www.aquasoft.com.br   '
+        Width = 50
+      end>
+  end
+  object ActionList1: TActionList
+    Left = 192
+    Top = 336
+    object Action1: TAction
+      Caption = 'Action1'
+      ShortCut = 123
+      OnExecute = Action1Execute
+    end
+  end
+end

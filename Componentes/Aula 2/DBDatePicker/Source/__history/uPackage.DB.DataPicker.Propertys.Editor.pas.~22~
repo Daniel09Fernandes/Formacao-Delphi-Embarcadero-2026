@@ -1,0 +1,82 @@
+unit uPackage.DB.DataPicker.Propertys.Editor;
+
+interface
+
+uses
+  DesignEditors, vcl.Dialogs, DesignIntf,
+  uPackage.DB.DataPicker.Sobre;
+
+
+type
+  //Aparecer o botão no object Inspector
+  TShowAbout = class(TStringProperty)//Herda de TPropertyEditor
+    function GetAttributes: TPropertyAttributes; override;
+    procedure Edit; override;
+  end;
+
+
+   TPopupMenu = (popupSobreComponotente, popupNomeCriador);
+//Aprece um popupmenu no componente
+  TDbDatapickerPopupMenu = class(TComponentEditor)
+    procedure ExecuteVerb(Index: Integer); override;
+    function GetVerb(Index: Integer): string; override;
+    function GetVerbCount: Integer; override;
+  end;
+
+implementation
+
+{ TShowAbout }
+
+procedure TShowAbout.Edit;
+begin
+  inherited;
+
+  FrAbout := TFrAbout.Create(nil);
+  try
+    FrAbout.ShowModal;
+  finally
+    FrAbout.Free;
+  end;
+end;
+
+function TShowAbout.GetAttributes: TPropertyAttributes;
+begin
+  Result := [paDialog]
+end;
+
+{ TDbDatapickerPopupMenu }
+
+procedure TDbDatapickerPopupMenu.ExecuteVerb(Index: Integer);
+begin
+  inherited;
+  case Index of
+    Integer(popupSobreComponotente):
+      begin
+        FrAbout := TFrAbout.Create(nil);
+        try
+          FrAbout.ShowModal;
+        finally
+          FrAbout.Free;
+        end;
+      end;
+    Integer(popupNomeCriador):
+      begin
+        ShowMessage('@DanielFernandes');
+      end;
+  end;
+end;
+
+function TDbDatapickerPopupMenu.GetVerb(Index: Integer): string;
+begin
+  case Index of
+    0: Result := 'Sobre o componente TDBDateTimePicker';
+    1: Result := 'Nome do criador';
+  end;
+end;
+
+function TDbDatapickerPopupMenu.GetVerbCount: Integer;
+begin
+  Result := 2;
+end;
+
+end.

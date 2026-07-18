@@ -8,7 +8,6 @@ uses
 
   //IA
   Dinos.Bridge.GPT.Open.IA,
-  SyntaxHighlighter,
 
   //Uses Exigidas
   Vcl.ComCtrls, Vcl.ActnList, Vcl.ImgList, VCL.menus, IniFiles,
@@ -39,7 +38,6 @@ type
   private
     FHistorico: string;
     FChatGpt: TDinosChatGPT;
-    FDraculaThemeChat: TDelphiSyntaxHighlighter;
 
     const
       PROMPT_DEFUALT = 'Leve em consideração que estou em um ambiente Delphi versão %s';
@@ -150,15 +148,6 @@ constructor TFrChat.Create(AOwner: TComponent);
 begin
   inherited;
   FChatGpt := TDinosChatGPT.Create;
-  FDraculaThemeChat := TDelphiSyntaxHighlighter.Create(mmoIA);
-
-  FDraculaThemeChat.KeywordColor  := clFuchsia;
-  FDraculaThemeChat.StringColor := clWebYellow;
-  FDraculaThemeChat.CommentColor := clGrayText;
-  FDraculaThemeChat.NumberColor := clPurple;
-  FDraculaThemeChat.OperatorColor := clTeal;
-  FDraculaThemeChat.IdentifierColor := clWhite;
-
   SetInitialPrompt;
 end;
 
@@ -190,13 +179,8 @@ end;
 procedure TFrChat.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := TCloseAction.caHide;
-
   if Assigned(FChatGpt) then
     FreeAndNil(FChatGpt);
-
-  if Assigned(FDraculaThemeChat) then
-    FreeAndNil(FDraculaThemeChat);
-
   FrChat := nil;
 end;
 
@@ -284,7 +268,6 @@ begin
     mmoSelf.Lines.Clear;
     mmoIA.Lines.Add('$Chat diz: ');
     mmoIA.Lines.Add(FChatGpt.SendMessage(FHistorico));
-    FDraculaThemeChat.HighlightAll;
   end;
 end;
 

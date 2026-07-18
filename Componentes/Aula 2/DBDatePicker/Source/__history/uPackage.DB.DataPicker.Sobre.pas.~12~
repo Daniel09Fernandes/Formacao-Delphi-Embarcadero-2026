@@ -1,0 +1,54 @@
+unit uPackage.DB.DataPicker.Sobre;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.ExtCtrls,
+  System.Actions, Vcl.ActnList, Vcl.Skia;
+
+type
+  TFrAbout = class(TForm)
+    Image1: TImage;
+    StatusBar1: TStatusBar;
+    ActionList1: TActionList;
+    Action1: TAction;
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Action1Execute(Sender: TObject);
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrAbout: TFrAbout;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrAbout.Action1Execute(Sender: TObject);
+begin
+  CLose;
+end;
+
+procedure TFrAbout.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then
+    CLose;
+end;
+
+procedure TFrAbout.Image1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  if Button = TMouseButton.mbLeft then
+  begin
+    ReleaseCapture;
+  end;
+end;
+
+end.

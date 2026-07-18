@@ -156,8 +156,6 @@ begin
   FDraculaThemeChat.StringColor := clWebYellow;
   FDraculaThemeChat.CommentColor := clGrayText;
   FDraculaThemeChat.NumberColor := clPurple;
-  FDraculaThemeChat.OperatorColor := clTeal;
-  FDraculaThemeChat.IdentifierColor := clWhite;
 
   SetInitialPrompt;
 end;
@@ -190,13 +188,8 @@ end;
 procedure TFrChat.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := TCloseAction.caHide;
-
   if Assigned(FChatGpt) then
     FreeAndNil(FChatGpt);
-
-  if Assigned(FDraculaThemeChat) then
-    FreeAndNil(FDraculaThemeChat);
-
   FrChat := nil;
 end;
 
@@ -284,7 +277,6 @@ begin
     mmoSelf.Lines.Clear;
     mmoIA.Lines.Add('$Chat diz: ');
     mmoIA.Lines.Add(FChatGpt.SendMessage(FHistorico));
-    FDraculaThemeChat.HighlightAll;
   end;
 end;
 
