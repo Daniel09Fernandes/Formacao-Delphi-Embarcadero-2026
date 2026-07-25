@@ -1,0 +1,41 @@
+unit uCardViewer.Focused.image;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls;
+
+type
+  TFrShowImg = class(TForm)
+    PnlContent: TPanel;
+    FocusedImg: TImage;
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    class procedure VisualizarImagem(APicture: TPicture);
+  end;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrShowImg.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then
+    Close;
+end;
+
+class procedure TFrShowImg.VisualizarImagem(APicture: TPicture);
+begin
+  var lView := TFrShowImg.Create(nil);
+  try
+    lView.FocusedImg.Picture.Assign(APicture);
+  finally
+    lView.Free;
+  end;
+end;
+
+end.

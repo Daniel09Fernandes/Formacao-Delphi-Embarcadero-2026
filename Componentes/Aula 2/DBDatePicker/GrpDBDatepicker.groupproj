@@ -9,6 +9,9 @@
         <Projects Include="Packager\DBDatePicker.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="..\Mensagens\MenssagensSO.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
     <Target Name="DBDatePicker:Make">
         <MSBuild Projects="Packager\DBDatePicker.dproj" Targets="Make"/>
     </Target>
+    <Target Name="MenssagensSO">
+        <MSBuild Projects="..\Mensagens\MenssagensSO.dproj"/>
+    </Target>
+    <Target Name="MenssagensSO:Clean">
+        <MSBuild Projects="..\Mensagens\MenssagensSO.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MenssagensSO:Make">
+        <MSBuild Projects="..\Mensagens\MenssagensSO.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="DatePickerTeste;DBDatePicker"/>
+        <CallTarget Targets="DatePickerTeste;DBDatePicker;MenssagensSO"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="DatePickerTeste:Clean;DBDatePicker:Clean"/>
+        <CallTarget Targets="DatePickerTeste:Clean;DBDatePicker:Clean;MenssagensSO:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="DatePickerTeste:Make;DBDatePicker:Make"/>
+        <CallTarget Targets="DatePickerTeste:Make;DBDatePicker:Make;MenssagensSO:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

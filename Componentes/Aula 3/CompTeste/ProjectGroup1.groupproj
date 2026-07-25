@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{0FA03356-74DA-4CCF-8D19-98777F1E8A85}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="PrjTeste.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\CardViewer\Packager\CardViewer.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PrjTeste">
+        <MSBuild Projects="PrjTeste.dproj"/>
+    </Target>
+    <Target Name="PrjTeste:Clean">
+        <MSBuild Projects="PrjTeste.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PrjTeste:Make">
+        <MSBuild Projects="PrjTeste.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CardViewer">
+        <MSBuild Projects="..\CardViewer\Packager\CardViewer.dproj"/>
+    </Target>
+    <Target Name="CardViewer:Clean">
+        <MSBuild Projects="..\CardViewer\Packager\CardViewer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CardViewer:Make">
+        <MSBuild Projects="..\CardViewer\Packager\CardViewer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PrjTeste;CardViewer"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PrjTeste:Clean;CardViewer:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PrjTeste:Make;CardViewer:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

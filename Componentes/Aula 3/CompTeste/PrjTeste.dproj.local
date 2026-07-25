@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2026/07/25 13:07:03.593,=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 13:08:09.828,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CompTeste\uMain.dfm=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2026/07/25 13:08:09.828,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CompTeste\uMain.pas=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 13:08:28.978,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CompTeste\PrjTeste.dproj=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2026/07/25 16:49:15.073,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Main.pas</Transaction>
+    <Transaction>2026/07/25 16:51:12.462,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Consts.pas</Transaction>
+    <Transaction>2026/07/25 16:51:38.536,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Normalize.Image.pas</Transaction>
+    <Transaction>2026/07/25 17:48:07.749,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Focused.image.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -2,14 +2,14 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2026/07/11 11:01:22.000.898,=rtl.dcp</Transaction>
-    <Transaction>2026/07/11 11:02:56.000.161,C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Package1.dproj=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\PanelValidador.dproj</Transaction>
+    <Transaction>2026/07/11 11:02:56.000.161,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\PanelValidador.dproj=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Package1.dproj</Transaction>
     <Transaction>2026/07/11 11:04:12.000.893,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Unit1.pas</Transaction>
-    <Transaction>2026/07/11 11:04:41.000.832,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Comp.Panel.Validador.pas</Transaction>
+    <Transaction>2026/07/11 11:04:41.000.832,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Comp.Panel.Validador.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Unit1.pas</Transaction>
     <Transaction>2026/07/11 11:17:00.000.927,=vcl.dcp</Transaction>
-    <Transaction>2026/07/11 11:17:01.000.200,=vclwinx.dcp</Transaction>
     <Transaction>2026/07/11 11:17:01.000.070,=dbrtl.dcp</Transaction>
     <Transaction>2026/07/11 11:17:01.000.311,=vcldb.dcp</Transaction>
+    <Transaction>2026/07/11 11:17:01.000.200,=vclwinx.dcp</Transaction>
     <Transaction>2026/07/11 11:18:48.000.341,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Unit1.pas</Transaction>
-    <Transaction>2026/07/11 11:19:12.000.930,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Unit1.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\uRegister.Panel.Validador.pas</Transaction>
+    <Transaction>2026/07/11 11:19:12.000.930,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\uRegister.Panel.Validador.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula1\Componente\PnlValidador\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

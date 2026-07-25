@@ -1,0 +1,426 @@
+unit uCardViewer.Main;
+
+interface
+
+uses
+  SysUtils, Vcl.Controls, Classes,
+  vcl.ExtCtrls, vcl.Graphics, vcl.Imaging.GIFImg,
+  uCardViewer.Consts;
+
+type
+  TSentidoImagem = (smDireita, smEsquerda);
+
+  TCustomCardViewer = class(TCustomPanel)
+  private
+    FImagemPrincipal: TImage;
+    FImagemEsquerda: TImage;
+    FImagemDireita: TImage;
+
+    FProximaImagemEsquerda: TPicture;
+    FProximaImagemDireita: TPicture;
+    FMargemHorizontal: Integer;
+    FMargemVertical: Integer;
+    FStretch: Boolean;
+    FProportional: Boolean;
+    // nao publicado
+    FListaImagens: TStringList;
+    FProporcaoDefault: Integer;
+    FSentidoImagem: TSentidoImagem;
+    FIndiceAtual: integer;
+    FImagePath: string;
+    FTimer: TTimer;
+
+    procedure DoImagemClick(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+
+    procedure DoPresent(Sender: TObject);
+
+    procedure DoDbClickImgPrincipal(Sender: TObject);
+
+    procedure SelecionarImagemDireita;
+    procedure SelecionarImagemEsquerda;
+    procedure SetImagePath(const Value: string);
+    function GetInterval: Cardinal;
+    procedure SetInterval(const Value: Cardinal);
+  protected
+    property Align;
+    property Stretch: Boolean read FStretch write FStretch default True;
+    property Proportional: Boolean read FProportional write FProportional default False;
+    
+    property MargemHorizontal: Integer read FMargemHorizontal write FMargemHorizontal default MARGEM_DEFAULT;
+    property MargemVertical: Integer read FMargemVertical write FMargemVertical default MARGEM_DEFAULT;
+  
+    property ImagemPrincipal: TImage read FImagemPrincipal write FImagemPrincipal;
+    property ImagemEsquerda: TImage read FImagemEsquerda write FImagemEsquerda;
+    property ImagemDireita: TImage read FImagemDireita write FImagemDireita;
+    property ProximaImagemEsquerda: TPicture read FProximaImagemEsquerda write FProximaImagemEsquerda;
+    property ProximaImagemDireita: TPicture read FProximaImagemDireita write FProximaImagemDireita;        
+    property SentidoImagem: TSentidoImagem read FSentidoImagem write FSentidoImagem default TSentidoImagem.smDireita;    
+
+    property ImagePath: string read FImagePath write SetImagePath;
+
+    property Interval: Cardinal read GetInterval write SetInterval;
+
+    procedure CreateParams(var Params: TCreateParams); override;
+    procedure Resize; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure Apresentar;
+  end;
+
+  TCardViewer = class(TCustomCardViewer)
+  published
+    property Align;
+    property Stretch;
+    property Proportional;    
+    property MargemHorizontal;
+    property MargemVertical;  
+    property ImagemPrincipal;
+    property ImagemEsquerda;
+    property ImagemDireita;
+    property ProximaImagemEsquerda;
+    property ProximaImagemDireita;        
+    property SentidoImagem;    
+    property ImagePath;
+    property Interval;
+  end;
+
+implementation
+
+{ TCustomCardViewer }
+
+uses
+  System.NetEncoding,
+  uCardViewer.Normalize.Image,
+  System.IOUtils,
+  uCardViewer.Focused.image;
+
+function Base64ToStream(const ABase64: string): TMemoryStream;
+var
+  lBytes: TBytes; 
+begin
+  Result := TMemoryStream.Create;
+  try
+    lBytes := TNetEncoding.Base64.DecodeStringToBytes(ABase64);
+
+    if Length(lBytes) > 0 then
+    begin
+      Result.WriteBuffer(lBytes[0], Length(lBytes));
+      Result.Position := 0;
+    end;    
+  Except
+    Result.Free;
+    raise;    
+  end;
+end;
+
+procedure TCustomCardViewer.Apresentar;
+begin
+  FTimer.Enabled := True;
+end;
+
+constructor TCustomCardViewer.Create(AOwner: TComponent);
+{$region 'Criar Imagens Card'}
+  procedure CriarImagemPrincipal;
+  begin
+    FImagemPrincipal := TImage.Create(Self);
+    FImagemPrincipal.Parent := Self;
+    FImagemPrincipal.Align := alClient;
+    FImagemPrincipal.AlignWithMargins := True;
+    FImagemPrincipal.Margins.Left := (Self.Width div FProporcaoDefault);
+    FImagemPrincipal.Margins.Right := (Self.Width div FProporcaoDefault);
+    FImagemPrincipal.Margins.Top := FMargemHorizontal;
+    FImagemPrincipal.Margins.Bottom := FMargemVertical;
+    FImagemPrincipal.Proportional := FProportional;
+    FImagemPrincipal.Stretch := FStretch;
+    FImagemPrincipal.Cursor := crHandPoint;
+    FImagemPrincipal.OnDblClick := DoDbClickImgPrincipal;
+
+    if csDesigning in Self.ComponentState then
+    begin
+      FImagemPrincipal.Picture.LoadFromStream(Base64ToStream(NO_IMG));
+    end;  
+  end;
+
+  procedure CriarImagemEsquerda;
+  begin
+    FImagemEsquerda := TImage.Create(Self);
+    FImagemEsquerda.Parent := Self;
+    FImagemEsquerda.Left := 0;
+    FImagemEsquerda.Top := FImagemPrincipal.top + (FMargemHorizontal*2);
+    FImagemEsquerda.Width := FImagemPrincipal.Width - FMargemVertical;
+    FImagemEsquerda.Proportional := FProportional;
+    FImagemEsquerda.Stretch := FStretch;
+    FImagemEsquerda.Cursor := crHandPoint;
+    FImagemEsquerda.OnMouseDown := DoImagemClick; 
+
+    if csDesigning in Self.ComponentState then
+    begin
+      FImagemEsquerda.Picture.LoadFromStream(GetNoImgAPI);
+    end;
+  end;
+
+  procedure CriarImagemDireita;
+  begin
+    FImagemDireita := TImage.Create(Self);
+    FImagemDireita.Parent := Self;
+    FImagemDireita.Left := FImagemPrincipal.Margins.Left 
+        + (FImagemPrincipal.Width div 2);
+    FImagemDireita.Top := FImagemPrincipal.top + (FMargemHorizontal*2);
+    FImagemDireita.Width := FImagemPrincipal.Width - FMargemVertical;
+    FImagemDireita.Proportional := FProportional;
+    FImagemDireita.Stretch := FStretch;
+    FImagemDireita.Cursor := crHandPoint;
+    FImagemDireita.OnMouseDown := DoImagemClick; 
+
+    if csDesigning in Self.ComponentState then
+    begin
+      FImagemDireita.Picture.LoadFromStream(GetNoImgAPI);
+    end;
+  end;
+{$endregion}
+begin
+  inherited;
+  FMargemHorizontal := MARGEM_DEFAULT;
+  FMargemVertical := MARGEM_DEFAULT;
+  FStretch := True;
+  FProportional := False;
+  FProporcaoDefault := PROPORCAO_IMG_DEFAULT;
+
+  FTimer := TTimer.Create(Self);
+  FTimer.Enabled := False;
+  FTimer.OnTimer := DoPresent;
+  SetInterval(INTERVAL_DEFAULT);
+
+  FListaImagens := TStringList.Create;
+  FProximaImagemEsquerda := TPicture.Create;
+  FProximaImagemDireita := TPicture.Create;
+  CriarImagemPrincipal;
+  CriarImagemEsquerda;
+  CriarImagemDireita;
+end;
+
+procedure TCustomCardViewer.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+  Caption := '';
+  ShowCaption := False;
+end;
+
+destructor TCustomCardViewer.Destroy;
+begin
+  FreeAndNil(FListaImagens);
+  FreeAndNil(FProximaImagemEsquerda);
+  FreeAndNil(FProximaImagemDireita);
+  inherited;
+end;
+
+procedure TCustomCardViewer.DoDbClickImgPrincipal(Sender: TObject);
+begin
+  if Sender is TImage then
+  begin
+    var lImgTmp := Sender as TImage;
+    TFrShowImg.VisualizarImagem(lImgTmp.Picture);
+  end;
+end;
+
+procedure TCustomCardViewer.DoImagemClick(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  if FListaImagens.Count <= 0 then
+    Exit;
+
+  if Sender = FImagemEsquerda then
+    SelecionarImagemEsquerda
+  else
+    if Sender = FImagemDireita then
+      SelecionarImagemDireita;
+end;
+
+procedure TCustomCardViewer.DoPresent(Sender: TObject);
+begin
+  var lTempTmr := FTimer.Enabled;
+  FTimer.Enabled := False;
+  try
+    if ((FIndiceAtual +1) >= FListaImagens.Count-1) then
+      FSentidoImagem := TSentidoImagem.smEsquerda
+    else
+      if FIndiceAtual <= -1 then
+        FSentidoImagem := TSentidoImagem.smDireita;
+
+    case FSentidoImagem of
+      smDireita: SelecionarImagemDireita;
+      smEsquerda:SelecionarImagemEsquerda;
+    end;
+  finally
+    FTimer.Enabled := lTempTmr;
+  end;
+end;
+
+function TCustomCardViewer.GetInterval: Cardinal;
+begin
+  Result := FTimer.Interval div 1000;
+end;
+
+procedure TCustomCardViewer.Resize;
+begin
+  inherited;
+
+  FImagemPrincipal.Margins.Left := (Self.Width div FProporcaoDefault);
+  FImagemPrincipal.Margins.Right := (Self.Width div FProporcaoDefault);
+  FImagemPrincipal.Margins.Top := FMargemHorizontal;
+  FImagemPrincipal.Margins.Bottom := FMargemVertical;
+
+  FImagemDireita.Left := FImagemPrincipal.Margins.Left + (FImagemPrincipal.Width div 2);   
+  FImagemDireita.Top :=  FImagemPrincipal.Top + (FMargemHorizontal*2);
+  FImagemDireita.Height := FImagemPrincipal.Height + (FMargemHorizontal*2);
+  FImagemDireita.Width := FImagemPrincipal.Width + (FMargemHorizontal*2);
+
+  FImagemEsquerda.Left := 0;   
+  FImagemEsquerda.Top :=  FImagemPrincipal.Top + (FMargemHorizontal*2);
+  FImagemEsquerda.Height := FImagemPrincipal.Height + (FMargemHorizontal*2);
+  FImagemEsquerda.Width := FImagemPrincipal.Width + (FMargemHorizontal*2);
+
+  FImagemPrincipal.BringToFront;
+end;
+
+procedure TCustomCardViewer.SelecionarImagemEsquerda;
+begin
+  if FImagemEsquerda.Picture.Height = 0 then
+    Exit;
+
+  //Movimetação das imagens para esquerda
+  FProximaImagemDireita.Assign(FImagemDireita.Picture);
+  FImagemDireita.Picture.Assign(FImagemPrincipal.Picture);
+  FImagemPrincipal.Picture.Assign(FImagemEsquerda.Picture);
+  FImagemEsquerda.Picture.Assign(FProximaImagemEsquerda);
+
+  if FImagemPrincipal.Picture.Graphic is TGIFImage then
+    TGIFImage(FImagemPrincipal.Picture.Graphic).Animate := true;
+
+  if FIndiceAtual = 0 then
+    FImagemEsquerda.Picture.Assign(nil);
+
+  dec(FIndiceAtual);
+
+  if FIndiceAtual > -1 then
+  begin
+     if not FileExists(FListaImagens[FIndiceAtual]) then
+     begin
+       FListaImagens.Delete(FIndiceAtual);       
+     end
+     else
+     begin
+       var lTempIdx := FIndiceAtual;
+       dec(lTempIdx);
+
+       if lTempIdx > -1 then
+       begin
+         var img: TGraphic := TNormalizeImage.GetImage(FListaImagens[lTempIdx]);
+         FProximaImagemEsquerda.Assign(img);
+       end;       
+     end;
+  end
+  else
+    FProximaImagemEsquerda.Assign(nil);          
+end;
+
+procedure TCustomCardViewer.SetImagePath(const Value: string);
+begin
+  if FImagePath <> Value then
+  begin
+    FImagePath := Value;
+    FIndiceAtual := 0;
+    FListaImagens.Clear;
+    
+    if TDirectory.Exists(FImagePath) then
+    begin
+
+      if not ExtractFileExt(FImagePath).Trim.IsEmpty then
+        raise Exception.Create('Informar uma pasta, não informe arquivos!');
+
+      var lImgsJpg := TDirectory.GetFiles(FImagePath, '*.jpg');
+      var lImgsPng := TDirectory.GetFiles(FImagePath, '*.png');
+      var lImgsGif := TDirectory.GetFiles(FImagePath, '*.gif');
+//      var lImgsIco := TDirectory.GetFiles(FImagePath, '*.ico');
+
+      FListaImagens.AddStrings(lImgsJpg);
+      FListaImagens.AddStrings(lImgsPng);
+      FListaImagens.AddStrings(lImgsGif);
+      
+      const POS_IMG_ESQUERDA = 1;
+      const POS_IMG_PRINCIPAL = 2;
+      const POS_IMG_DIREITA = 3;
+      const POS_IMG_PROXIMA_DIREITA = 4;
+
+      if FListaImagens.Count > 0 then
+      begin
+        if FListaImagens.Count >= POS_IMG_ESQUERDA then
+          FImagemEsquerda.Picture.LoadFromFile(FListaImagens[POS_IMG_ESQUERDA -1]);
+
+        if FListaImagens.Count >= POS_IMG_PRINCIPAL then
+          FImagemPrincipal.Picture.LoadFromFile(FListaImagens[POS_IMG_PRINCIPAL -1]);  
+
+        if FListaImagens.Count >= POS_IMG_DIREITA then
+          FImagemDireita.Picture.LoadFromFile(FListaImagens[POS_IMG_DIREITA -1]); 
+
+       if FListaImagens.Count >= POS_IMG_PROXIMA_DIREITA then
+          FProximaImagemDireita.LoadFromFile(FListaImagens[POS_IMG_PROXIMA_DIREITA -1]);                     
+      end;
+    end;
+  end;
+end;
+
+procedure TCustomCardViewer.SetInterval(const Value: Cardinal);
+begin
+  FTimer.Interval := Value * 1000;
+end;
+
+procedure TCustomCardViewer.SelecionarImagemDireita;
+begin
+  if FImagemDireita.Picture.Height = 0 then
+    Exit;
+
+   //Movimetação das imagens para direita
+  FProximaImagemEsquerda.Assign(FImagemEsquerda.Picture);
+  FImagemEsquerda.Picture.Assign(FImagemPrincipal.Picture);
+  FImagemPrincipal.Picture.Assign(FImagemDireita.Picture);
+  FImagemDireita.Picture.Assign(FProximaImagemDireita);
+
+  if FImagemPrincipal.Picture.Graphic is TGIFImage then  
+   TGIFImage(FImagemPrincipal.Picture.Graphic).Animate := true;
+   
+
+  inc(FIndiceAtual);
+
+  if (FIndiceAtual < FListaImagens.Count) and
+     (FIndiceAtual + 3 < FListaImagens.Count) then
+  begin
+     if not FileExists(FListaImagens[FIndiceAtual]) then
+     begin
+       FListaImagens.Delete(FIndiceAtual);       
+     end
+     else
+     begin
+       var lTempIdx := FIndiceAtual;
+       dec(lTempIdx);
+
+       if lTempIdx > 0 then
+       begin
+         var img: TGraphic := TNormalizeImage.GetImage(FListaImagens[lTempIdx]);
+         FProximaImagemEsquerda.Assign(img);
+       end;
+
+       if (FIndiceAtual + 3) < FListaImagens.Count then
+         FProximaImagemDireita.LoadFromFile(FListaImagens[FIndiceAtual + 3])
+       else
+         FProximaImagemDireita.LoadFromFile(FListaImagens[FListaImagens.Count -1]);        
+     end;
+  end
+  else
+    FProximaImagemDireita.Assign(nil);         
+end;
+
+
+end.

@@ -15,7 +15,6 @@ type
     BtnProcess: TButton;
     BtnFreez: TButton;
     BtnFormWin: TButton;
-    Label1: TLabel;
     StaticText1: TStaticText;
     TmrCapturaHandle: TTimer;
     Panel2: TPanel;
@@ -30,6 +29,7 @@ type
     BtnClose: TButton;
     BtnShake: TButton;
     Image1: TImage;
+    Label1: TLabel;
     procedure BtnProcessClick(Sender: TObject);
     procedure BtnFreezClick(Sender: TObject);
     procedure BtnFormWinClick(Sender: TObject);
@@ -43,6 +43,7 @@ type
     procedure BtnCloseClick(Sender: TObject);
     procedure BtnShakeClick(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure Label1Click(Sender: TObject);
   private
     FListaWnds: TDictionary<string, THandle>;
     function GetHandleAtual: integer;
@@ -147,6 +148,11 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(FListaWnds);
+end;
+
+procedure TForm1.Label1Click(Sender: TObject);
+begin
+  EdtHandleAtual.Text := IntToStr(Label1.Parent.Handle);
 end;
 
 procedure TForm1.LBHandlesClick(Sender: TObject);

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2026/07/25 13:08:39.197,=rtl.dcp</Transaction>
+    <Transaction>2026/07/25 13:10:09.967,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\CardViewer.dproj=C:\Users\danie\OneDrive\Documents\Embarcadero\Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>2026/07/25 13:10:28.225,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 13:11:05.872,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Main.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 13:23:52.858,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 13:24:18.596,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Consts.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 14:15:17.761,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 14:16:13.665,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Register.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 14:19:00.674,=vcl.dcp</Transaction>
+    <Transaction>2026/07/25 14:48:58.096,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 14:49:28.992,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Normalize.Image.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit1.pas</Transaction>
+    <Transaction>2026/07/25 16:44:15.894,=vclimg.dcp</Transaction>
+    <Transaction>2026/07/25 17:37:14.504,=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit2.pas</Transaction>
+    <Transaction>2026/07/25 17:37:53.689,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Focused.image.pas=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit2.pas</Transaction>
+    <Transaction>2026/07/25 17:37:53.689,D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Src\uCardViewer.Focused.image.dfm=D:\Fontes\Formacao-Delphi-Embarcadero-2026\Componentes\Aula 3\CardViewer\Packager\Unit2.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

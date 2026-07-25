@@ -13,13 +13,6 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   TextHeight = 15
-  object Label1: TLabel
-    Left = 576
-    Top = 88
-    Width = 34
-    Height = 15
-    Caption = 'Label1'
-  end
   object Image1: TImage
     Left = 200
     Top = 129
@@ -1877,8 +1870,6 @@ object Form1: TForm1
     Caption = 'Panel2'
     ShowCaption = False
     TabOrder = 2
-    ExplicitTop = 65
-    ExplicitHeight = 376
     DesignSize = (
       185
       318)
@@ -1911,8 +1902,17 @@ object Form1: TForm1
     Caption = 'Panel3'
     ShowCaption = False
     TabOrder = 3
+    ExplicitWidth = 549
+    object Label1: TLabel
+      Left = 555
+      Top = 27
+      Width = 34
+      Height = 15
+      Caption = 'Label1'
+      OnClick = Label1Click
+    end
     object BtnSetCaption: TButton
-      Left = 140
+      Left = 136
       Top = 13
       Width = 75
       Height = 25

@@ -14,8 +14,8 @@ type
     procedure Edit; override;
   end;
 
-
-  TPopupMenu = (popupSobreComponotente, popupNomeCriador);
+                   //0                    //1
+TPopupMenu = (popupSobreComponotente, popupNomeCriador);
 
 //Aprece um popupmenu no componente
   TDBDatePickerPopupMenu = class(TComponentEditor)
@@ -77,7 +77,7 @@ end;
 
 function TDBDatePickerPopupMenu.GetVerbCount: Integer;
 begin
-  Result := 2;
+  Result := 2; //Quantos menus criarei.
 end;
 
 end.
